@@ -13,7 +13,7 @@ import NotFound from '../pages/NotFoundPage.vue'
 const routes = [
   { path: '/', component: Home },
   { path: '/products', component: Products },
-  { path: '/products/:id', component: ProductDetail },
+  { path: '/product/:id', component: ProductDetail },
   { path: '/cart', component: Cart },
   { path: '/login', component: Login },
   { path: '/contact', component: Contact },

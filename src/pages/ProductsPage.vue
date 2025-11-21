@@ -1,22 +1,27 @@
-<!-- src/pages/ProductsPage.vue (або Products.vue) -->
+<!-- src/pages/ProductsPage.vue -->
 <template>
-  <div class="products">
-    <h1>All products 🍬</h1>
+  <section class="products">
+    <h1>All products</h1>
 
     <div class="product-list">
-      <div
+      <RouterLink
         v-for="product in products"
         :key="product.id"
+        :to="`/product/${product.id}`"
         class="product-card"
       >
         <h2>{{ product.name }}</h2>
-        <p>{{ product.description }}</p>
+        <p>{{ product.shortDescription }}</p>
         <p>Price: {{ product.price }} €</p>
-      </div>
+      </RouterLink>
     </div>
-  </div>
+  </section>
 </template>
 
 <script setup>
-  import { products } from '../data/products';
+  import { computed } from 'vue';
+  import { useProductsStore } from '../stores/products';
+
+  const productsStore = useProductsStore();
+  const products = computed(() => productsStore.allProducts);
 </script>
