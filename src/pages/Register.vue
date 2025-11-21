@@ -1,9 +1,9 @@
 <template>
     <div class="register">
-      <h1>Вхід або реєстрація через Google 🍭</h1>
+      <h1>Sign in or sign up with Google</h1>
   
       <button @click="handleGoogleLogin" class="google-btn">
-        Увійти через Google
+        Sign in with Google
       </button>
   
       <div v-if="error" class="error">{{ error }}</div>
@@ -25,7 +25,7 @@
       await signInWithPopup(auth, provider)
       router.push('/')
     } catch (err) {
-      error.value = 'Помилка входу через Google: ' + err.message
+      error.value = 'Google login error: ' + err.message
     }
   }
   </script>

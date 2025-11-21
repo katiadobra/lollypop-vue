@@ -4,12 +4,12 @@
     <h1>{{ product.name }}</h1>
     <img :src="product.image" alt="Product image" style="max-width: 300px;" />
     <p>{{ product.description }}</p>
-    <p>Ціна: {{ product.price }} грн</p>
-    <button @click="addToCart">Додати в кошик</button>
+    <p>Price: {{ product.price }} euro</p>
+    <button @click="addToCart">Add to cart</button>
   </div>
 
   <div v-else>
-    Завантаження...
+    Loading...
   </div>
 </template>
 
@@ -19,18 +19,18 @@ import { useRoute } from 'vue-router'
 import { doc, getDoc } from 'firebase/firestore'
 import { db } from '../firebase'
 
-// Для стейту
+// For the state
 const product = ref(null)
 
-// Для доступу до параметрів маршруту
+// To access route options
 const route = useRoute()
 
-// Функція для додавання в кошик (поки локально)
+// Add to cart feature (local for now)
 const addToCart = () => {
   const cart = JSON.parse(localStorage.getItem('cart')) || []
   cart.push(product.value)
   localStorage.setItem('cart', JSON.stringify(cart))
-  alert('Додано до кошика!')
+  alert('Added to cart!')
 }
 
 onMounted(async () => {
@@ -41,7 +41,7 @@ onMounted(async () => {
   if (docSnap.exists()) {
     product.value = docSnap.data()
   } else {
-    console.error('Товар не знайдено!')
+    console.error('Product not found!')
   }
 })
 </script>

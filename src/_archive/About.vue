@@ -6,10 +6,9 @@
   </template>
   
   <script setup>
-  // поки що без складної логіки
   </script>
   
   <style scoped>
-  /* Твої стилі */
+
   </style>
   

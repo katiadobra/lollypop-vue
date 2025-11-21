@@ -1,12 +1,12 @@
 <!-- src/pages/Products.vue -->
 <template>
     <div class="products">
-      <h1>Наші цукерки 🍬</h1>
+      <h1>All products 🍬</h1>
       <div class="product-list">
         <div v-for="product in products" :key="product.id" class="product-card">
           <h2>{{ product.name }}</h2>
           <p>{{ product.description }}</p>
-          <p>Ціна: {{ product.price }} €</p>
+          <p>Price: {{ product.price }} €</p>
         </div>
       </div>
     </div>

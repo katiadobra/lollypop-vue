@@ -1,42 +1,44 @@
 <template>
   <nav class="navbar">
-    <router-link to="/">Головна</router-link>
-    <router-link to="/products">Цукерки</router-link>
-    <router-link to="/cart">Кошик</router-link>
+    <router-link to="/">Home</router-link>
+    <router-link to="/products">Products</router-link>
+    <router-link to="/cart">Box</router-link>
 
     <div class="auth-links">
       <template v-if="user">
-        <span>Вітаємо, {{ user.displayName || user.email }}</span>
-        <button @click="logout">Вийти</button>
+        <span>Welcome, {{ user.displayName || user.email }}</span>
+        <button @click="logout">log out</button>
       </template>
       <template v-else>
-        <router-link to="/login">Вхід</router-link>
+        <router-link to="/login">login</router-link>
       </template>
     </div>
   </nav>
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
-import { auth } from '../firebase'
-import { onAuthStateChanged, signOut } from 'firebase/auth'
-import { useRouter } from 'vue-router'
+// import { ref, onMounted } from 'vue'
+// import { auth } from '../firebase'
+// import { onAuthStateChanged, signOut } from 'firebase/auth'
+// import { useRouter } from 'vue-router'
 
-const user = ref(null)
-const router = useRouter()
+// const user = ref(null)
+// const router = useRouter()
 
-// Автоматичне визначення залогіненого користувача
-onMounted(() => {
-  onAuthStateChanged(auth, (currentUser) => {
-    user.value = currentUser
-  })
-})
 
-const logout = async () => {
-  await signOut(auth)
-  user.value = null
-  router.push('/')
-}
+// Automatic detection of logged user
+
+// onMounted(() => {
+//   onAuthStateChanged(auth, (currentUser) => {
+//     user.value = currentUser
+//   })
+// })
+
+// const logout = async () => {
+//   await signOut(auth)
+//   user.value = null
+//   router.push('/')
+// }
 </script>
 
 <style scoped>
