@@ -14,6 +14,10 @@
         <p>{{ product.shortDescription }}</p>
         <p>Price: {{ product.price }} €</p>
       </RouterLink>
+      
+      <button @click="handleAddToCart(product)">
+        Add to cart
+      </button>
     </div>
   </section>
 </template>
@@ -21,7 +25,14 @@
 <script setup>
   import { computed } from 'vue';
   import { useProductsStore } from '../stores/products';
+  import { useCartStore } from '../stores/cart';
 
   const productsStore = useProductsStore();
+  const cartStore = useCartStore();
+
   const products = computed(() => productsStore.allProducts);
+
+  function handleAddToCart(product) {
+    cartStore.addItem(product.id, product.price);
+  }
 </script>
