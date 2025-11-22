@@ -1,36 +1,52 @@
 <template>
   <n-layout class="app-layout">
-    <n-layout-header bordered>
-      <header class="app-header">
-        <div class="logo">Zucker</div>
-        <nav class="nav">
-          <RouterLink to="/">Home</RouterLink>
-          <RouterLink to="/products">All products</RouterLink>
-          <RouterLink to="/how-to-order">How to order</RouterLink>
-          <RouterLink to="/contact">Contact</RouterLink>
-          <RouterLink to="/cart">Cart</RouterLink>
-          <RouterLink to="/products/:id">details</RouterLink>
-          <RouterLink to="/login">login</RouterLink>
-        </nav>
+    <n-layout-header bordered class="app-header">
+      <header class="header-inner">
+        <RouterLink to="/" class="brand">Zucker</RouterLink>
+
+        <n-space size="large" align="center" class="nav" wrap>
+          <RouterLink
+            v-for="link in navLinks"
+            :key="link.to"
+            :to="link.to"
+            class="nav-link"
+          >
+            {{ link.label }}
+          </RouterLink>
+        </n-space>
+
+        <n-space align="center" size="small" class="header-actions">
+          <RouterLink to="/cart" class="link-button">
+            <n-button size="small" secondary round>Cart</n-button>
+          </RouterLink>
+          <RouterLink to="/login" class="link-button">
+            <n-button size="small" quaternary round>Login</n-button>
+          </RouterLink>
+        </n-space>
       </header>
     </n-layout-header>
 
-    <n-layout-content>
-      <main class="app-main">
+    <n-layout-content class="app-content">
+      <main class="content-inner">
         <RouterView />
       </main>
     </n-layout-content>
 
-    <n-layout-footer bordered>
-      <footer class="app-footer">
-        © Zucker · einfach süß
+    <n-layout-footer bordered class="app-footer">
+      <footer class="footer-inner">
+        <span>© Zucker · einfach süß</span>
+        <RouterLink to="/contact" class="footer-link">Contact</RouterLink>
       </footer>
     </n-layout-footer>
   </n-layout>
 </template>
 
-<script>
-export default {};
+<script setup>
+const navLinks = [
+  { label: 'All products', to: '/products' },
+  { label: 'How to order', to: '/how-to-order' },
+  { label: 'Contact', to: '/contact' },
+];
 </script>
 
 <style scoped>
@@ -40,18 +56,51 @@ export default {};
 
 .app-header,
 .app-footer {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
   padding: 0.75rem 1.5rem;
 }
 
-.nav {
+.header-inner,
+.footer-inner {
   display: flex;
+  align-items: center;
+  justify-content: space-between;
   gap: 1rem;
 }
 
-.app-main {
+.brand {
+  font-weight: 700;
+  text-decoration: none;
+  color: inherit;
+}
+
+.nav {
+  flex: 1;
+}
+
+.nav-link {
+  text-decoration: none;
+  color: inherit;
+}
+
+.header-actions {
+  display: flex;
+}
+
+.link-button {
+  text-decoration: none;
+}
+
+.app-content {
   padding: 1.5rem;
+}
+
+.content-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.footer-link {
+  text-decoration: none;
+  color: inherit;
 }
 </style>
