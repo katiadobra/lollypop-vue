@@ -4,7 +4,7 @@
       <n-grid cols="1 900:2" x-gap="24" y-gap="24" responsive="screen">
         <n-grid-item>
           <div class="hero-copy">
-            <n-tag size="large" round type="success" class="hero-tag">Fresh every morning</n-tag>
+            <n-tag size="large" round :color="accentColor" class="hero-tag">Fresh every morning</n-tag>
             <h1 class="hero-title">Modern bakes for bright celebrations.</h1>
             <p class="hero-lead">
               Small-batch cakes, cinnamon rolls, and tarts built to travel well and stay light, so you
@@ -13,7 +13,7 @@
 
             <n-space size="small">
               <RouterLink to="/products" class="link-button">
-                <n-button type="primary" size="large" round>Browse the menu</n-button>
+                <n-button color="#ff69b4" size="large" round>Browse the menu</n-button>
               </RouterLink>
               <RouterLink to="/how-to-order" class="link-button">
                 <n-button size="large" tertiary round>How to order</n-button>
@@ -41,7 +41,7 @@
 
     <section class="section">
       <div class="section-heading">
-        <n-gradient-text class="section-kicker" gradient="linear-gradient(135deg, #84fab0 0%, #8fd3f4 100%)">
+        <n-gradient-text class="section-kicker" gradient="linear-gradient(135deg, #f50640 0%, #ff8acb 100%)">
           Menu at a glance
         </n-gradient-text>
         <h2>Pick your favorite format</h2>
@@ -55,7 +55,7 @@
           <n-card class="type-card" hoverable>
             <div class="type-card__header">
               <span class="type-name">{{ type.title }}</span>
-              <n-tag size="small" round :type="type.accent">
+              <n-tag size="small" round :color="accentColor">
                 {{ type.count ? `${type.count} flavors` : 'Out of order' }}
               </n-tag>
             </div>
@@ -72,7 +72,7 @@
 
           <n-space size="small">
             <RouterLink to="/cart" class="link-button">
-              <n-button size="medium" type="primary" ghost round>Build my box</n-button>
+              <n-button size="medium" color="#ff69b4" ghost round>Build my box</n-button>
             </RouterLink>
             <RouterLink to="/contact" class="link-button">
               <n-button size="medium" secondary round>Talk to the bakery</n-button>
@@ -96,7 +96,7 @@
             <n-divider />
             <n-space size="small">
               <RouterLink to="/cart" class="link-button">
-                <n-button size="medium" type="primary" ghost round>Build my box</n-button>
+                <n-button size="medium" color="#ff69b4" ghost round>Build my box</n-button>
               </RouterLink>
               <RouterLink to="/contact" class="link-button">
                 <n-button size="medium" secondary round>Talk to the bakery</n-button>
@@ -109,7 +109,7 @@
       <n-card class="brochure-card" :bordered="false">
         <div class="brochure-grid">
           <div>
-            <n-gradient-text class="section-kicker" gradient="linear-gradient(135deg, #d4fc79 0%, #96e6a1 100%)">
+            <n-gradient-text class="section-kicker" gradient="linear-gradient(135deg, #f50640 0%, #ff69b4 100%)">
               Brochure & custom orders
             </n-gradient-text>
             <h2>Planning an event?</h2>
@@ -126,7 +126,7 @@
 
           <div class="brochure-actions">
             <RouterLink to="/contact" class="link-button">
-              <n-button type="primary" size="large" round>Request the brochure</n-button>
+              <n-button color="#ff69b4" size="large" round>Request the brochure</n-button>
             </RouterLink>
             <RouterLink to="/products" class="link-button">
               <n-button size="large" tertiary round>See today's menu</n-button>
@@ -150,6 +150,8 @@ const highlightPills = [
   { label: 'Flavor swaps', value: 'Vegan & gluten-light' },
 ];
 
+const accentColor = '#ff69b4';
+
 const typeMeta = [
   {
     type: 'cake',
@@ -167,7 +169,7 @@ const typeMeta = [
     type: 'tart',
     title: 'Bright tarts',
     description: 'Crisp pâte sablée with citrus curds, pralines, and roasted nuts.',
-    accent: 'success',
+    accent: 'warning',
   },
   {
     type: 'long-cake',
@@ -339,8 +341,8 @@ const typeCards = computed(() =>
 }
 
 .brochure-card {
-  background: #f8fff2;
-  border: 1px solid #d1fae5;
+  background: #ffe6f2;
+  border: 1px solid #ffc7e6;
   padding: 20px;
 }
 
