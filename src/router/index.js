@@ -7,6 +7,10 @@ import ProductDetail from '../pages/ProductDetailPage.vue'
 import Login from '../pages/Register.vue'
 import Contact from '../pages/ContactPage.vue'
 import HowToOrder from '../pages/HowToOrderPage.vue'
+import TermsOfUse from '../pages/TermsOfUsePage.vue'
+import TermsConditions from '../pages/TermsConditionsPage.vue'
+import PrivacyPolicy from '../pages/PrivacyPolicyPage.vue'
+import Impressum from '../pages/ImpressumPage.vue'
 import NotFound from '../pages/NotFoundPage.vue'
 
 
@@ -17,7 +21,11 @@ const routes = [
   { path: '/cart', component: Cart },
   { path: '/login', component: Login },
   { path: '/contact', component: Contact },
+  { path: '/impressum', component: Impressum },
   { path: '/how-to-order', component: HowToOrder },
+  { path: '/pages/terms-conditions', component: TermsConditions },
+  { path: '/pages/terms-of-use', component: TermsOfUse },
+  { path: '/pages/privacy-policy', component: PrivacyPolicy },
   { path: '/:pathMatch(.*)*', component: NotFound },
 ]
 

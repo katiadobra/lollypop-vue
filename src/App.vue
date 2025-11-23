@@ -2,7 +2,6 @@
   <n-layout class="app-layout">
     <n-layout-header bordered class="app-header">
       <header class="header-inner">
-        <RouterLink to="/" class="brand">Zucker</RouterLink>
 
         <n-space size="large" align="center" class="nav" wrap>
           <RouterLink
@@ -14,6 +13,8 @@
             {{ link.label }}
           </RouterLink>
         </n-space>
+
+        <RouterLink to="/" class="brand">ZUCKER.</RouterLink>
 
         <n-space align="center" size="small" class="header-actions">
           <RouterLink to="/cart" class="link-button">
@@ -36,6 +37,14 @@
       <footer class="footer-inner">
         <span>© Zucker · einfach süß</span>
         <RouterLink to="/contact" class="footer-link">Contact</RouterLink>
+        <RouterLink to="/impressum" class="footer-link">Impressum</RouterLink>
+        <RouterLink to="/pages/terms-conditions" class="footer-link">Terms & Conditions</RouterLink>
+        <RouterLink to="/pages/terms-of-use" class="footer-link">Terms of Use</RouterLink>
+        <RouterLink to="/pages/privacy-policy" class="footer-link">Privacy Policy</RouterLink>
+        <span>© 2025 All Rights Reserved. 
+          <n-gradient-text gradient="linear-gradient(90deg, red 0%, green 50%, blue 100%)">
+            Made with ♥ in Berlin by <a href="https://github.com/katiadobra">Katiadobra</a>
+          </n-gradient-text></span>
       </footer>
     </n-layout-footer>
   </n-layout>
@@ -59,7 +68,13 @@ const navLinks = [
   padding: 0.75rem 1.5rem;
 }
 
-.header-inner,
+.header-inner {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 1rem;
+}
+
 .footer-inner {
   display: flex;
   align-items: center;
@@ -71,10 +86,15 @@ const navLinks = [
   font-weight: 700;
   text-decoration: none;
   color: inherit;
+  text-align: center;
+  justify-self: center;
+  font-size: 30px;
 }
 
 .nav {
-  flex: 1;
+  display: flex;
+  justify-content: flex-start;
+  justify-self: start;
 }
 
 .nav-link {
@@ -84,6 +104,8 @@ const navLinks = [
 
 .header-actions {
   display: flex;
+  justify-content: flex-end;
+  justify-self: end;
 }
 
 .link-button {
