@@ -31,35 +31,11 @@
           </div>
         </n-grid-item>
 
-        <n-grid-item>
-          <n-card class="hero-sidecard" size="large" title="What we bake" embedded>
-            <div class="hero-sidecard-grid">
-              <div v-for="type in typeCards" :key="type.type" class="sidecard-item">
-                <div class="sidecard-top">
-                  <n-tag :type="type.accent" size="small" round>{{ type.count }} options</n-tag>
-                  <span class="sidecard-type">{{ type.title }}</span>
-                </div>
-                <p class="sidecard-copy">{{ type.description }}</p>
-              </div>
-            </div>
-
-            <n-divider />
-            <n-space size="small">
-              <RouterLink to="/cart" class="link-button">
-                <n-button size="medium" type="primary" ghost round>Build my box</n-button>
-              </RouterLink>
-              <RouterLink to="/contact" class="link-button">
-                <n-button size="medium" secondary round>Talk to the bakery</n-button>
-              </RouterLink>
-            </n-space>
-          </n-card>
-        </n-grid-item>
-
-        <n-grid-item>
+        <!-- <n-grid-item>
           <div class="hero-image">
             <img src="/base.png" alt="Assorted pastries" />
           </div>
-        </n-grid-item>
+        </n-grid-item> -->
       </n-grid>
     </n-card>
 
@@ -79,7 +55,9 @@
           <n-card class="type-card" hoverable>
             <div class="type-card__header">
               <span class="type-name">{{ type.title }}</span>
-              <n-tag size="small" round :type="type.accent">{{ type.count }} flavors</n-tag>
+              <n-tag size="small" round :type="type.accent">
+                {{ type.count ? `${type.count} flavors` : 'Out of order' }}
+              </n-tag>
             </div>
             <p class="type-description">{{ type.description }}</p>
             <div class="type-foot">
@@ -90,7 +68,42 @@
           </n-card>
         </n-grid-item>
       </n-grid>
+       <n-divider />
+
+          <n-space size="small">
+            <RouterLink to="/cart" class="link-button">
+              <n-button size="medium" type="primary" ghost round>Build my box</n-button>
+            </RouterLink>
+            <RouterLink to="/contact" class="link-button">
+              <n-button size="medium" secondary round>Talk to the bakery</n-button>
+            </RouterLink>
+          </n-space>
     </section>
+            <!-- <n-grid-item>
+          <n-card class="hero-sidecard" size="large" title="What we bake" embedded>
+            <div class="hero-sidecard-grid">
+              <div v-for="type in typeCards" :key="type.type" class="sidecard-item">
+                <div class="sidecard-top">
+                  <n-tag :type="type.accent" size="small" round>
+                    {{ type.count ? `${type.count} options` : 'Out of order' }}
+                  </n-tag>
+                  <span class="sidecard-type">{{ type.title }}</span>
+                </div>
+                <p class="sidecard-copy">{{ type.description }}</p>
+              </div>
+            </div>
+
+            <n-divider />
+            <n-space size="small">
+              <RouterLink to="/cart" class="link-button">
+                <n-button size="medium" type="primary" ghost round>Build my box</n-button>
+              </RouterLink>
+              <RouterLink to="/contact" class="link-button">
+                <n-button size="medium" secondary round>Talk to the bakery</n-button>
+              </RouterLink>
+            </n-space>
+          </n-card>
+        </n-grid-item> -->
 
     <section class="section brochure">
       <n-card class="brochure-card" :bordered="false">
