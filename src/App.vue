@@ -57,6 +57,7 @@ const footerGradient = 'linear-gradient(90deg, #ff80b5 0%, #9089fc 50%, #22d3ee 
 const navLinks = [
   { label: 'All products', to: '/products' },
   { label: 'How to order', to: '/how-to-order' },
+  { label: 'Q & A', to: '/questions' },
   { label: 'Contact', to: '/contact' },
 ];
 </script>

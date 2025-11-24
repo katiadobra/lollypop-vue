@@ -157,4 +157,5 @@ export const products = [
       'https://i.pinimg.com/1200x/09/28/bd/0928bdd846b752632e2db9586dc3e4e6.jpg',
     gallery: null,
   },
+  
 ];
