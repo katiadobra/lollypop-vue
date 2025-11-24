@@ -12,6 +12,7 @@ import {
   NGrid,
   NGridItem,
   NInput,
+  NAlert,
   NLayout,
   NLayoutHeader,
   NLayoutFooter,
@@ -20,6 +21,7 @@ import {
   NSpace,
   NTag,
   NText,
+  NResult,
 } from 'naive-ui';
 
 export default {
@@ -38,6 +40,7 @@ export default {
         NGrid,
         NGridItem,
         NInput,
+        NAlert,
         NLayout,
         NLayoutHeader,
         NLayoutFooter,
@@ -46,6 +49,7 @@ export default {
         NSpace,
         NTag,
         NText,
+        NResult,
       ],
     });
     app.use(naive);

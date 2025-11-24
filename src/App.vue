@@ -1,5 +1,6 @@
 <template>
   <n-layout class="app-layout">
+    <AnnouncementBar />
     <n-layout-header bordered class="app-header">
       <header class="header-inner">
 
@@ -37,11 +38,12 @@
       <footer class="footer-inner">
         <span>© ZUCKER. · einfach süß</span>
         <div class="footer-links">
-          <RouterLink to="/contact" class="footer-link">Contact</RouterLink>
+          <RouterLink to="/contact" class="footer-link">Contact Us</RouterLink>
           <RouterLink to="/impressum" class="footer-link">Impressum</RouterLink>
           <RouterLink to="/pages/terms-conditions" class="footer-link">Terms & Conditions</RouterLink>
           <RouterLink to="/pages/terms-of-use" class="footer-link">Terms of Use</RouterLink>
           <RouterLink to="/pages/privacy-policy" class="footer-link">Privacy Policy</RouterLink>
+          <RouterLink to="/questions" class="footer-link">Q &amp; A</RouterLink>
         </div>
         <n-gradient-text :gradient="footerGradient" class="footer-credit">
           <a href="https://github.com/katiadobra" class="footer-link">Made with ♥ in Berlin</a>
@@ -52,12 +54,13 @@
 </template>
 
 <script setup>
+import AnnouncementBar from './components/AnnouncementBar.vue';
+
 const footerGradient = 'linear-gradient(90deg, #ff80b5 0%, #9089fc 50%, #22d3ee 100%)';
 
 const navLinks = [
   { label: 'All products', to: '/products' },
   { label: 'How to order', to: '/how-to-order' },
-  { label: 'Q & A', to: '/questions' },
   { label: 'Contact', to: '/contact' },
 ];
 </script>
