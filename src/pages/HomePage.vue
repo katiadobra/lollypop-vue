@@ -4,7 +4,9 @@
       <n-grid cols="1 900:2" x-gap="24" y-gap="24" responsive="screen">
         <n-grid-item>
           <div class="hero-copy">
-            <n-tag size="large" round :color="accentColor" class="hero-tag">Fresh every morning</n-tag>
+            <n-tag size="large" round :color="{ color: accentColor, textColor: '#ffffff' }" class="hero-tag">
+              Fresh every morning
+            </n-tag>
             <h1 class="hero-title">Modern bakes for bright celebrations.</h1>
             <p class="hero-lead">
               Small-batch cakes, cinnamon rolls, and tarts built to travel well and stay light, so you
@@ -55,7 +57,7 @@
           <n-card class="type-card" hoverable>
             <div class="type-card__header">
               <span class="type-name">{{ type.title }}</span>
-              <n-tag size="small" round :color="accentColor">
+              <n-tag size="small" round :color="{ color: accentColor, textColor: '#ffffff' }">
                 {{ type.count ? `${type.count} flavors` : 'Out of order' }}
               </n-tag>
             </div>

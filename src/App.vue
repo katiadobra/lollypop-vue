@@ -35,22 +35,25 @@
 
     <n-layout-footer bordered class="app-footer">
       <footer class="footer-inner">
-        <span>© Zucker · einfach süß</span>
-        <RouterLink to="/contact" class="footer-link">Contact</RouterLink>
-        <RouterLink to="/impressum" class="footer-link">Impressum</RouterLink>
-        <RouterLink to="/pages/terms-conditions" class="footer-link">Terms & Conditions</RouterLink>
-        <RouterLink to="/pages/terms-of-use" class="footer-link">Terms of Use</RouterLink>
-        <RouterLink to="/pages/privacy-policy" class="footer-link">Privacy Policy</RouterLink>
-        <span>© 2025 All Rights Reserved. 
-          <n-gradient-text gradient="linear-gradient(90deg, red 0%, green 50%, blue 100%)">
-            Made with ♥ in Berlin by <a href="https://github.com/katiadobra">Katiadobra</a>
-          </n-gradient-text></span>
+        <span>© ZUCKER. · einfach süß</span>
+        <div class="footer-links">
+          <RouterLink to="/contact" class="footer-link">Contact</RouterLink>
+          <RouterLink to="/impressum" class="footer-link">Impressum</RouterLink>
+          <RouterLink to="/pages/terms-conditions" class="footer-link">Terms & Conditions</RouterLink>
+          <RouterLink to="/pages/terms-of-use" class="footer-link">Terms of Use</RouterLink>
+          <RouterLink to="/pages/privacy-policy" class="footer-link">Privacy Policy</RouterLink>
+        </div>
+        <n-gradient-text :gradient="footerGradient" class="footer-credit">
+          <a href="https://github.com/katiadobra" class="footer-link">Made with ♥ in Berlin</a>
+        </n-gradient-text>
       </footer>
     </n-layout-footer>
   </n-layout>
 </template>
 
 <script setup>
+const footerGradient = 'linear-gradient(90deg, #ff80b5 0%, #9089fc 50%, #22d3ee 100%)';
+
 const navLinks = [
   { label: 'All products', to: '/products' },
   { label: 'How to order', to: '/how-to-order' },
@@ -121,8 +124,22 @@ const navLinks = [
   margin: 0 auto;
 }
 
+.footer-links {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
 .footer-link {
   text-decoration: none;
   color: inherit;
+}
+
+.footer-credit {
+  display: flex;
+  gap: 0.35rem;
+  align-items: center;
+  flex-wrap: wrap;
 }
 </style>
