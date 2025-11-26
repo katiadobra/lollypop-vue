@@ -13,6 +13,15 @@ const firebaseConfig = {
   appId: import.meta.env.VITE_FIREBASE_APP_ID
 }
 
+const missing = Object.entries(firebaseConfig)
+  .filter(([, value]) => !value)
+  .map(([key]) => key);
+
+if (missing.length) {
+  console.error('Missing Firebase env vars:', missing.join(', '));
+  throw new Error('Firebase configuration is incomplete. Check VITE_FIREBASE_* env vars.');
+}
+
 const app = initializeApp(firebaseConfig)
 
 const db = getFirestore(app)

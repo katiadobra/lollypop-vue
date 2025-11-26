@@ -10,17 +10,43 @@
 
 import { defineStore } from 'pinia';
 
+const STORAGE_KEY = 'cart';
+
+function loadCart() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (!raw) return [];
+    const parsed = JSON.parse(raw);
+    return Array.isArray(parsed) ? parsed : [];
+  } catch (e) {
+    console.warn('Could not load cart from storage', e);
+    return [];
+  }
+}
+
+function buildMap(items) {
+  const map = {};
+  items.forEach((item) => {
+    const key = makeKey(item.id, item.variantId || null);
+    map[key] = item;
+  });
+  return map;
+}
+
 function makeKey(productId, variantId) {
   return variantId ? `${productId}::${variantId}` : productId;
 }
 
 export const useCartStore = defineStore('cart', {
-  state: () => ({
-    // array for rendering
-    items: [],
-    // map for scalable lookup by product + variant
-    itemsByKey: {}, // key -> item
-  }),
+  state: () => {
+    const savedItems = loadCart();
+    return {
+      // array for rendering
+      items: savedItems,
+      // map for scalable lookup by product + variant
+      itemsByKey: buildMap(savedItems), // key -> item
+    };
+  },
 
   getters: {
     itemCount(state) {
@@ -38,6 +64,10 @@ export const useCartStore = defineStore('cart', {
   },
 
   actions: {
+    persist() {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(this.items));
+    },
+
     addItem(productId, unitPrice, options = {}) {
       const variantId = options.variantId || null;
       const key = makeKey(productId, variantId);
@@ -55,6 +85,7 @@ export const useCartStore = defineStore('cart', {
         this.items.push(item);
         this.itemsByKey[key] = item;
       }
+      this.persist();
     },
 
     setQuantity(productId, variantId, quantity) {
@@ -66,6 +97,7 @@ export const useCartStore = defineStore('cart', {
         this.removeItem(productId, variantId);
       } else {
         item.quantity = quantity;
+        this.persist();
       }
     },
 
@@ -78,11 +110,13 @@ export const useCartStore = defineStore('cart', {
       this.items = this.items.filter((i) => i !== item);
       // remove from map
       delete this.itemsByKey[key];
+      this.persist();
     },
 
     clearCart() {
       this.items = [];
       this.itemsByKey = {};
+      this.persist();
     },
   },
 });

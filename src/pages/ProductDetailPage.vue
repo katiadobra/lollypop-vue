@@ -2,21 +2,8 @@
 <template>
   <section class="product-detail">
     <n-card v-if="product" class="detail-card" :bordered="false">
-      <div class="detail-header">
-        <div class="pill-row">
-          <n-tag size="small" round type="info">{{ formatType(product.type) }}</n-tag>
-          <n-tag
-            v-if="product.servings"
-            size="small"
-            round
-            :color="{ color: accentColor, textColor: '#ffffff' }"
-          >
-            {{ product.servings }} servings
-          </n-tag>
-        </div>
-        <h1 class="title">{{ product.name }}</h1>
-        <p class="lead">{{ product.description }}</p>
-      </div>
+
+      <RouterLink to="/products" class="back-link" style="display:inline-block; margin-bottom:20px;">← Back to products</RouterLink>
 
       <div class="detail-body">
         <div class="visual-block">
@@ -44,40 +31,25 @@
               <img :src="image" :alt="`${product.name} gallery photo`" loading="lazy" />
             </div>
           </div>
-
-          <div class="specs">
-            <div v-for="entry in infoEntries" :key="entry.label" class="spec">
-              <span class="spec-label">{{ entry.label }}</span>
-              <span class="spec-value">{{ entry.value }}</span>
-            </div>
-          </div>
-
-          <div class="info-panels">
-            <div v-if="flavors.length" class="info-panel">
-              <h3>Flavors</h3>
-              <ul class="info-list">
-                <li v-for="item in flavors" :key="item">{{ item }}</li>
-              </ul>
-            </div>
-
-            <div v-if="allergens.length" class="info-panel">
-              <h3>Allergens</h3>
-              <div class="tag-row">
-                <n-tag
-                  v-for="item in allergens"
-                  :key="item"
-                  size="small"
-                  round
-                  type="warning"
-                >
-                  {{ item }}
-                </n-tag>
-              </div>
-            </div>
-          </div>
         </div>
 
+        <!-- col 2 -->
         <div class="purchase">
+          <div class="detail-header">
+            <h1 class="title">{{ product.name }}</h1>
+            <p class="lead">{{ product.description }}</p>
+            <div class="pill-row">
+              <n-tag size="small" round type="info">{{ formatType(product.type) }}</n-tag>
+              <n-tag
+                v-if="product.servings"
+                size="small"
+                round
+                :color="{ color: accentColor, textColor: '#ffffff' }"
+              >
+                {{ product.servings }} servings
+              </n-tag>
+            </div>
+          </div>
           <div class="price-block">
             <div class="price-label">Price</div>
             <div class="price-value">{{ formattedPrice }}</div>
@@ -121,7 +93,27 @@
             <n-button color="#ff69b4" round size="large" block @click="addCurrentToCart">
               Add to cart
             </n-button>
-            <RouterLink to="/products" class="back-link">← Back to products</RouterLink>
+          </div>
+
+          <h2 style="text-transform: uppercase; letter-spacing: 0.12em; font-weight: 300; margin: 0 0 8px;">
+            additional information
+          </h2>
+
+          <div class="info-panels">
+            <div v-if="allergens.length" class="info-panel">
+              <h3>Allergens</h3>
+              <div class="tag-row">
+                <n-tag
+                  v-for="item in allergens"
+                  :key="item"
+                  size="small"
+                  round
+                  type="warning"
+                >
+                  {{ item }}
+                </n-tag>
+              </div>
+            </div>
           </div>
         </div>
       </div>

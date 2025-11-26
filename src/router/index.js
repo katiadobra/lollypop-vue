@@ -4,7 +4,7 @@ import Home from '../pages/HomePage.vue'
 import Products from '../pages/ProductsPage.vue'
 import Cart from '../pages/CartPage.vue'
 import ProductDetail from '../pages/ProductDetailPage.vue'
-import Login from '../pages/Register.vue'
+// import Login from '../pages/Register.vue'
 import Contact from '../pages/ContactPage.vue'
 import HowToOrder from '../pages/HowToOrderPage.vue'
 import TermsOfUse from '../pages/TermsOfUsePage.vue'
@@ -20,7 +20,6 @@ const routes = [
   { path: '/products', component: Products },
   { path: '/product/:id', component: ProductDetail },
   { path: '/cart', component: Cart },
-  { path: '/login', component: Login },
   { path: '/contact', component: Contact },
   { path: '/impressum', component: Impressum },
   { path: '/how-to-order', component: HowToOrder },
