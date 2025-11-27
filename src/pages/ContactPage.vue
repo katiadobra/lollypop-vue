@@ -82,6 +82,14 @@ function handleSubmit() {
   if (!canSubmit.value) return;
   // Placeholder submit handler
   window.alert('Thanks! We received your message and will reply soon.');
+  console.log('Form submitted:', { ...form });
+  // Reset form
+  form.name = '';
+  form.email = '';
+  form.topic = null;
+  form.date = '';
+  form.message = '';
+  form.agree = false;
 }
 </script>
 

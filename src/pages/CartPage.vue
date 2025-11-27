@@ -74,14 +74,28 @@
           <div class="options">
             <h4>Date &amp; time</h4>
             <div class="datetime">
-              <n-date-picker v-model:value="selectedDate" type="date" clearable />
-              <n-time-picker v-model:value="selectedTime" format="HH:mm" clearable />
+              <n-date-picker
+                v-model:value="selectedDate"
+                type="date"
+                clearable
+                :is-date-disabled="isDateDisabled"
+              />
+              <n-select
+                v-model:value="selectedTime"
+                :options="timeOptions"
+                placeholder="Select a slot"
+                clearable
+              />
             </div>
           </div>
 
           <div class="options">
             <n-checkbox v-model:checked="agreeTerms">
-              I have read all Terms &amp; Conditions and I agree.
+              I have read all
+              <RouterLink to="/pages/terms-conditions" class="inline-link">
+                Terms &amp; Conditions
+              </RouterLink>
+              and I agree.
             </n-checkbox>
           </div>
 
@@ -94,7 +108,15 @@
             {{ submitStatus.message }}
           </n-alert>
 
-          <n-button color="#ff69b4" size="large" round block :loading="submitting" @click="submitPreorder">
+          <n-button
+            color="#ff69b4"
+            size="large"
+            round
+            block
+            :loading="submitting"
+            :disabled="!canSubmit"
+            @click="submitPreorder"
+          >
             Place pre-order (no payment yet)
           </n-button>
         </n-card>
@@ -126,12 +148,14 @@ const fulfilmentOptions = [
   { value: 'delivery', label: 'Local delivery', icon: '🚚' },
 ];
 
-const fulfilment = ref('delivery');
+const fulfilment = ref('pickup');
 const selectedDate = ref(null);
 const selectedTime = ref(null);
 const agreeTerms = ref(false);
 const submitting = ref(false);
 const submitStatus = ref({ type: '', message: '' });
+const canSubmit = computed(() => Boolean(agreeTerms.value && selectedDate.value));
+const timeOptions = computed(() => buildTimeOptions(9, 18, 30));
 
 function formatCurrency(amount) {
   return new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' }).format(amount || 0);
@@ -196,7 +220,29 @@ function setStatus(type, message) {
 }
 
 function isoOrNull(value) {
-  return value ? new Date(value).toISOString() : null;
+  if (!value) return null;
+  // if already an ISO or string like "HH:mm", pass through
+  if (typeof value === 'string') return value;
+  return new Date(value).toISOString();
+}
+
+function buildTimeOptions(startHour, endHour, stepMinutes) {
+  const options = [];
+  for (let h = startHour; h <= endHour; h += 1) {
+    for (let m = 0; m < 60; m += stepMinutes) {
+      // stop at 18:30 when endHour=18
+      if (h === endHour && m > 30) break;
+      const label = `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}`;
+      options.push({ label, value: label });
+    }
+  }
+  return options;
+}
+
+function isDateDisabled(ts) {
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  return ts < today.getTime();
 }
 
 async function submitPreorder() {
@@ -222,13 +268,9 @@ async function submitPreorder() {
   };
 
   try {
-    const res = await fetch('/.netlify/functions/send-preorder', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload),
-    });
-    if (!res.ok) throw new Error(await res.text());
-    setStatus('success', 'Pre-order sent! We will confirm shortly.');
+    // Temporary fallback: no backend configured, just log the payload.
+    console.log('Pre-order payload', payload);
+    setStatus('success', 'Pre-order captured locally (no email sent).');
   } catch (err) {
     setStatus('error', 'Could not send pre-order. Please try again.');
   } finally {
@@ -443,9 +485,22 @@ async function submitPreorder() {
   color: inherit;
 }
 
+.inline-link {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+}
+
 @media (min-width: 960px) {
   .cart-content {
     grid-template-columns: 2fr 1fr;
   }
+}
+</style>
+
+<style>
+/* Global overrides for Naive date picker panel (teleports to body) */
+.n-date-panel-date--excluded:not(.n-date-panel-date--disabled) {
+  color: #ff69b4 !important;
 }
 </style>
