@@ -6,7 +6,7 @@
         Below you'll find all the info about what goes into our cakes, cupcakes, cream, fillings and more!
       </p>
       <p class="lead">
-        If you have a specific ingredient question, never hesitate to get in touch – we love talking ingredients!
+        If you have a specific ingredient question, never hesitate to get in touch - we’re happy to help!
       </p>
     </header>
 
@@ -22,6 +22,11 @@
 
 <script setup>
 const sections = [
+  {
+    name: 'allergens',
+    title: 'Allergens & cross-contact',
+    copy: 'We handle gluten, eggs, dairy, and tree nuts in the same kitchen. While we prevent cross-contact, trace amounts may remain. For any severe allergy, please reach out before ordering so we can advise on current production.',
+  },
   {
     name: 'i1',
     title: 'Flour & grains',

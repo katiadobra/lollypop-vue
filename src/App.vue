@@ -21,9 +21,6 @@
           <RouterLink to="/cart" class="link-button">
             <n-button size="small" secondary round>Cart</n-button>
           </RouterLink>
-          <RouterLink to="/login" class="link-button">
-            <n-button size="small" quaternary round>Login</n-button>
-          </RouterLink>
         </n-space>
       </header>
     </n-layout-header>
@@ -63,6 +60,7 @@ const navLinks = [
   { label: 'How to order', to: '/how-to-order' },
   { label: 'Ingredients', to: '/ingredients' },
   { label: 'Flavors', to: '/flavors' },
+  { label: 'Care', to: '/care' },
   { label: 'Q & A', to: '/questions' },
   { label: 'Contact', to: '/contact' },
 ];

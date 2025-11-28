@@ -100,6 +100,14 @@
           </h2>
 
           <div class="info-panels">
+            <div class="info-panel warning">
+              <h3>Allergens &amp; cross-contact</h3>
+              <p class="allergen-note">
+                We handle gluten, eggs, dairy, and tree nuts in the same kitchen. We prevent cross-contact as much
+                as possible, but trace amounts may remain. For severe allergies, please contact us before ordering.
+              </p>
+            </div>
+
             <div v-if="allergens.length" class="info-panel">
               <h3>Allergens</h3>
               <div class="tag-row">
@@ -383,6 +391,11 @@ function addCurrentToCart() {
   display: flex;
   flex-direction: column;
   gap: 6px;
+}
+
+.info-panel.warning {
+  background: #fff7ed;
+  border: 1px solid #fed7aa;
 }
 
 .info-panel h3 {
