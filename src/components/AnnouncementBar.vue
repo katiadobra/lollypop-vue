@@ -43,17 +43,20 @@ const activeAnnouncement = computed(() => {
 
 <style scoped>
 .announcement-wrapper {
-  background: linear-gradient(90deg, #fff1f2 0%, #fdf2f8 50%, #eef2ff 100%);
-  padding: 4px 12px;
+  background: #fd219b;
+  padding: 0;
 }
 
 .announcement {
   margin: 0 auto;
   max-width: 1200px;
+  color: #fff;
+  background-color: transparent;
+  text-align: center;
 }
 
 .announcement-text {
   font-weight: 600;
-  color: #0f172a;
+  color: #fff;
 }
 </style>
