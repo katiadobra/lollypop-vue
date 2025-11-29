@@ -27,7 +27,9 @@
 
     <n-layout-content class="app-content">
       <main class="content-inner">
-        <RouterView />
+        <Transition name="fade-slide" mode="out-in">
+          <RouterView />
+        </Transition>
       </main>
     </n-layout-content>
 
@@ -127,6 +129,17 @@ const navLinks = [
 .content-inner {
   max-width: 1200px;
   margin: 0 auto;
+}
+
+.fade-slide-enter-active,
+.fade-slide-leave-active {
+  transition: opacity 400ms ease, transform 400ms ease;
+}
+
+.fade-slide-enter-from,
+.fade-slide-leave-to {
+  opacity: 0;
+  transform: translateY(15px);
 }
 
 .footer-links {

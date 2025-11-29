@@ -134,6 +134,9 @@
         <n-button round>Back to products</n-button>
       </RouterLink>
     </n-card>
+
+    <!-- @TODO: customise arrows. doc: https://www.naiveui.com/en-US/os-theme/components/carousel -->
+    <RecommendedProducts :limit="2" title="You may also like" subtitle="Pairs well with what you picked" />
   </section>
 </template>
 
@@ -142,6 +145,7 @@ import { computed, ref, watch } from 'vue';
 import { useRoute } from 'vue-router';
 import { useProductsStore } from '../stores/products';
 import { useCartStore } from '../stores/cart';
+import RecommendedProducts from '../components/RecommendedProducts.vue';
 
 const route = useRoute();
 const productsStore = useProductsStore();
