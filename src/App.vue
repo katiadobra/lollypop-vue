@@ -19,7 +19,10 @@
 
         <n-space align="center" size="small" class="header-actions">
           <RouterLink to="/cart" class="link-button">
-            <n-button size="small" secondary round>Cart</n-button>
+            <n-button size="small" secondary round>
+              Cart
+              <span v-if="cartCount" class="cart-badge">{{ cartCount }}</span>
+            </n-button>
           </RouterLink>
         </n-space>
       </header>
@@ -55,8 +58,10 @@
 </template>
 
 <script setup>
+import { computed } from 'vue';
 import AnnouncementBar from './components/AnnouncementBar.vue';
 import CartDrawer from './components/CartDrawer.vue';
+import { useCartStore } from './stores/cart';
 
 const footerGradient = 'linear-gradient(90deg, #ff80b5 0%, #9089fc 50%, #22d3ee 100%)';
 
@@ -65,6 +70,9 @@ const navLinks = [
   { label: 'How to order', to: '/how-to-order' },
   { label: 'Contact', to: '/contact' },
 ];
+
+const cartStore = useCartStore();
+const cartCount = computed(() => cartStore.itemCount);
 </script>
 
 <style scoped>
@@ -119,6 +127,16 @@ const navLinks = [
 
 .link-button {
   text-decoration: none;
+}
+
+.cart-badge {
+  margin-left: 6px;
+  background: #ff69b4;
+  color: #fff;
+  border-radius: 999px;
+  padding: 2px 6px;
+  font-size: 12px;
+  line-height: 1;
 }
 
 .app-content {
