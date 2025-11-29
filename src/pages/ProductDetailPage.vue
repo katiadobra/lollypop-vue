@@ -145,11 +145,13 @@ import { computed, ref, watch } from 'vue';
 import { useRoute } from 'vue-router';
 import { useProductsStore } from '../stores/products';
 import { useCartStore } from '../stores/cart';
+import { useUiStore } from '../stores/ui';
 import RecommendedProducts from '../components/RecommendedProducts.vue';
 
 const route = useRoute();
 const productsStore = useProductsStore();
 const cartStore = useCartStore();
+const uiStore = useUiStore();
 
 const accentColor = '#ff69b4';
 const placeholderPalette = ['#ffe5ef', '#e0f2fe', '#ecfdf3', '#fff7ed', '#ede9fe', '#fdf2f8'];
@@ -261,6 +263,7 @@ function addCurrentToCart() {
     quantity: quantity.value,
     variantId,
   });
+  uiStore.openCartDrawer();
 }
 </script>
 

@@ -49,21 +49,20 @@
         </n-gradient-text>
       </footer>
     </n-layout-footer>
+
+    <CartDrawer />
   </n-layout>
 </template>
 
 <script setup>
 import AnnouncementBar from './components/AnnouncementBar.vue';
+import CartDrawer from './components/CartDrawer.vue';
 
 const footerGradient = 'linear-gradient(90deg, #ff80b5 0%, #9089fc 50%, #22d3ee 100%)';
 
 const navLinks = [
   { label: 'All products', to: '/products' },
   { label: 'How to order', to: '/how-to-order' },
-  { label: 'Ingredients', to: '/ingredients' },
-  { label: 'Flavors', to: '/flavors' },
-  { label: 'Care', to: '/care' },
-  { label: 'Q & A', to: '/questions' },
   { label: 'Contact', to: '/contact' },
 ];
 </script>

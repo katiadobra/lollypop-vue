@@ -55,9 +55,11 @@
 import { computed, ref } from 'vue';
 import { useProductsStore } from '../stores/products';
 import { useCartStore } from '../stores/cart';
+import { useUiStore } from '../stores/ui';
 
 const productsStore = useProductsStore();
 const cartStore = useCartStore();
+const uiStore = useUiStore();
 
 const products = computed(() => productsStore.allProducts);
 
@@ -75,6 +77,7 @@ const filteredProducts = computed(() => {
 
 function handleAddToCart(product) {
   cartStore.addItem(product.id, product.price);
+  uiStore.openCartDrawer();
 }
 
 function selectCategory(category) {
