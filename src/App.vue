@@ -139,6 +139,28 @@ const cartCount = computed(() => cartStore.itemCount);
   line-height: 1;
 }
 
+@media (max-width: 780px) {
+  .header-inner {
+    grid-template-columns: 1fr;
+    justify-items: center;
+    text-align: center;
+    gap: 0.75rem;
+  }
+
+  .nav {
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .header-actions {
+    justify-content: center;
+  }
+
+  .app-content {
+    padding: 1rem;
+  }
+}
+
 .app-content {
   padding: 1.5rem;
 }

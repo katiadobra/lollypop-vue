@@ -9,37 +9,41 @@
       <div class="cart-items">
         <n-card v-for="item in cartItems" :key="item.key" :bordered="false" class="cart-card">
           <div class="row">
-            <div class="thumb" :style="!item.image ? placeholderStyle(item.id) : undefined">
-              <img v-if="item.image" :src="item.image" :alt="`${item.name} photo`" loading="lazy" />
-              <span v-else class="thumb-initial">{{ item.name.charAt(0) }}</span>
-            </div>
-            <div class="col name">
-              <div class="title-row">
-                <h3 class="item-title">{{ item.name }}</h3>
-              </div>
-              <p class="meta">
-                <span v-if="item.boxSize">Size: {{ item.boxSize }} pcs</span>
-                <span v-if="item.flavor">Flavor: {{ item.flavor }}</span>
-              </p>
-            </div>
-            <div class="col price">
-              <span class="label">Price (1)</span>
+          <div class="thumb" :style="!item.image ? placeholderStyle(item.id) : undefined">
+            <img v-if="item.image" :src="item.image" :alt="`${item.name} photo`" loading="lazy" />
+            <span v-else class="thumb-initial">{{ item.name.charAt(0) }}</span>
+          </div>
+          <div class="info">
+            <h3 class="item-title">
+              <RouterLink :to="`/product/${item.id}`" class="item-link">{{ item.name }}</RouterLink>
+            </h3>
+            <p class="meta" v-if="item.boxSize || item.flavor">
+              <span v-if="item.boxSize">Size: {{ item.boxSize }} pcs</span>
+              <span v-if="item.flavor">Flavor: {{ item.flavor }}</span>
+            </p>
+          </div>
+
+            <div class="price">
+              <span class="label">Price</span>
               <span class="value">{{ formatCurrency(item.unitPrice) }}</span>
             </div>
-            <div class="col qty">
-              <span class="label">Qty</span>
+
+            <div class="qty">
+              <div class="label">Qty</div>
               <div class="qty-controls">
                 <n-button quaternary circle size="small" @click="decrement(item)">-</n-button>
                 <span class="qty-value">{{ item.quantity }}</span>
                 <n-button quaternary circle size="small" @click="increment(item)">+</n-button>
               </div>
             </div>
-            <div class="col total">
-              <span class="label">Line total</span>
+
+            <div class="total">
+              <span class="label">Total</span>
               <span class="value">{{ formatCurrency(item.lineTotal) }}</span>
             </div>
-            <div class="col remove">
-              <n-button quaternary circle size="tiny" @click="removeItem(item)">✕</n-button>
+
+            <div class="remove">
+              <button class="remove-icon" type="button" @click="removeItem(item)" aria-label="Remove item">✕</button>
             </div>
           </div>
         </n-card>
@@ -353,19 +357,69 @@ async function submitPreorder() {
 }
 
 .cart-card {
-  padding: 12px;
+  padding: 10px 10px;
+}
+
+/* helper: hide mobile-only elements by default; enabled inside mobile media query */
+.mobile-only {
+  display: none;
 }
 
 .row {
   display: grid;
-  grid-template-columns: 72px 1.4fr 0.8fr 0.8fr 0.8fr auto;
-  gap: 12px;
+  grid-template-columns: 56px 1fr 40px;
+  grid-template-areas:
+    "thumb info remove"
+    "thumb price remove"
+    "thumb qty remove"
+    "thumb total remove";
+  gap: 8px;
+  align-items: start;
+  border-bottom: 1px solid #f3f4f6;
+  padding-bottom: 10px;
+}
+
+.price, .qty, .total {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  align-items: flex-start;
+}
+
+.remove {
+  display: flex;
   align-items: center;
+  justify-content: center;
+  justify-self: end;
+}
+
+@media (max-width: 719px) {
+  .cart-card :deep(.n-card__content) {
+    padding: 0;
+  }
+
+  /* ensure price value is visible */
+  .price .value {
+    display: block !important;
+    color: #111827 !important;
+    font-weight: 800 !important;
+  }
+
+  /* hide labels for price/qty on mobile to reduce clutter */
+  .price .label,
+  .qty .label {
+    display: none;
+  }
+
+  /* hide total block entirely on mobile */
+  .total {
+    display: none;
+  }
 }
 
 .thumb {
-  width: 72px;
-  height: 72px;
+  width: 56px;
+  height: 56px;
   border-radius: 10px;
   overflow: hidden;
   display: flex;
@@ -381,50 +435,65 @@ async function submitPreorder() {
 }
 
 .thumb-initial {
-  font-size: 32px;
+  font-size: 28px;
   font-weight: 700;
   color: #111827;
 }
 
-.col {
+.info {
   display: flex;
   flex-direction: column;
-  gap: 4px;
-}
-
-.name {
-  gap: 6px;
-}
-
-.title-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  gap: 8px;
 }
 
 .item-title {
   margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  font-size: 16px;
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+.item-link {
+  color: inherit;
+  text-decoration: none;
+}
+
+.item-link:hover {
+  text-decoration: underline;
 }
 
 .meta {
   display: flex;
-  gap: 12px;
+  gap: 10px;
   flex-wrap: wrap;
   margin: 0;
   color: #4b5563;
 }
 
-.label {
+.price-line {
+  font-size: 16px;
+  font-weight: 800;
+}
+
+.mobile-qty {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.qty-block {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.qty-label {
   font-size: 12px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
   color: #6b7280;
-}
-
-.value {
-  font-weight: 700;
-}
-
-.qty {
-  align-items: flex-start;
 }
 
 .qty-controls {
@@ -433,50 +502,184 @@ async function submitPreorder() {
   gap: 8px;
 }
 
+.qty-controls.boxy {
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 4px 6px;
+  width: 120px;
+  justify-content: space-between;
+}
+
 .qty-value {
   min-width: 24px;
   text-align: center;
   font-weight: 600;
 }
 
-@media (max-width: 800px) {
+.line-total {
+  font-weight: 700;
+  color: #374151;
+  font-size: 14px;
+}
+
+/* remove per-item line total on mobile to reduce vertical clutter */
+.mobile-qty .line-total {
+  display: none;
+}
+
+.remove-text {
+  background: none;
+  border: none;
+  padding: 0;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: #111827;
+  cursor: pointer;
+  align-self: flex-start;
+}
+
+/* hide the small "Quantity" label on mobile to reduce vertical clutter */
+.qty-label {
+  display: none;
+}
+
+
+/* hide the old mobile remove text and use the icon placed in its own column */
+.mobile-qty .remove-text {
+  display: none;
+}
+
+.remove-icon {
+  background: none;
+  border: none;
+  padding: 6px;
+  font-size: 18px;
+  line-height: 1;
+  cursor: pointer;
+  color: #111827;
+  border-radius: 6px;
+}
+
+/* grid area assignments */
+.thumb { grid-area: thumb; }
+.info { grid-area: info; }
+.price { grid-area: price; }
+.qty { grid-area: qty; }
+.total { grid-area: total; }
+.remove { grid-area: remove; }
+
+.desktop-only {
+  display: none;
+}
+
+/* desktop/tablet labels */
+.label {
+  font-size: 12px;
+  color: #6b7280;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  display: block;
+}
+
+.value {
+  font-weight: 700;
+}
+
+@media (min-width: 900px) {
   .row {
-    grid-template-columns: 64px 1fr auto;
-    grid-template-rows: repeat(3, auto);
-    grid-template-areas:
-      "thumb name remove"
-      "thumb details details"
-      "thumb totals totals";
+    grid-template-columns: 96px 1.4fr 0.8fr 0.8fr 0.4fr 40px;
+    grid-template-areas: "thumb info price qty total remove";
+    gap: 18px;
+    align-items: center;
+    border-bottom: 1px solid #f3f4f6;
+    padding-bottom: 14px;
   }
 
   .thumb {
-    grid-area: thumb;
-    width: 64px;
-    height: 64px;
+    width: 96px;
+    height: 96px;
   }
 
-  .name {
-    grid-area: name;
+  .info {
+    gap: 10px;
   }
 
-  .price,
-  .qty,
-  .total {
-    grid-area: totals;
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 8px;
-    align-items: center;
+  .item-title {
+    font-size: 22px;
   }
 
-  .remove {
-    grid-area: remove;
+  .price-line {
+    font-size: 24px;
+  }
+
+  .mobile-qty {
+    display: none;
+  }
+
+  /* on desktop keep labels above values in their columns */
+  .price, .qty, .total {
     display: flex;
-    justify-content: flex-end;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .label {
+    display: block;
+  }
+
+  .desktop-only {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
   }
 
   .qty-controls {
-    justify-content: center;
+    justify-content: flex-start;
+  }
+
+  .remove-text {
+    align-self: center;
+    justify-self: end;
+  }
+}
+
+@media (min-width: 720px) and (max-width: 899px) {
+  .row {
+    grid-template-columns: 80px 1.2fr 0.8fr 0.7fr 0.3fr 40px;
+    grid-template-areas: "thumb info price qty total remove";
+    gap: 14px;
+    align-items: center;
+    padding-bottom: 12px;
+  }
+
+  .thumb {
+    width: 80px;
+    height: 80px;
+  }
+
+  .item-title {
+    font-size: 20px;
+  }
+
+  .price-line {
+    font-size: 22px;
+  }
+
+  .mobile-qty {
+    display: none;
+  }
+
+  .price, .qty, .total {
+    align-items: center;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .desktop-only {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
   }
 }
 

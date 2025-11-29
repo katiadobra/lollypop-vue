@@ -1,6 +1,6 @@
 <template>
   <n-drawer v-model:show="ui.cartDrawerOpen" placement="right" width="360">
-    <n-drawer-content title="Your box">
+    <n-drawer-content title="Your box" closable @close="ui.closeCartDrawer">
       <div v-if="items.length" class="drawer-body">
         <TransitionGroup name="line-fade" tag="div" class="lines">
           <div v-for="item in items" :key="item.key" class="line">
