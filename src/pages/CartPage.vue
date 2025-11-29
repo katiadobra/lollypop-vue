@@ -90,6 +90,16 @@
           </div>
 
           <div class="options">
+            <h4>Contact details</h4>
+            <div class="contact-grid">
+              <n-input v-model:value="contactName" placeholder="Full name" />
+              <n-input v-model:value="contactEmail" placeholder="Email" type="email" />
+              <n-input v-model:value="contactPhone" placeholder="Phone" />
+              <n-input v-model:value="contactNotes" type="textarea" placeholder="Notes (delivery, dietary, etc.)" />
+            </div>
+          </div>
+
+          <div class="options">
             <n-checkbox v-model:checked="agreeTerms">
               I have read all
               <RouterLink to="/pages/terms-conditions" class="inline-link">
@@ -136,7 +146,7 @@
 </template>
 
 <script setup>
-import { computed, ref } from 'vue';
+import { computed, ref, onMounted, watch } from 'vue';
 import { useCartStore } from '../stores/cart';
 import { useProductsStore } from '../stores/products';
 
@@ -154,8 +164,34 @@ const selectedTime = ref(null);
 const agreeTerms = ref(false);
 const submitting = ref(false);
 const submitStatus = ref({ type: '', message: '' });
-const canSubmit = computed(() => Boolean(agreeTerms.value && selectedDate.value));
+const contactName = ref('');
+const contactEmail = ref('');
+const contactPhone = ref('');
+const contactNotes = ref('');
+const canSubmit = computed(() => Boolean(agreeTerms.value && selectedDate.value && isContactValid.value));
 const timeOptions = computed(() => buildTimeOptions(9, 18, 30));
+const isContactValid = computed(() => {
+  return !!(contactName.value.trim() && isEmailValid(contactEmail.value));
+});
+
+const CONTACT_STORAGE_KEY = 'preorder-contact';
+
+onMounted(() => {
+  try {
+    const saved = JSON.parse(localStorage.getItem(CONTACT_STORAGE_KEY) || '{}');
+    contactName.value = saved.name || '';
+    contactEmail.value = saved.email || '';
+    contactPhone.value = saved.phone || '';
+    contactNotes.value = saved.notes || '';
+  } catch (e) {
+    // ignore
+  }
+});
+
+watch([contactName, contactEmail, contactPhone, contactNotes], ([name, email, phone, notes]) => {
+  const payload = { name, email, phone, notes };
+  localStorage.setItem(CONTACT_STORAGE_KEY, JSON.stringify(payload));
+});
 
 function formatCurrency(amount) {
   return new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' }).format(amount || 0);
@@ -226,6 +262,10 @@ function isoOrNull(value) {
   return new Date(value).toISOString();
 }
 
+function isEmailValid(value) {
+  return /\S+@\S+\.\S+/.test(value);
+}
+
 function buildTimeOptions(startHour, endHour, stepMinutes) {
   const options = [];
   for (let h = startHour; h <= endHour; h += 1) {
@@ -264,7 +304,12 @@ async function submitPreorder() {
     fulfilment: fulfilment.value,
     date: isoOrNull(selectedDate.value),
     time: isoOrNull(selectedTime.value),
-    contact: null, // extend with form fields if you collect customer info
+    contact: {
+      name: contactName.value,
+      email: contactEmail.value,
+      phone: contactPhone.value,
+      notes: contactNotes.value,
+    },
   };
 
   try {
@@ -447,6 +492,16 @@ async function submitPreorder() {
 
 .summary-card h3 {
   margin: 0 0 8px;
+}
+
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 8px;
+}
+
+.contact-grid :deep(textarea) {
+  min-height: 80px;
 }
 
 .summary-row {
