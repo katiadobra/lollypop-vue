@@ -1,9 +1,8 @@
 <!-- src/pages/ProductDetailPage.vue -->
 <template>
   <section class="product-detail">
-    <n-card v-if="product" class="detail-card" :bordered="false">
-
-      <RouterLink to="/products" class="back-link" style="display:inline-block; margin-bottom:20px;">← Back to products</RouterLink>
+    <div v-if="product">
+      <RouterLink to="/products" class="back-link">← Back to products</RouterLink>
 
       <div class="detail-body">
         <div class="visual-block">
@@ -33,7 +32,6 @@
           </div>
         </div>
 
-        <!-- col 2 -->
         <div class="purchase">
           <div class="detail-header">
             <h1 class="title">{{ product.name }}</h1>
@@ -50,6 +48,7 @@
               </n-tag>
             </div>
           </div>
+
           <div class="price-block">
             <div class="price-label">Price</div>
             <div class="price-value">{{ formattedPrice }}</div>
@@ -95,10 +94,6 @@
             </n-button>
           </div>
 
-          <h2 style="text-transform: uppercase; letter-spacing: 0.12em; font-weight: 300; margin: 0 0 8px;">
-            additional information
-          </h2>
-
           <div class="info-panels">
             <div class="info-panel warning">
               <h3>Allergens &amp; cross-contact</h3>
@@ -125,17 +120,16 @@
           </div>
         </div>
       </div>
-    </n-card>
+    </div>
 
-    <n-card v-else class="not-found" :bordered="false">
+    <div v-else class="not-found">
       <h2>Product not found</h2>
       <p class="lead">Looks like this item left the oven. Choose another bake from the menu.</p>
       <RouterLink to="/products" class="link-button">
         <n-button round>Back to products</n-button>
       </RouterLink>
-    </n-card>
+    </div>
 
-    <!-- @TODO: customise arrows. doc: https://www.naiveui.com/en-US/os-theme/components/carousel -->
     <RecommendedProducts :limit="2" title="You may also like" subtitle="Pairs well with what you picked" />
   </section>
 </template>
@@ -271,11 +265,7 @@ function addCurrentToCart() {
 .product-detail {
   display: flex;
   flex-direction: column;
-  gap: 16px;
-}
-
-.detail-card {
-  padding: 20px;
+  gap: 18px;
 }
 
 .detail-header {
@@ -283,6 +273,15 @@ function addCurrentToCart() {
   flex-direction: column;
   gap: 8px;
   margin-bottom: 16px;
+}
+
+.back-link {
+  display: inline-block;
+  margin-bottom: 14px;
+  padding: 6px 0;
+  color: inherit;
+  text-decoration: none;
+  font-weight: 600;
 }
 
 .pill-row {
@@ -512,14 +511,9 @@ function addCurrentToCart() {
   font-weight: 700;
 }
 
-.back-link {
-  color: inherit;
-  text-decoration: none;
-  font-weight: 600;
-}
-
 .not-found {
   text-align: center;
+  padding: 16px 0;
 }
 
 @media (min-width: 900px) {

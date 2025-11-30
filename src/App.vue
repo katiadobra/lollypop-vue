@@ -1,8 +1,8 @@
 <template>
-  <n-layout class="app-layout">
+  <div class="app-layout">
     <AnnouncementBar />
-    <n-layout-header bordered class="app-header">
-      <header class="header-inner">
+    <header class="app-header">
+      <div class="header-inner">
 
         <n-space size="large" align="center" class="nav" wrap>
           <RouterLink
@@ -25,19 +25,19 @@
             </n-button>
           </RouterLink>
         </n-space>
-      </header>
-    </n-layout-header>
+      </div>
+    </header>
 
-    <n-layout-content class="app-content">
+    <div class="app-content">
       <main class="content-inner">
         <Transition name="fade-slide" mode="out-in">
           <RouterView />
         </Transition>
       </main>
-    </n-layout-content>
+    </div>
 
-    <n-layout-footer bordered class="app-footer">
-      <footer class="footer-inner">
+    <footer class="app-footer">
+      <div class="footer-inner">
         <span>© ZUCKER. · einfach süß</span>
         <div class="footer-links">
           <RouterLink to="/contact" class="footer-link">Contact Us</RouterLink>
@@ -50,11 +50,11 @@
         <n-gradient-text :gradient="footerGradient" class="footer-credit">
           <a href="https://github.com/katiadobra" class="footer-link">Made with ♥ in Berlin</a>
         </n-gradient-text>
-      </footer>
-    </n-layout-footer>
+      </div>
+    </footer>
 
     <CartDrawer />
-  </n-layout>
+  </div>
 </template>
 
 <script setup>
@@ -83,6 +83,16 @@ const cartCount = computed(() => cartStore.itemCount);
 .app-header,
 .app-footer {
   padding: 0.75rem 1.5rem;
+  background: #fff;
+  border-color: #e5e7eb;
+}
+
+.app-header {
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.app-footer {
+  border-top: 1px solid #e5e7eb;
 }
 
 .header-inner {
