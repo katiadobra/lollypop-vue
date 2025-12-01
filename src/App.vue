@@ -104,6 +104,7 @@ const cartCount = computed(() => cartStore.itemCount);
 
 .footer-inner {
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
@@ -208,5 +209,11 @@ const cartCount = computed(() => cartStore.itemCount);
   gap: 0.35rem;
   align-items: center;
   flex-wrap: wrap;
+}
+
+@media (min-width: 780px) {
+  .footer-inner {
+    flex-direction: row;
+  }
 }
 </style>

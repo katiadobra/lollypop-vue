@@ -36,12 +36,17 @@ const routes = [
   { path: '/:pathMatch(.*)*', component: NotFound },
 ]
 
+// Prevent the browser from restoring scroll on reload/back so the page always starts at the top.
+if ('scrollRestoration' in window.history) {
+  window.history.scrollRestoration = 'manual';
+}
+
 const router = createRouter({
   history: createWebHistory(),
   routes,
   scrollBehavior(to, from, savedPosition) {
     if (savedPosition) return savedPosition;
-    return { top: 0, left: 0, behavior: 'smooth' };
+    return { top: 0, left: 0 };
   },
 })
 

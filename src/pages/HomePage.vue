@@ -225,6 +225,10 @@ const typeCards = computed(() =>
   padding: 32px;
 }
 
+.hero :deep(.n-card__content) {
+  padding: 0;
+}
+
 .hero-copy {
   display: flex;
   flex-direction: column;
@@ -369,6 +373,12 @@ const typeCards = computed(() =>
   .brochure-grid {
     grid-template-columns: 2fr 1fr;
     align-items: center;
+  }
+}
+
+@media (max-width: 640px) {
+  .hero {
+    padding: 18px;
   }
 }
 </style>

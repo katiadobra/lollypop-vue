@@ -2,7 +2,7 @@
 export const announcements = [
   {
     id: 'orders-close-tonight',
-    message: 'ORDERS FOR THIS WEEK CLOSE TONIGHT (MONDAY) AT MIDNIGHT - ORDER NOW! 🍒🍰✨',
+    message: 'ORDERS FOR THIS WEEK CLOSE TONIGHT (MONDAY) AT MIDNIGHT - ORDER NOW!🍰✨',
     type: 'warning',
     daysOfWeek: [1], // Monday (0 = Sunday)
   },
