@@ -34,7 +34,18 @@
 
         <div class="purchase">
           <div class="detail-header">
-            <h1 class="title">{{ product.name }}</h1>
+            <div class="title-row">
+              <h1 class="title">{{ product.name }}</h1>
+              <button
+                class="favorite-button"
+                type="button"
+                :aria-pressed="isFavorite"
+                @click="toggleFavorite"
+              >
+                <HeartIcon :active="isFavorite" size="18" />
+                <span class="favorite-label">{{ isFavorite ? 'Saved' : 'Save' }}</span>
+              </button>
+            </div>
             <p class="lead">{{ product.description }}</p>
             <div class="pill-row">
               <n-tag size="small" round type="info">{{ formatType(product.type) }}</n-tag>
@@ -140,17 +151,21 @@ import { useRoute } from 'vue-router';
 import { useProductsStore } from '../stores/products';
 import { useCartStore } from '../stores/cart';
 import { useUiStore } from '../stores/ui';
+import { useFavoritesStore } from '../stores/favorites';
 import RecommendedProducts from '../components/RecommendedProducts.vue';
+import HeartIcon from '../components/HeartIcon.vue';
 
 const route = useRoute();
 const productsStore = useProductsStore();
 const cartStore = useCartStore();
 const uiStore = useUiStore();
+const favoritesStore = useFavoritesStore();
 
 const accentColor = '#ff69b4';
 const placeholderPalette = ['#ffe5ef', '#e0f2fe', '#ecfdf3', '#fff7ed', '#ede9fe', '#fdf2f8'];
 
 const product = computed(() => productsStore.getById(route.params.id));
+const isFavorite = computed(() => favoritesStore.isFavorite(route.params.id));
 const quantity = ref(1);
 
 const infoEntries = computed(() => {
@@ -247,6 +262,11 @@ function increment() {
   quantity.value += 1;
 }
 
+function toggleFavorite() {
+  if (!product.value) return;
+  favoritesStore.toggle(product.value.id);
+}
+
 function addCurrentToCart() {
   if (!product.value) return;
   const variantParts = [];
@@ -273,6 +293,34 @@ function addCurrentToCart() {
   flex-direction: column;
   gap: 8px;
   margin-bottom: 16px;
+}
+
+.title-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.favorite-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border: 1px solid #ffd4e8;
+  background: #fff5f9;
+  border-radius: 999px;
+  padding: 6px 12px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.favorite-button:hover {
+  transform: translateY(-1px);
+}
+
+.favorite-label {
+  font-size: 14px;
 }
 
 .back-link {

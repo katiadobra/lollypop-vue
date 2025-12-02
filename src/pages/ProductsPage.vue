@@ -21,6 +21,14 @@
     <n-grid cols="1 700:2 1100:3" x-gap="16" y-gap="16">
       <n-grid-item v-for="product in filteredProducts" :key="product.id">
         <n-card hoverable class="product-card">
+          <button
+            class="favorite-toggle"
+            type="button"
+            :aria-pressed="isFavorite(product.id)"
+            @click.stop="toggleFavorite(product)"
+          >
+            <HeartIcon :active="isFavorite(product.id)" size="18" />
+          </button>
           <RouterLink :to="`/product/${product.id}`" class="product-link">
             <div
               class="product-visual"
@@ -56,10 +64,13 @@ import { computed, ref } from 'vue';
 import { useProductsStore } from '../stores/products';
 import { useCartStore } from '../stores/cart';
 import { useUiStore } from '../stores/ui';
+import { useFavoritesStore } from '../stores/favorites';
+import HeartIcon from '../components/HeartIcon.vue';
 
 const productsStore = useProductsStore();
 const cartStore = useCartStore();
 const uiStore = useUiStore();
+const favoritesStore = useFavoritesStore();
 
 const products = computed(() => productsStore.allProducts);
 
@@ -78,6 +89,14 @@ const filteredProducts = computed(() => {
 function handleAddToCart(product) {
   cartStore.addItem(product.id, product.price);
   uiStore.openCartDrawer();
+}
+
+function toggleFavorite(product) {
+  favoritesStore.toggle(product.id);
+}
+
+function isFavorite(productId) {
+  return favoritesStore.isFavorite(productId);
 }
 
 function selectCategory(category) {
@@ -129,9 +148,28 @@ function placeholderStyle(id) {
 }
 
 .product-card {
+  position: relative;
   height: 100%;
   display: flex;
   flex-direction: column;
+}
+
+.favorite-toggle {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  border: none;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 999px;
+  padding: 6px 10px;
+  cursor: pointer;
+  font-size: 16px;
+  line-height: 1;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
+.favorite-toggle:hover {
+  transform: translateY(-1px);
 }
 
 .product-link {

@@ -4,6 +4,7 @@ import Home from '../pages/HomePage.vue'
 import Products from '../pages/ProductsPage.vue'
 import Cart from '../pages/CartPage.vue'
 import ProductDetail from '../pages/ProductDetailPage.vue'
+import Favorites from '../pages/FavoritesPage.vue'
 // import Login from '../pages/Register.vue'
 import Contact from '../pages/ContactPage.vue'
 import HowToOrder from '../pages/HowToOrderPage.vue'
@@ -22,6 +23,7 @@ const routes = [
   { path: '/', component: Home },
   { path: '/products', component: Products },
   { path: '/product/:id', component: ProductDetail },
+  { path: '/favorites', component: Favorites },
   { path: '/cart', component: Cart },
   { path: '/contact', component: Contact },
   { path: '/impressum', component: Impressum },

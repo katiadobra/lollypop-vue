@@ -20,6 +20,13 @@
         <RouterLink to="/" class="brand">ZUCKER.</RouterLink>
 
         <n-space align="center" size="small" class="header-actions">
+          <RouterLink to="/favorites" class="link-button desktop-only">
+            <n-button size="small" secondary round>
+              <HeartIcon :active="favoriteCount > 0" size="20" />
+              <span class="sr-only">Favorites</span>
+              <span v-if="favoriteCount" class="favorite-badge">{{ favoriteCount }}</span>
+            </n-button>
+          </RouterLink>
           <RouterLink to="/cart" class="link-button desktop-only">
             <n-button size="small" secondary round>
               <svg
@@ -38,8 +45,14 @@
               <span v-if="cartCount" class="cart-badge">{{ cartCount }}</span>
             </n-button>
           </RouterLink>
+          <RouterLink to="/favorites" class="icon-button mobile-only" aria-label="Open favorites">
+            <n-button quaternary circle size="medium">
+              <HeartIcon :active="favoriteCount > 0" size="20" />
+            </n-button>
+            <span v-if="favoriteCount" class="favorite-badge-floating">{{ favoriteCount }}</span>
+          </RouterLink>
           <RouterLink to="/cart" class="icon-button mobile-only" aria-label="Open cart">
-            <n-button quaternary circle size="large">
+            <n-button quaternary circle size="medium">
               <svg
                 class="box-icon"
                 viewBox="0 0 34 32"
@@ -122,19 +135,22 @@ import { computed, ref, watch } from 'vue';
 import { useRoute } from 'vue-router';
 import AnnouncementBar from './components/AnnouncementBar.vue';
 import CartDrawer from './components/CartDrawer.vue';
+import HeartIcon from './components/HeartIcon.vue';
 import { useCartStore } from './stores/cart';
+import { useFavoritesStore } from './stores/favorites';
 
 const footerGradient = 'linear-gradient(90deg, #ff80b5 0%, #9089fc 50%, #22d3ee 100%)';
 
 const navLinks = [
   { label: 'All products', to: '/products' },
-  { label: 'Favorites', to: '/favorites' },
   { label: 'How to order', to: '/how-to-order' },
   { label: 'Contact', to: '/contact' },
 ];
 
 const cartStore = useCartStore();
+const favoritesStore = useFavoritesStore();
 const cartCount = computed(() => cartStore.itemCount);
+const favoriteCount = computed(() => favoritesStore.count);
 const mobileMenuOpen = ref(false);
 const route = useRoute();
 
@@ -256,10 +272,25 @@ watch(
   line-height: 1;
 }
 
+.favorite-badge {
+  margin-left: 6px;
+  background: #ff69b4;
+  color: #fff;
+  border-radius: 999px;
+  padding: 2px 6px;
+  font-size: 12px;
+  line-height: 1;
+}
+
 .icon-button {
   position: relative;
 }
 
+.icon-button :deep(.n-button) {
+  min-width: unset;
+}
+
+.favorite-badge-floating,
 .cart-badge-floating {
   position: absolute;
   top: -4px;
@@ -289,6 +320,10 @@ watch(
   .brand {
     font-size: 24px;
     justify-self: center;
+  }
+
+  .header-actions {
+    gap: 8px;
   }
 
   .nav {
