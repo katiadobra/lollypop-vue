@@ -1,13 +1,13 @@
 # 📦 Project: Lollypop Shop
 
-**Lollypop Shop** is a simple and modern candy store web application built with **Vue 3**, **Vite**, and **Firebase**.
+**Lollypop Shop** is a simple and modern candy store web application built with **Vue 3** and **Vite**.
 
 It demonstrates:
 
-* 🛒 Product listing and detail pages (fetched from Firestore)
-* 🔐 User authentication with Google Sign-In (via Firebase Authentication)
-* 🛍️ Shopping cart functionality
-* 🌟 Responsive and clean UI
+* 🛒 Product listing and detail pages (static catalog data)
+* 🛍️ Shopping cart with localStorage persistence
+* ❤️ Favorites with localStorage persistence
+* 🌟 Responsive UI built with Naive UI
 
 ---
 
@@ -15,12 +15,9 @@ It demonstrates:
 
 * [Vue 3](https://vuejs.org/) (Composition API)
 * [Vite](https://vitejs.dev/)
-* [Firebase](https://firebase.google.com/):
-
-  * Firestore Database
-  * Firebase Authentication (Google OAuth)
-* [Pinia](https://pinia.vuejs.org/) *(coming soon)*
-* LocalStorage for cart persistence *(coming soon)*
+* [Pinia](https://pinia.vuejs.org/) for state management
+* [Naive UI](https://www.naiveui.com/) for components
+* LocalStorage for cart & favorites persistence
 
 ---
 
@@ -31,7 +28,10 @@ npm install
 npm run dev
 ```
 
-> ⚠️ Make sure to create your own `.env` file based on `.env.example` and add your Firebase project credentials.
+Environment:
+
+* Optional: Netlify function `netlify/functions/send-preorder.js` uses AWS SES and expects `EMAIL_FROM`, `EMAIL_TO`, `SES_REGION`.
+* No Firebase/Auth configuration is required (all data is static).
 
 ---
 
@@ -43,11 +43,10 @@ npm run dev
 
 # ✨ Future Improvements (optional ideas)
 
-- [ ] Shopping cart functionality (local storage-based)
-- [ ] Add admin panel for managing products
-- [ ] Add order history for users
-- [ ] Migrate cart to Firestore for multi-device synchronization
-- [ ] Add support for more OAuth providers (Facebook, GitHub)
+- [ ] Swap static catalog for API-driven products
+- [ ] Admin panel for managing products
+- [ ] Order history for users
+- [ ] Add alternative checkout/fulfilment flows
 
 ---
 

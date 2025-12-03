@@ -20,6 +20,36 @@
         <RouterLink to="/" class="brand">ZUCKER.</RouterLink>
 
         <n-space align="center" size="small" class="header-actions">
+          <n-button
+            quaternary
+            circle
+            size="large"
+            class="search-toggle desktop-only"
+            aria-label="Search products"
+            @click="openSearch"
+          >
+            <svg
+              class="search-icon"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              aria-hidden="true"
+            >
+              <path
+                d="M15.5 15.5L21 21"
+                stroke="currentColor"
+                stroke-width="1.6"
+                stroke-linecap="round"
+              />
+              <circle
+                cx="11"
+                cy="11"
+                r="6.5"
+                stroke="currentColor"
+                stroke-width="1.6"
+              />
+            </svg>
+          </n-button>
           <RouterLink to="/favorites" class="link-button desktop-only">
             <n-button size="small" secondary round>
               <HeartIcon :active="favoriteCount > 0" size="20" />
@@ -124,6 +154,55 @@
             Cart
             <span v-if="cartCount" class="mobile-cart-badge">{{ cartCount }}</span>
           </RouterLink>
+          <button type="button" class="mobile-nav-button" @click="openSearch">
+            Search
+          </button>
+        </div>
+      </n-drawer-content>
+    </n-drawer>
+
+    <n-drawer
+      v-model:show="searchOpen"
+      placement="top"
+      :height="420"
+      :style="{ maxHeight: '80vh' }"
+      trap-focus
+    >
+      <n-drawer-content title="Search products" closable @close="closeSearch">
+        <div class="search-drawer">
+          <n-input
+            ref="searchInput"
+            v-model:value="searchQuery"
+            size="large"
+            round
+            clearable
+            class="search-field"
+            placeholder="Search products (EN/DE)..."
+          />
+          <p class="search-hint">Try product name, type, flavors, or allergens.</p>
+
+          <div v-if="searchQuery && searchResults.length" class="search-results">
+            <RouterLink
+              v-for="product in searchResults"
+              :key="product.id"
+              :to="`/product/${product.id}`"
+              class="search-result"
+              @click="closeSearch"
+            >
+              <div class="result-title">{{ product.name }}</div>
+              <div class="result-meta">
+                <span class="result-type">{{ formatType(product.type) }}</span>
+                <span class="result-price">€{{ product.price }}</span>
+              </div>
+              <p class="result-description">{{ product.shortDescription }}</p>
+            </RouterLink>
+          </div>
+
+          <div v-else-if="searchQuery && !searchResults.length" class="empty-state">
+            No products match that search.
+          </div>
+
+          <div v-else class="empty-state">Start typing to search products.</div>
         </div>
       </n-drawer-content>
     </n-drawer>
@@ -131,13 +210,14 @@
 </template>
 
 <script setup>
-import { computed, ref, watch } from 'vue';
+import { computed, nextTick, ref, watch } from 'vue';
 import { useRoute } from 'vue-router';
 import AnnouncementBar from './components/AnnouncementBar.vue';
 import CartDrawer from './components/CartDrawer.vue';
 import HeartIcon from './components/HeartIcon.vue';
 import { useCartStore } from './stores/cart';
 import { useFavoritesStore } from './stores/favorites';
+import { useProductsStore } from './stores/products';
 
 const footerGradient = 'linear-gradient(90deg, #ff80b5 0%, #9089fc 50%, #22d3ee 100%)';
 
@@ -149,17 +229,81 @@ const navLinks = [
 
 const cartStore = useCartStore();
 const favoritesStore = useFavoritesStore();
+const productsStore = useProductsStore();
 const cartCount = computed(() => cartStore.itemCount);
 const favoriteCount = computed(() => favoritesStore.count);
 const mobileMenuOpen = ref(false);
+const searchOpen = ref(false);
+const searchQuery = ref('');
+const searchInput = ref(null);
 const route = useRoute();
 
 watch(
   () => route.fullPath,
   () => {
     mobileMenuOpen.value = false;
+    searchOpen.value = false;
   },
 );
+
+watch(searchOpen, (open) => {
+  if (!open) {
+    searchQuery.value = '';
+  }
+});
+
+const products = computed(() => productsStore.allProducts);
+
+const searchResults = computed(() => {
+  const query = normalize(searchQuery.value);
+  if (!query) return [];
+
+  return products.value
+    .map((p) => ({
+      product: p,
+      haystack: normalize(
+        [
+          p.name,
+          p.shortDescription,
+          p.type,
+          ...(p.flavors || []),
+          ...(p.allergens || []),
+        ]
+          .filter(Boolean)
+          .join(' '),
+      ),
+    }))
+    .filter((entry) => entry.haystack.includes(query))
+    .map((entry) => entry.product);
+});
+
+function openSearch() {
+  mobileMenuOpen.value = false;
+  searchOpen.value = true;
+  nextTick(() => {
+    if (searchInput.value) searchInput.value.focus();
+  });
+}
+
+function closeSearch() {
+  searchOpen.value = false;
+}
+
+function normalize(value) {
+  if (!value) return '';
+  return value
+    .normalize('NFD')
+    .replace(/\p{Diacritic}/gu, '')
+    .replace(/ß/g, 'ss')
+    .toLocaleLowerCase('de-DE');
+}
+
+function formatType(type) {
+  return type
+    .split('-')
+    .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+    .join(' ');
+}
 </script>
 
 <style scoped>
@@ -250,6 +394,15 @@ watch(
   height: 26px;
 }
 
+.search-toggle {
+  color: #111827;
+}
+
+.search-icon {
+  width: 22px;
+  height: 22px;
+}
+
 .sr-only {
   position: absolute;
   width: 1px;
@@ -303,6 +456,73 @@ watch(
   line-height: 1;
 }
 
+.search-drawer {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.search-field {
+  width: 100%;
+}
+
+.search-hint {
+  margin: 0;
+  color: #6b7280;
+  font-size: 14px;
+}
+
+.search-results {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-height: 50vh;
+  overflow: auto;
+}
+
+.search-result {
+  display: block;
+  padding: 10px 12px;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  text-decoration: none;
+  color: inherit;
+  transition: border-color 0.2s ease, transform 0.2s ease;
+}
+
+.search-result:hover {
+  border-color: #ff69b4;
+  transform: translateY(-1px);
+}
+
+.result-title {
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.result-meta {
+  display: flex;
+  gap: 10px;
+  font-size: 14px;
+  color: #6b7280;
+}
+
+.result-price {
+  font-weight: 600;
+  color: #111827;
+}
+
+.result-description {
+  margin: 6px 0 0;
+  color: #4b5563;
+  font-size: 14px;
+}
+
+.empty-state {
+  color: #6b7280;
+  padding: 8px 0;
+}
+
 .mobile-only {
   display: none;
 }
@@ -313,24 +533,31 @@ watch(
 
 @media (max-width: 780px) {
   .header-inner {
-    grid-template-columns: 1fr auto 1fr;
+    display: flex;
     align-items: center;
+    justify-content: flex-end;
+    gap: 12px;
+    position: relative;
   }
 
   .brand {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
     font-size: 24px;
-    justify-self: center;
+    text-align: center;
   }
 
   .header-actions {
     gap: 8px;
   }
 
-  .nav {
-    display: none;
+  .nav-area,
+  .desktop-actions {
+    display: none !important;
   }
 
-  .nav-area {
+  .nav {
     display: none;
   }
 
@@ -338,6 +565,7 @@ watch(
     display: none;
   }
 
+  .mobile-actions,
   .mobile-only {
     display: inline-flex;
   }
@@ -410,8 +638,27 @@ watch(
   border-bottom: 1px solid #f3f4f6;
 }
 
+.mobile-nav-button {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  color: inherit;
+  font-weight: 600;
+  padding: 6px 0;
+  border: none;
+  background: transparent;
+  border-bottom: 1px solid #f3f4f6;
+  cursor: pointer;
+}
+
 .mobile-nav-link:last-child {
   border-bottom: none;
+}
+
+.mobile-nav-button:hover {
+  background: #f4f4f5;
 }
 
 .mobile-cart-badge {

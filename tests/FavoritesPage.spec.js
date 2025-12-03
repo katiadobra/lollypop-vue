@@ -8,7 +8,8 @@ import { useCartStore } from '../src/stores/cart';
 import { useUiStore } from '../src/stores/ui';
 
 const ButtonStub = {
-  template: '<button @click="$emit(\'click\')"><slot /></button>',
+  // Provide the native event so Vue's @click.stop modifier can call stopPropagation.
+  template: '<button @click="$emit(\'click\', $event)"><slot /></button>',
 };
 const CardStub = { template: '<div><slot /></div>' };
 

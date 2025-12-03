@@ -6,13 +6,14 @@ import { useCartStore } from '../src/stores/cart';
 import { useProductsStore } from '../src/stores/products';
 
 const ButtonStub = {
-  template: '<button @click="$emit(\'click\')"><slot /></button>',
+  // Emit the native event so click modifiers on stubs don't break.
+  template: '<button @click="$emit(\'click\', $event)"><slot /></button>',
 };
 
 const CardStub = { template: '<div><slot /></div>' };
 const InputStub = { template: '<input />' };
-const SelectStub = { template: '<select><slot /></select>' };
-const DatePickerStub = { template: '<input />' };
+const SelectStub = { inheritAttrs: false, template: '<select><slot /></select>' };
+const DatePickerStub = { inheritAttrs: false, template: '<input />' };
 const CheckboxStub = { template: '<input type="checkbox" />' };
 const DividerStub = { template: '<hr />' };
 const AlertStub = { template: '<div><slot /></div>' };

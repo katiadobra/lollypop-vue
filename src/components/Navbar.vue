@@ -4,41 +4,10 @@
     <router-link to="/products">Products</router-link>
     <router-link to="/cart">Box</router-link>
 
-    <div class="auth-links">
-      <template v-if="user">
-        <span>Welcome, {{ user.displayName || user.email }}</span>
-        <button @click="logout">log out</button>
-      </template>
-      <template v-else>
-        <router-link to="/login">login</router-link>
-      </template>
-    </div>
   </nav>
 </template>
 
 <script setup>
-// import { ref, onMounted } from 'vue'
-// import { auth } from '../firebase'
-// import { onAuthStateChanged, signOut } from 'firebase/auth'
-// import { useRouter } from 'vue-router'
-
-// const user = ref(null)
-// const router = useRouter()
-
-
-// Automatic detection of logged user
-
-// onMounted(() => {
-//   onAuthStateChanged(auth, (currentUser) => {
-//     user.value = currentUser
-//   })
-// })
-
-// const logout = async () => {
-//   await signOut(auth)
-//   user.value = null
-//   router.push('/')
-// }
 </script>
 
 <style scoped>
@@ -58,21 +27,5 @@
 }
 .navbar a.router-link-active {
   color: #ff66b2;
-}
-.auth-links {
-  margin-left: auto;
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-}
-.auth-links button {
-  background-color: transparent;
-  border: none;
-  color: #ff66b2;
-  font-weight: bold;
-  cursor: pointer;
-}
-.auth-links button:hover {
-  text-decoration: underline;
 }
 </style>

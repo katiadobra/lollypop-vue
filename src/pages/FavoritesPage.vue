@@ -42,7 +42,7 @@
                 <n-button size="small" round color="#ff69b4" @click.stop="handleAddToCart(product)">
                   Add to cart
                 </n-button>
-                <n-button size="small" round tertiary @click.stop="toggleFavorite(product.id)">
+                <n-button size="small" round tertiary @click.stop="removeFavorite(product.id)">
                   Remove
                 </n-button>
               </n-space>
@@ -101,6 +101,10 @@ function isFavorite(productId) {
 function handleAddToCart(product) {
   cartStore.addItem(product.id, product.price);
   uiStore.openCartDrawer();
+}
+
+function removeFavorite(productId) {
+  favoritesStore.remove(productId);
 }
 </script>
 
