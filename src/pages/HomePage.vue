@@ -142,13 +142,15 @@
 
 <script setup>
 import { computed } from 'vue';
+import { branding } from '../config/branding';
 import { useProductsStore } from '../stores/products';
 
 const productsStore = useProductsStore();
+const deliveryArea = branding.deliveryArea;
 
 const highlightPills = [
   { label: 'Bake-to-order', value: 'Ready in 48h' },
-  { label: 'Local delivery', value: 'Berlin + Potsdam' },
+  { label: 'Local delivery', value: deliveryArea },
   { label: 'Flavor swaps', value: 'Vegan & gluten-light' },
 ];
 

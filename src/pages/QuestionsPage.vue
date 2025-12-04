@@ -16,6 +16,8 @@
 </template>
 
 <script setup>
+import { branding } from '../config/branding';
+
 const faqs = [
   {
     name: 'q1',
@@ -25,7 +27,7 @@ const faqs = [
   {
     name: 'q2',
     question: 'Do you offer delivery?',
-    answer: 'Yes—Berlin and Potsdam. We schedule a delivery window after checkout and confirm by email or phone.',
+    answer: `Yes—${branding.deliveryArea}. We schedule a delivery window after checkout and confirm by email or phone.`,
   },
   {
     name: 'q3',

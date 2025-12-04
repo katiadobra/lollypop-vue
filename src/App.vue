@@ -17,7 +17,7 @@
           </n-space>
         </div>
 
-        <RouterLink to="/" class="brand">ZUCKER.</RouterLink>
+        <RouterLink to="/" class="brand">{{ brand.name }}</RouterLink>
 
         <n-space align="center" size="small" class="header-actions">
           <n-button
@@ -114,15 +114,17 @@
 
     <div class="app-content">
       <main class="content-inner">
-        <Transition name="fade-slide" mode="out-in">
-          <RouterView />
-        </Transition>
+        <RouterView v-slot="{ Component }">
+          <Transition name="fade-slide" mode="out-in">
+            <component :is="Component" />
+          </Transition>
+        </RouterView>
       </main>
     </div>
 
     <footer class="app-footer">
       <div class="footer-inner">
-        <span>© ZUCKER. · einfach süß</span>
+        <span>© {{ brand.name }} · {{ brand.tagline }}</span>
         <div class="footer-links">
           <RouterLink to="/contact" class="footer-link">Contact Us</RouterLink>
           <RouterLink to="/impressum" class="footer-link">Impressum</RouterLink>
@@ -132,7 +134,7 @@
           <RouterLink to="/questions" class="footer-link">Q &amp; A</RouterLink>
         </div>
         <n-gradient-text :gradient="footerGradient" class="footer-credit">
-          <a href="https://github.com/katiadobra" class="footer-link">Made with ♥ in Berlin</a>
+          <a :href="brand.footerCredit.url" class="footer-link">{{ brand.footerCredit.text }}</a>
         </n-gradient-text>
       </div>
     </footer>
@@ -215,11 +217,13 @@ import { useRoute } from 'vue-router';
 import AnnouncementBar from './components/AnnouncementBar.vue';
 import CartDrawer from './components/CartDrawer.vue';
 import HeartIcon from './components/HeartIcon.vue';
+import { branding } from './config/branding';
 import { useCartStore } from './stores/cart';
 import { useFavoritesStore } from './stores/favorites';
 import { useProductsStore } from './stores/products';
 
 const footerGradient = 'linear-gradient(90deg, #ff80b5 0%, #9089fc 50%, #22d3ee 100%)';
+const brand = branding;
 
 const navLinks = [
   { label: 'All products', to: '/products' },
@@ -283,6 +287,10 @@ function openSearch() {
   nextTick(() => {
     if (searchInput.value) searchInput.value.focus();
   });
+}
+
+function openSearchFromMenu() {
+  openSearch();
 }
 
 function closeSearch() {
@@ -533,31 +541,24 @@ function formatType(type) {
 
 @media (max-width: 780px) {
   .header-inner {
-    display: flex;
+    grid-template-columns: 1fr auto 1fr;
     align-items: center;
-    justify-content: flex-end;
-    gap: 12px;
-    position: relative;
   }
 
   .brand {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
     font-size: 24px;
-    text-align: center;
+    justify-self: center;
   }
 
   .header-actions {
     gap: 8px;
   }
 
-  .nav-area,
-  .desktop-actions {
-    display: none !important;
+  .nav {
+    display: none;
   }
 
-  .nav {
+  .nav-area {
     display: none;
   }
 
@@ -565,7 +566,6 @@ function formatType(type) {
     display: none;
   }
 
-  .mobile-actions,
   .mobile-only {
     display: inline-flex;
   }

@@ -14,12 +14,8 @@ export const products = [
     allergens: ['Gluten', 'Eggs', 'Dairy'],
     quantities: [1],
     mainImage:
-      'https://i.pinimg.com/736x/b6/bd/30/b6bd306f4e5e1b5968fc9f2131ed6e57.jpg',
-    gallery: [
-      'https://images.unsplash.com/photo-1481391032119-d89fee407e44?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=1200&q=80',
-    ],
+      'https://i.pinimg.com/736x/ed/b4/2a/edb42a1391ab0199b6bb4bb2e81bd760.jpg',
+    gallery: [],
   },
   {
     id: 'cake-chocolate-dream',
@@ -34,12 +30,8 @@ export const products = [
     allergens: ['Gluten', 'Eggs', 'Dairy'],
     quantities: [1],
     mainImage:
-      'https://i.pinimg.com/1200x/06/ba/39/06ba39d8920a506a43e85d5ed016e3f7.jpg',
-    gallery: [
-      'https://images.unsplash.com/photo-1542831371-29b0f74f9713?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1601972599720-36938d4ecd33?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1542826438-bd32f43d6260?auto=format&fit=crop&w=1200&q=80',
-    ],
+      'https://i.pinimg.com/1200x/5f/5a/84/5f5a849c66164eb6f5b700729aac8565.jpg',
+    gallery: [],
   },
 
   // CINNAMON ROLLS
@@ -77,11 +69,7 @@ export const products = [
     quantities: [1, 4, 6, 12],
     mainImage:
       'https://github.com/katiadobra/lollypop-vue/blob/main/public/roll_red.png?raw=true',
-    gallery: [
-      'https://images.unsplash.com/photo-1587248720329-1e9d61d46c07?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1576186726118-55f65be79f82?auto=format&fit=crop&w=1200&q=80',
-    ],
+    gallery: [],
   },
 
   // TARTS
@@ -115,11 +103,7 @@ export const products = [
     quantities: [1, 4, 6],
     mainImage:
       'https://i.pinimg.com/1200x/86/3f/25/863f2555713b3e45bb2add9fc927067c.jpg',
-    gallery: [
-      'https://i.pinimg.com/1200x/2c/d6/0e/2cd60ebf0efef6e220b741f9f5f73ca0.jpg',
-      'https://i.pinimg.com/736x/39/54/44/395444fc5b82aa07700bd7f8f33b758a.jpg',
-      'https://i.pinimg.com/1200x/cf/9c/09/cf9c09a51ecf4212d24e08f053b73afb.jpg',
-    ],
+    gallery: [],
   },
   // CUPCAKES
   {

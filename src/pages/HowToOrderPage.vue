@@ -43,6 +43,8 @@
 </template>
 
 <script setup>
+import { branding } from '../config/branding';
+
 const steps = [
   {
     step: '01',
@@ -54,7 +56,7 @@ const steps = [
     step: '02',
     title: 'Set delivery or pickup',
     copy: 'Choose your date and share any venue or timing notes in the cart.',
-    meta: 'We deliver across Berlin + Potsdam; pickups are welcome from the kitchen.',
+    meta: `We deliver across ${branding.deliveryArea}; pickups are welcome from the kitchen.`,
   },
   {
     step: '03',
