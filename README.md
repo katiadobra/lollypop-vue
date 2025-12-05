@@ -56,3 +56,10 @@ Environment:
 
 Feel free to fork, suggest improvements, or open an issue!
 Happy coding! 🚀🍬
+
+---
+
+# Governance
+
+- License: [MIT](LICENSE)
+- Contributions: see [CONTRIBUTING.md](CONTRIBUTING.md)

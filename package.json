@@ -10,12 +10,12 @@
     "test": "vitest --environment jsdom"
   },
   "dependencies": {
-    "@aws-sdk/client-ses": "^3.744.0",
-    "@motionone/vue": "^10.16.4",
-    "naive-ui": "^2.43.2",
-    "pinia": "^3.0.4",
-    "vue": "^3.5.13",
-    "vue-router": "^4.6.3"
+    "@aws-sdk/client-ses": "3.744.0",
+    "@motionone/vue": "10.16.4",
+    "naive-ui": "2.43.2",
+    "pinia": "3.0.4",
+    "vue": "3.5.13",
+    "vue-router": "4.6.3"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^5.2.3",

@@ -1,41 +1,22 @@
 // src/router/index.js
 import { createRouter, createWebHistory } from 'vue-router'
-import Home from '../pages/HomePage.vue'
-import Products from '../pages/ProductsPage.vue'
-import Cart from '../pages/CartPage.vue'
-import ProductDetail from '../pages/ProductDetailPage.vue'
-import Favorites from '../pages/FavoritesPage.vue'
-// import Login from '../pages/Register.vue'
-import Contact from '../pages/ContactPage.vue'
-import HowToOrder from '../pages/HowToOrderPage.vue'
-import TermsOfUse from '../pages/TermsOfUsePage.vue'
-import TermsConditions from '../pages/TermsConditionsPage.vue'
-import PrivacyPolicy from '../pages/PrivacyPolicyPage.vue'
-import Impressum from '../pages/ImpressumPage.vue'
-import Questions from '../pages/QuestionsPage.vue'
-import Ingredients from '../pages/IngredientsPage.vue'
-import Flavor from '../pages/FlavorPage.vue'
-import Care from '../pages/CarePage.vue'
-import NotFound from '../pages/NotFoundPage.vue'
-
-
 const routes = [
-  { path: '/', component: Home },
-  { path: '/products', component: Products },
-  { path: '/product/:id', component: ProductDetail },
-  { path: '/favorites', component: Favorites },
-  { path: '/cart', component: Cart },
-  { path: '/contact', component: Contact },
-  { path: '/impressum', component: Impressum },
-  { path: '/how-to-order', component: HowToOrder },
-  { path: '/questions', component: Questions },
-  { path: '/ingredients', component: Ingredients },
-  { path: '/flavors', component: Flavor },
-  { path: '/care', component: Care },
-  { path: '/pages/terms-conditions', component: TermsConditions },
-  { path: '/pages/terms-of-use', component: TermsOfUse },
-  { path: '/pages/privacy-policy', component: PrivacyPolicy },
-  { path: '/:pathMatch(.*)*', component: NotFound },
+  { path: '/', component: () => import('../pages/HomePage.vue') },
+  { path: '/products', component: () => import('../pages/ProductsPage.vue') },
+  { path: '/product/:id', component: () => import('../pages/ProductDetailPage.vue') },
+  { path: '/favorites', component: () => import('../pages/FavoritesPage.vue') },
+  { path: '/cart', component: () => import('../pages/CartPage.vue') },
+  { path: '/contact', component: () => import('../pages/ContactPage.vue') },
+  { path: '/impressum', component: () => import('../pages/ImpressumPage.vue') },
+  { path: '/how-to-order', component: () => import('../pages/HowToOrderPage.vue') },
+  { path: '/questions', component: () => import('../pages/QuestionsPage.vue') },
+  { path: '/ingredients', component: () => import('../pages/IngredientsPage.vue') },
+  { path: '/flavors', component: () => import('../pages/FlavorPage.vue') },
+  { path: '/care', component: () => import('../pages/CarePage.vue') },
+  { path: '/pages/terms-conditions', component: () => import('../pages/TermsConditionsPage.vue') },
+  { path: '/pages/terms-of-use', component: () => import('../pages/TermsOfUsePage.vue') },
+  { path: '/pages/privacy-policy', component: () => import('../pages/PrivacyPolicyPage.vue') },
+  { path: '/:pathMatch(.*)*', component: () => import('../pages/NotFoundPage.vue') },
 ]
 
 // Prevent the browser from restoring scroll on reload/back so the page always starts at the top.
