@@ -66,6 +66,7 @@
 
 <script setup>
 import { computed } from 'vue';
+import { NButton, NCard, NGrid, NGridItem, NSpace } from 'naive-ui';
 import { useFavoritesStore } from '../stores/favorites';
 import { useProductsStore } from '../stores/products';
 import { useCartStore } from '../stores/cart';

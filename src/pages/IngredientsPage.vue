@@ -21,6 +21,8 @@
 </template>
 
 <script setup>
+import { NCard, NCollapse, NCollapseItem } from 'naive-ui';
+
 const sections = [
   {
     name: 'allergens',

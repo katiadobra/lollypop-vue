@@ -27,6 +27,8 @@
 </template>
 
 <script setup>
+import { NCard, NGradientText } from 'naive-ui';
+
 const products = [
   {
     product: 'cake',

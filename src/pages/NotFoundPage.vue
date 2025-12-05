@@ -16,6 +16,10 @@
   </n-result>
 </template>
 
+<script setup>
+import { NButton, NResult } from 'naive-ui';
+</script>
+
 <style scoped>
 .result-icon {
   font-size: 48px;

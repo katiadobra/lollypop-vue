@@ -57,6 +57,7 @@
 
 <script setup>
 import { reactive, computed } from 'vue';
+import { NButton, NCard, NCheckbox, NForm, NFormItem, NInput, NSelect } from 'naive-ui';
 
 const form = reactive({
   name: '',

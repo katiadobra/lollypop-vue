@@ -151,6 +151,16 @@
 
 <script setup>
 import { computed, ref, onMounted, watch } from 'vue';
+import {
+  NAlert,
+  NButton,
+  NCard,
+  NCheckbox,
+  NDatePicker,
+  NDivider,
+  NInput,
+  NSelect,
+} from 'naive-ui';
 import { useCartStore } from '../stores/cart';
 import { useProductsStore } from '../stores/products';
 

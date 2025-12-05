@@ -44,6 +44,7 @@
 
 <script setup>
 import { branding } from '../config/branding';
+import { NButton, NCard, NGrid, NGridItem, NSpace } from 'naive-ui';
 
 const steps = [
   {

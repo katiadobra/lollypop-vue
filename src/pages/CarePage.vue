@@ -22,6 +22,8 @@
 </template>
 
 <script setup>
+import { NCard, NGradientText } from 'naive-ui';
+
 const sections = [
   {
     name: 'cake',

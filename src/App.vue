@@ -214,6 +214,7 @@
 <script setup>
 import { computed, nextTick, ref, watch } from 'vue';
 import { useRoute } from 'vue-router';
+import { NButton, NSpace, NDrawer, NDrawerContent, NInput, NGradientText } from 'naive-ui';
 import AnnouncementBar from './components/AnnouncementBar.vue';
 import CartDrawer from './components/CartDrawer.vue';
 import HeartIcon from './components/HeartIcon.vue';

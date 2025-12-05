@@ -147,6 +147,7 @@
 
 <script setup>
 import { computed, ref, watch } from 'vue';
+import { NButton, NSelect, NTag } from 'naive-ui';
 import { useRoute } from 'vue-router';
 import { useProductsStore } from '../stores/products';
 import { useCartStore } from '../stores/cart';

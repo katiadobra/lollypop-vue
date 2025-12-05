@@ -17,6 +17,7 @@
 
 <script setup>
 import { branding } from '../config/branding';
+import { NCard, NCollapse, NCollapseItem } from 'naive-ui';
 
 const faqs = [
   {

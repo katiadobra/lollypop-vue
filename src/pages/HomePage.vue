@@ -142,6 +142,7 @@
 
 <script setup>
 import { computed } from 'vue';
+import { NButton, NCard, NDivider, NGradientText, NGrid, NGridItem, NSpace, NTag } from 'naive-ui';
 import { branding } from '../config/branding';
 import { useProductsStore } from '../stores/products';
 

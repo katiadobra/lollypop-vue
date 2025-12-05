@@ -8,6 +8,7 @@
 
 <script setup>
 import { computed } from 'vue';
+import { NAlert } from 'naive-ui';
 import { announcements } from '../data/announcements';
 
 function asDate(input) {

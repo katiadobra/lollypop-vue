@@ -45,6 +45,7 @@
 
 <script setup>
 import { computed } from 'vue';
+import { NButton, NDrawer, NDrawerContent } from 'naive-ui';
 import { useCartStore } from '../stores/cart';
 import { useProductsStore } from '../stores/products';
 import { useUiStore } from '../stores/ui';

@@ -38,6 +38,7 @@
 
 <script setup>
 import { computed, onBeforeUnmount, onMounted, ref } from 'vue';
+import { NCard, NCarousel, NCarouselItem } from 'naive-ui';
 import { useProductsStore } from '../stores/products';
 
 const props = defineProps({
