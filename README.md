@@ -30,8 +30,10 @@ npm run dev
 
 Environment:
 
-* Optional: Netlify function `netlify/functions/send-preorder.js` uses AWS SES and expects `EMAIL_FROM`, `EMAIL_TO`, `SES_REGION`.
-* No Firebase/Auth configuration is required (all data is static).
+* Copy `.env.example` to `.env` and fill in your own keys:
+  * `EMAIL_FROM`, `EMAIL_TO`, `SES_REGION` for the Netlify function `netlify/functions/send-preorder.js` (preorder emails).
+  * Optional Firebase `VITE_FIREBASE_*` keys if you wire this up to your own project (current data is static).
+* No Firebase/Auth configuration is required for local demo (all data is static).
 
 ---
 
