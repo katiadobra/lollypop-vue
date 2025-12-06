@@ -2,9 +2,7 @@
   <section class="flavors">
     <header class="flavors-header">
       <h1>FLAVOR PALETTE</h1>
-      <p class="lead">
-        Explore our core flavor notes for cakes, cupcakes, creams, and fillings.
-      </p>
+      <p class="lead">Explore our core flavor notes for cakes, cupcakes, creams, and fillings.</p>
       <p class="lead">
         Looking for a custom combo? Tell us your dream flavor and we'll help pair it.
       </p>

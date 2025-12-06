@@ -3,12 +3,10 @@
     <router-link to="/">Home</router-link>
     <router-link to="/products">Products</router-link>
     <router-link to="/cart">Box</router-link>
-
   </nav>
 </template>
 
-<script setup>
-</script>
+<script setup></script>
 
 <style scoped>
 .navbar {

@@ -22,7 +22,12 @@
                 :style="!product.mainImage ? placeholderStyle(product.id) : undefined"
                 :class="{ 'with-image': !!product.mainImage }"
               >
-                <img v-if="product.mainImage" :src="product.mainImage" :alt="`${product.name} photo`" loading="lazy" />
+                <img
+                  v-if="product.mainImage"
+                  :src="product.mainImage"
+                  :alt="`${product.name} photo`"
+                  loading="lazy"
+                />
                 <span v-else class="product-initial">{{ product.name.charAt(0) }}</span>
               </div>
               <div class="product-title">{{ product.name }}</div>
@@ -64,7 +69,8 @@ const productsStore = useProductsStore();
 const placeholderPalette = ['#ffe5ef', '#e0f2fe', '#ecfdf3', '#fff7ed', '#ede9fe', '#fdf2f8'];
 
 const items = computed(() => {
-  const source = props.products && props.products.length ? props.products : productsStore.allProducts;
+  const source =
+    props.products && props.products.length ? props.products : productsStore.allProducts;
   return source.slice(0, props.limit);
 });
 
@@ -93,7 +99,9 @@ onBeforeUnmount(() => {
 });
 
 function placeholderStyle(id) {
-  const index = Math.abs(id.split('').reduce((sum, ch) => sum + ch.charCodeAt(0), 0)) % placeholderPalette.length;
+  const index =
+    Math.abs(id.split('').reduce((sum, ch) => sum + ch.charCodeAt(0), 0)) %
+    placeholderPalette.length;
   return { background: placeholderPalette[index] };
 }
 </script>

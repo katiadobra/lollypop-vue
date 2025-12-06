@@ -4,7 +4,7 @@
 // {
 //   id: string (product id)
 //   variantId: string | null (variant id , e.g. '1kg', 'vegan' or null)
-//   quantity: number 
+//   quantity: number
 //   unitPrice: number (snapshot of price at the moment of adding to cart)
 // }
 
@@ -53,10 +53,7 @@ export const useCartStore = defineStore('cart', {
       return state.items.reduce((sum, item) => sum + item.quantity, 0);
     },
     cartTotal(state) {
-      return state.items.reduce(
-        (sum, item) => sum + item.quantity * item.unitPrice,
-        0
-      );
+      return state.items.reduce((sum, item) => sum + item.quantity * item.unitPrice, 0);
     },
     hasItems(state) {
       return state.items.length > 0;

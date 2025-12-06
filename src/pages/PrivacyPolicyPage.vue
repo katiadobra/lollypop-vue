@@ -6,12 +6,18 @@
 
     <div class="policy-block">
       <h2>What we collect</h2>
-      <p>Contact details, order details, and delivery information you provide when placing an order or inquiry.</p>
+      <p>
+        Contact details, order details, and delivery information you provide when placing an order
+        or inquiry.
+      </p>
     </div>
 
     <div class="policy-block">
       <h2>Why we use it</h2>
-      <p>To process orders, communicate about your bakes, and improve our service. We do not sell your data.</p>
+      <p>
+        To process orders, communicate about your bakes, and improve our service. We do not sell
+        your data.
+      </p>
     </div>
 
     <div class="policy-block">
@@ -21,7 +27,10 @@
 
     <div class="policy-block">
       <h2>Your rights</h2>
-      <p>You can request access, correction, or deletion of your data at any time by contacting the bakery.</p>
+      <p>
+        You can request access, correction, or deletion of your data at any time by contacting the
+        bakery.
+      </p>
     </div>
   </section>
 </template>

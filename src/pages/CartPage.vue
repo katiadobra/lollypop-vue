@@ -9,19 +9,21 @@
       <div class="cart-items">
         <n-card v-for="item in cartItems" :key="item.key" :bordered="false" class="cart-card">
           <div class="row">
-          <div class="thumb" :style="!item.image ? placeholderStyle(item.id) : undefined">
-            <img v-if="item.image" :src="item.image" :alt="`${item.name} photo`" loading="lazy" />
-            <span v-else class="thumb-initial">{{ item.name.charAt(0) }}</span>
-          </div>
-          <div class="info">
-            <h3 class="item-title">
-              <RouterLink :to="`/product/${item.id}`" class="item-link">{{ item.name }}</RouterLink>
-            </h3>
-            <p class="meta" v-if="item.boxSize || item.flavor">
-              <span v-if="item.boxSize">Size: {{ item.boxSize }} pcs</span>
-              <span v-if="item.flavor">Flavor: {{ item.flavor }}</span>
-            </p>
-          </div>
+            <div class="thumb" :style="!item.image ? placeholderStyle(item.id) : undefined">
+              <img v-if="item.image" :src="item.image" :alt="`${item.name} photo`" loading="lazy" />
+              <span v-else class="thumb-initial">{{ item.name.charAt(0) }}</span>
+            </div>
+            <div class="info">
+              <h3 class="item-title">
+                <RouterLink :to="`/product/${item.id}`" class="item-link">{{
+                  item.name
+                }}</RouterLink>
+              </h3>
+              <p class="meta" v-if="item.boxSize || item.flavor">
+                <span v-if="item.boxSize">Size: {{ item.boxSize }} pcs</span>
+                <span v-if="item.flavor">Flavor: {{ item.flavor }}</span>
+              </p>
+            </div>
 
             <div class="price">
               <span class="label">Price</span>
@@ -43,7 +45,14 @@
             </div>
 
             <div class="remove">
-              <button class="remove-icon" type="button" @click="removeItem(item)" aria-label="Remove item">✕</button>
+              <button
+                class="remove-icon"
+                type="button"
+                @click="removeItem(item)"
+                aria-label="Remove item"
+              >
+                ✕
+              </button>
             </div>
           </div>
         </n-card>
@@ -99,7 +108,11 @@
               <n-input v-model:value="contactName" placeholder="Full name" />
               <n-input v-model:value="contactEmail" placeholder="Email" type="email" />
               <n-input v-model:value="contactPhone" placeholder="Phone" />
-              <n-input v-model:value="contactNotes" type="textarea" placeholder="Notes (delivery, dietary, etc.)" />
+              <n-input
+                v-model:value="contactNotes"
+                type="textarea"
+                placeholder="Notes (delivery, dietary, etc.)"
+              />
             </div>
           </div>
 
@@ -182,7 +195,9 @@ const contactName = ref('');
 const contactEmail = ref('');
 const contactPhone = ref('');
 const contactNotes = ref('');
-const canSubmit = computed(() => Boolean(agreeTerms.value && selectedDate.value && isContactValid.value));
+const canSubmit = computed(() =>
+  Boolean(agreeTerms.value && selectedDate.value && isContactValid.value),
+);
 const timeOptions = computed(() => buildTimeOptions(9, 18, 30));
 const isContactValid = computed(() => {
   return !!(contactName.value.trim() && isEmailValid(contactEmail.value));
@@ -248,7 +263,8 @@ const subtotal = computed(() => cartStore.cartTotal);
 
 function placeholderStyle(id) {
   const palette = ['#ffe5ef', '#e0f2fe', '#ecfdf3', '#fff7ed', '#ede9fe', '#fdf2f8'];
-  const index = Math.abs(id.split('').reduce((sum, ch) => sum + ch.charCodeAt(0), 0)) % palette.length;
+  const index =
+    Math.abs(id.split('').reduce((sum, ch) => sum + ch.charCodeAt(0), 0)) % palette.length;
   return { background: palette[index] };
 }
 
@@ -379,17 +395,19 @@ async function submitPreorder() {
   display: grid;
   grid-template-columns: 56px 1fr 40px;
   grid-template-areas:
-    "thumb info remove"
-    "thumb price remove"
-    "thumb qty remove"
-    "thumb total remove";
+    'thumb info remove'
+    'thumb price remove'
+    'thumb qty remove'
+    'thumb total remove';
   gap: 8px;
   align-items: start;
   border-bottom: 1px solid #f3f4f6;
   padding-bottom: 10px;
 }
 
-.price, .qty, .total {
+.price,
+.qty,
+.total {
   display: flex;
   flex-direction: column;
   gap: 4px;
@@ -553,7 +571,6 @@ async function submitPreorder() {
   display: none;
 }
 
-
 /* hide the old mobile remove text and use the icon placed in its own column */
 .mobile-qty .remove-text {
   display: none;
@@ -571,12 +588,24 @@ async function submitPreorder() {
 }
 
 /* grid area assignments */
-.thumb { grid-area: thumb; }
-.info { grid-area: info; }
-.price { grid-area: price; }
-.qty { grid-area: qty; }
-.total { grid-area: total; }
-.remove { grid-area: remove; }
+.thumb {
+  grid-area: thumb;
+}
+.info {
+  grid-area: info;
+}
+.price {
+  grid-area: price;
+}
+.qty {
+  grid-area: qty;
+}
+.total {
+  grid-area: total;
+}
+.remove {
+  grid-area: remove;
+}
 
 .desktop-only {
   display: none;
@@ -598,7 +627,7 @@ async function submitPreorder() {
 @media (min-width: 900px) {
   .row {
     grid-template-columns: 96px 1.4fr 0.8fr 0.8fr 0.4fr 40px;
-    grid-template-areas: "thumb info price qty total remove";
+    grid-template-areas: 'thumb info price qty total remove';
     gap: 18px;
     align-items: center;
     border-bottom: 1px solid #f3f4f6;
@@ -627,7 +656,9 @@ async function submitPreorder() {
   }
 
   /* on desktop keep labels above values in their columns */
-  .price, .qty, .total {
+  .price,
+  .qty,
+  .total {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -657,7 +688,7 @@ async function submitPreorder() {
 @media (min-width: 720px) and (max-width: 899px) {
   .row {
     grid-template-columns: 80px 1.2fr 0.8fr 0.7fr 0.3fr 40px;
-    grid-template-areas: "thumb info price qty total remove";
+    grid-template-areas: 'thumb info price qty total remove';
     gap: 14px;
     align-items: center;
     padding-bottom: 12px;
@@ -680,7 +711,9 @@ async function submitPreorder() {
     display: none;
   }
 
-  .price, .qty, .total {
+  .price,
+  .qty,
+  .total {
     align-items: center;
     flex-direction: column;
     gap: 6px;

@@ -6,22 +6,34 @@
 
     <div class="terms-block">
       <h2>Orders &amp; lead times</h2>
-      <p>Most items are baked to order. Please allow at least 48 hours for standard cakes and 72 hours for large or custom designs.</p>
+      <p>
+        Most items are baked to order. Please allow at least 48 hours for standard cakes and 72
+        hours for large or custom designs.
+      </p>
     </div>
 
     <div class="terms-block">
       <h2>Payments</h2>
-      <p>Invoices are issued once we confirm availability. Orders are confirmed after payment is received.</p>
+      <p>
+        Invoices are issued once we confirm availability. Orders are confirmed after payment is
+        received.
+      </p>
     </div>
 
     <div class="terms-block">
       <h2>Changes &amp; cancellations</h2>
-      <p>Edits are possible up to 48 hours before your scheduled pickup or delivery. After that, costs may have already been incurred.</p>
+      <p>
+        Edits are possible up to 48 hours before your scheduled pickup or delivery. After that,
+        costs may have already been incurred.
+      </p>
     </div>
 
     <div class="terms-block">
       <h2>Allergies</h2>
-      <p>We operate in a kitchen that handles gluten, dairy, eggs, and nuts. We take care, but cannot guarantee absence of traces.</p>
+      <p>
+        We operate in a kitchen that handles gluten, dairy, eggs, and nuts. We take care, but cannot
+        guarantee absence of traces.
+      </p>
     </div>
   </section>
 </template>

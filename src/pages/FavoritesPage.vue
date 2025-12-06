@@ -79,15 +79,15 @@ const cartStore = useCartStore();
 const uiStore = useUiStore();
 
 const favoriteProducts = computed(() =>
-  favoritesStore.allIds
-    .map((id) => productsStore.getById(id))
-    .filter((product) => !!product),
+  favoritesStore.allIds.map((id) => productsStore.getById(id)).filter((product) => !!product),
 );
 
 const placeholderPalette = ['#ffe5ef', '#e0f2fe', '#ecfdf3', '#fff7ed', '#ede9fe', '#fdf2f8'];
 
 function placeholderStyle(id) {
-  const index = Math.abs(id.split('').reduce((sum, ch) => sum + ch.charCodeAt(0), 0)) % placeholderPalette.length;
+  const index =
+    Math.abs(id.split('').reduce((sum, ch) => sum + ch.charCodeAt(0), 0)) %
+    placeholderPalette.length;
   return { background: placeholderPalette[index] };
 }
 

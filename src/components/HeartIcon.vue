@@ -72,7 +72,10 @@ onBeforeUnmount(() => {
 
 <style scoped>
 svg {
-  transition: transform 160ms ease, stroke 160ms ease, fill 160ms ease;
+  transition:
+    transform 160ms ease,
+    stroke 160ms ease,
+    fill 160ms ease;
 }
 
 svg.is-popping {

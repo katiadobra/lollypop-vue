@@ -39,14 +39,23 @@
         <div class="consent-row">
           <n-checkbox v-model:checked="form.agree">
             I agree to
-            <a href="/pages/terms-conditions" title="TERMS &amp; CONDITIONS">Terms &amp; Conditions</a>
+            <a href="/pages/terms-conditions" title="TERMS &amp; CONDITIONS"
+              >Terms &amp; Conditions</a
+            >
             and
             <a href="/pages/privacy-policy" title="Privacy Policy">Privacy Policy</a>
           </n-checkbox>
         </div>
 
         <div class="actions">
-          <n-button type="primary" color="#ff69b4" round size="large" :disabled="!canSubmit" attr-type="submit">
+          <n-button
+            type="primary"
+            color="#ff69b4"
+            round
+            size="large"
+            :disabled="!canSubmit"
+            attr-type="submit"
+          >
             Send message
           </n-button>
         </div>
@@ -141,4 +150,3 @@ function handleSubmit() {
   }
 }
 </style>
-  

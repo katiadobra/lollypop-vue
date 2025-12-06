@@ -77,7 +77,9 @@
           </div>
 
           <div v-if="boxQuantityOptions.length" class="select-group">
-            <label class="select-label" :for="`box-quantity-select-${product.id}`">Available quantities</label>
+            <label class="select-label" :for="`box-quantity-select-${product.id}`"
+              >Available quantities</label
+            >
             <n-select
               :id="`box-quantity-select-${product.id}`"
               v-model:value="selectedBoxQuantity"
@@ -109,21 +111,16 @@
             <div class="info-panel warning">
               <h3>Allergens &amp; cross-contact</h3>
               <p class="allergen-note">
-                We handle gluten, eggs, dairy, and tree nuts in the same kitchen. We prevent cross-contact as much
-                as possible, but trace amounts may remain. For severe allergies, please contact us before ordering.
+                We handle gluten, eggs, dairy, and tree nuts in the same kitchen. We prevent
+                cross-contact as much as possible, but trace amounts may remain. For severe
+                allergies, please contact us before ordering.
               </p>
             </div>
 
             <div v-if="allergens.length" class="info-panel">
               <h3>Allergens</h3>
               <div class="tag-row">
-                <n-tag
-                  v-for="item in allergens"
-                  :key="item"
-                  size="small"
-                  round
-                  type="warning"
-                >
+                <n-tag v-for="item in allergens" :key="item" size="small" round type="warning">
                   {{ item }}
                 </n-tag>
               </div>
@@ -141,7 +138,11 @@
       </RouterLink>
     </div>
 
-    <RecommendedProducts :limit="2" title="You may also like" subtitle="Pairs well with what you picked" />
+    <RecommendedProducts
+      :limit="2"
+      title="You may also like"
+      subtitle="Pairs well with what you picked"
+    />
   </section>
 </template>
 
@@ -172,9 +173,11 @@ const quantity = ref(1);
 const infoEntries = computed(() => {
   if (!product.value) return [];
   const entries = [];
-  if (product.value.servings) entries.push({ label: 'Servings', value: `${product.value.servings} people` });
+  if (product.value.servings)
+    entries.push({ label: 'Servings', value: `${product.value.servings} people` });
   if (product.value.weight) entries.push({ label: 'Weight', value: `${product.value.weight} g` });
-  if (product.value.ingredients) entries.push({ label: 'Ingredients', value: product.value.ingredients });
+  if (product.value.ingredients)
+    entries.push({ label: 'Ingredients', value: product.value.ingredients });
   return entries;
 });
 
@@ -182,7 +185,9 @@ const galleryImages = computed(() => (product.value?.gallery ? product.value.gal
 const flavors = computed(() => product.value?.flavors || []);
 const allergens = computed(() => product.value?.allergens || []);
 const quantities = computed(() => product.value?.quantities || []);
-const flavorOptions = computed(() => flavors.value.map((flavor) => ({ label: flavor, value: flavor })));
+const flavorOptions = computed(() =>
+  flavors.value.map((flavor) => ({ label: flavor, value: flavor })),
+);
 const selectedFlavor = ref('');
 const needsBoxQuantitySelect = computed(() => {
   const type = (product.value?.type || '').toLowerCase();
@@ -218,7 +223,9 @@ const boxSize = computed(() => {
 
 const formattedPrice = computed(() => {
   if (!product.value) return '';
-  return new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' }).format(product.value.price);
+  return new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' }).format(
+    product.value.price,
+  );
 });
 
 const formattedTotal = computed(() => {
@@ -232,7 +239,7 @@ watch(
   (newFlavors) => {
     selectedFlavor.value = newFlavors.length ? newFlavors[0] : '';
   },
-  { immediate: true }
+  { immediate: true },
 );
 
 watch(
@@ -240,7 +247,7 @@ watch(
   (newOptions) => {
     selectedBoxQuantity.value = newOptions.length ? newOptions[0].quantity : null;
   },
-  { immediate: true }
+  { immediate: true },
 );
 
 function formatType(type) {
@@ -251,7 +258,9 @@ function formatType(type) {
 }
 
 function placeholderStyle(id) {
-  const index = Math.abs(id.split('').reduce((sum, ch) => sum + ch.charCodeAt(0), 0)) % placeholderPalette.length;
+  const index =
+    Math.abs(id.split('').reduce((sum, ch) => sum + ch.charCodeAt(0), 0)) %
+    placeholderPalette.length;
   return { background: placeholderPalette[index] };
 }
 
@@ -272,7 +281,8 @@ function addCurrentToCart() {
   if (!product.value) return;
   const variantParts = [];
   if (flavorOptions.value.length) variantParts.push(`flavor:${selectedFlavor.value}`);
-  if (boxQuantityOptions.value.length && selectedBoxQuantity.value) variantParts.push(`box:${selectedBoxQuantity.value}`);
+  if (boxQuantityOptions.value.length && selectedBoxQuantity.value)
+    variantParts.push(`box:${selectedBoxQuantity.value}`);
   const variantId = variantParts.length ? variantParts.join('|') : null;
   cartStore.addItem(product.value.id, product.value.price, {
     quantity: quantity.value,

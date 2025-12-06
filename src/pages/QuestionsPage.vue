@@ -7,7 +7,12 @@
 
     <n-card :bordered="false" class="qa-card">
       <n-collapse default-expanded-names="q1">
-        <n-collapse-item v-for="item in faqs" :key="item.name" :title="item.question" :name="item.name">
+        <n-collapse-item
+          v-for="item in faqs"
+          :key="item.name"
+          :title="item.question"
+          :name="item.name"
+        >
           <p class="answer">{{ item.answer }}</p>
         </n-collapse-item>
       </n-collapse>
@@ -23,7 +28,8 @@ const faqs = [
   {
     name: 'q1',
     question: 'How far in advance should I place an order?',
-    answer: 'For standard items, 48 hours is ideal. For custom decor or larger quantities, please allow 4–5 days so we can confirm ingredients and timing.',
+    answer:
+      'For standard items, 48 hours is ideal. For custom decor or larger quantities, please allow 4–5 days so we can confirm ingredients and timing.',
   },
   {
     name: 'q2',
@@ -33,17 +39,20 @@ const faqs = [
   {
     name: 'q3',
     question: 'Can I request dietary tweaks?',
-    answer: 'We offer select vegan and gluten-light options. Share your needs at checkout and we will confirm what is possible for your chosen items.',
+    answer:
+      'We offer select vegan and gluten-light options. Share your needs at checkout and we will confirm what is possible for your chosen items.',
   },
   {
     name: 'q4',
     question: 'What if I need a specific serving count?',
-    answer: 'Most items list servings; for cupcakes and cookies you can pick box sizes. If you need an exact count, add it in the notes and we will match the closest pack size.',
+    answer:
+      'Most items list servings; for cupcakes and cookies you can pick box sizes. If you need an exact count, add it in the notes and we will match the closest pack size.',
   },
   {
     name: 'q5',
     question: 'How do I store the bakes?',
-    answer: 'Cakes and tarts are best chilled and brought to room temp 30 minutes before serving. Rolls and cookies can be kept in an airtight box at room temp for 1–2 days.',
+    answer:
+      'Cakes and tarts are best chilled and brought to room temp 30 minutes before serving. Rolls and cookies can be kept in an airtight box at room temp for 1–2 days.',
   },
 ];
 </script>

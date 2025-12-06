@@ -29,17 +29,32 @@ const sections = [
     name: 'cake',
     product: 'cake',
     details: [
-      { title: 'Storage', copy: 'Keep chilled (4°C). Remove from the fridge 30–40 minutes before serving so creams soften.' },
-      { title: 'Transport', copy: 'Carry level and avoid direct sun. If traveling longer than 30 minutes, use a cool bag.' },
-      { title: 'Shelf life', copy: 'Best within 24 hours. Fruit or cream-heavy cakes should be eaten same day.' },
+      {
+        title: 'Storage',
+        copy: 'Keep chilled (4°C). Remove from the fridge 30–40 minutes before serving so creams soften.',
+      },
+      {
+        title: 'Transport',
+        copy: 'Carry level and avoid direct sun. If traveling longer than 30 minutes, use a cool bag.',
+      },
+      {
+        title: 'Shelf life',
+        copy: 'Best within 24 hours. Fruit or cream-heavy cakes should be eaten same day.',
+      },
     ],
   },
   {
     name: 'cupcake',
     product: 'cupcake',
     details: [
-      { title: 'Storage', copy: 'Keep in an airtight box at room temp for up to 24 hours, or chilled for buttercream stability.' },
-      { title: 'Serving', copy: 'Let chilled cupcakes sit 15 minutes before serving so the frosting softens.' },
+      {
+        title: 'Storage',
+        copy: 'Keep in an airtight box at room temp for up to 24 hours, or chilled for buttercream stability.',
+      },
+      {
+        title: 'Serving',
+        copy: 'Let chilled cupcakes sit 15 minutes before serving so the frosting softens.',
+      },
       { title: 'Shelf life', copy: 'Best day-of. Frosted cupcakes are freshest within 24 hours.' },
     ],
   },
@@ -47,8 +62,14 @@ const sections = [
     name: 'rolls',
     product: 'cinnamon rolls',
     details: [
-      { title: 'Storage', copy: 'Keep at room temp in an airtight box. Avoid the fridge to prevent staling.' },
-      { title: 'Reheat', copy: 'Warm at 150°C for 5–7 minutes to refresh softness. Enjoy right after reheating.' },
+      {
+        title: 'Storage',
+        copy: 'Keep at room temp in an airtight box. Avoid the fridge to prevent staling.',
+      },
+      {
+        title: 'Reheat',
+        copy: 'Warm at 150°C for 5–7 minutes to refresh softness. Enjoy right after reheating.',
+      },
       { title: 'Shelf life', copy: 'Best within 1–2 days; fresher is softer.' },
     ],
   },
@@ -57,7 +78,10 @@ const sections = [
     product: 'choux',
     details: [
       { title: 'Storage', copy: 'Keep in the fridge at 4°C. Do not freeze.' },
-      { title: 'Serving', copy: 'Bring to room temp 10–15 minutes before serving so the filling softens.' },
+      {
+        title: 'Serving',
+        copy: 'Bring to room temp 10–15 minutes before serving so the filling softens.',
+      },
       { title: 'Shelf life', copy: 'Enjoy the same day you pick them up for best texture.' },
     ],
   },
@@ -65,9 +89,18 @@ const sections = [
     name: 'tart',
     product: 'tart',
     details: [
-      { title: 'Storage', copy: 'Keep chilled (4°C) to preserve curds and creams. Remove 15–20 minutes before serving.' },
-      { title: 'Serving', copy: 'Slice with a hot, dry knife for clean edges. Avoid stacking boxes.' },
-      { title: 'Shelf life', copy: 'Best within 24 hours; fruit or meringue toppings are same-day items.' },
+      {
+        title: 'Storage',
+        copy: 'Keep chilled (4°C) to preserve curds and creams. Remove 15–20 minutes before serving.',
+      },
+      {
+        title: 'Serving',
+        copy: 'Slice with a hot, dry knife for clean edges. Avoid stacking boxes.',
+      },
+      {
+        title: 'Shelf life',
+        copy: 'Best within 24 hours; fruit or meringue toppings are same-day items.',
+      },
     ],
   },
 ];

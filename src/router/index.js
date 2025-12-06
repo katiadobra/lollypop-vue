@@ -1,5 +1,5 @@
 // src/router/index.js
-import { createRouter, createWebHistory } from 'vue-router'
+import { createRouter, createWebHistory } from 'vue-router';
 const routes = [
   { path: '/', component: () => import('../pages/HomePage.vue') },
   { path: '/products', component: () => import('../pages/ProductsPage.vue') },
@@ -17,7 +17,7 @@ const routes = [
   { path: '/pages/terms-of-use', component: () => import('../pages/TermsOfUsePage.vue') },
   { path: '/pages/privacy-policy', component: () => import('../pages/PrivacyPolicyPage.vue') },
   { path: '/:pathMatch(.*)*', component: () => import('../pages/NotFoundPage.vue') },
-]
+];
 
 // Prevent the browser from restoring scroll on reload/back so the page always starts at the top.
 if ('scrollRestoration' in window.history) {
@@ -31,6 +31,6 @@ const router = createRouter({
     if (savedPosition) return savedPosition;
     return { top: 0, left: 0 };
   },
-})
+});
 
-export default router
+export default router;

@@ -3,16 +3,23 @@
     <header class="ingredients-header">
       <h1>INGREDIENTS</h1>
       <p class="lead">
-        Below you'll find all the info about what goes into our cakes, cupcakes, cream, fillings and more!
+        Below you'll find all the info about what goes into our cakes, cupcakes, cream, fillings and
+        more!
       </p>
       <p class="lead">
-        If you have a specific ingredient question, never hesitate to get in touch - we’re happy to help!
+        If you have a specific ingredient question, never hesitate to get in touch - we’re happy to
+        help!
       </p>
     </header>
 
     <n-card :bordered="false" class="ingredients-card">
       <n-collapse default-expanded-names="i1">
-        <n-collapse-item v-for="item in sections" :key="item.name" :title="item.title" :name="item.name">
+        <n-collapse-item
+          v-for="item in sections"
+          :key="item.name"
+          :title="item.title"
+          :name="item.name"
+        >
           <p class="body">{{ item.copy }}</p>
         </n-collapse-item>
       </n-collapse>

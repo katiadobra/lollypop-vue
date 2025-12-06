@@ -4,13 +4,18 @@
       <n-grid cols="1 900:2" x-gap="24" y-gap="24" responsive="screen">
         <n-grid-item>
           <div class="hero-copy">
-            <n-tag size="large" round :color="{ color: accentColor, textColor: '#ffffff' }" class="hero-tag">
+            <n-tag
+              size="large"
+              round
+              :color="{ color: accentColor, textColor: '#ffffff' }"
+              class="hero-tag"
+            >
               Fresh every morning
             </n-tag>
             <h1 class="hero-title">Modern bakes for bright celebrations.</h1>
             <p class="hero-lead">
-              Small-batch cakes, cinnamon rolls, and tarts built to travel well and stay light, so you
-              can celebrate without the sugar crash.
+              Small-batch cakes, cinnamon rolls, and tarts built to travel well and stay light, so
+              you can celebrate without the sugar crash.
             </p>
 
             <n-space size="small">
@@ -24,7 +29,11 @@
 
             <div class="hero-highlights">
               <n-space size="large" wrap>
-                <div v-for="highlight in highlightPills" :key="highlight.label" class="highlight-card">
+                <div
+                  v-for="highlight in highlightPills"
+                  :key="highlight.label"
+                  class="highlight-card"
+                >
                   <div class="highlight-label">{{ highlight.label }}</div>
                   <div class="highlight-value">{{ highlight.value }}</div>
                 </div>
@@ -43,12 +52,16 @@
 
     <section class="section">
       <div class="section-heading">
-        <n-gradient-text class="section-kicker" gradient="linear-gradient(135deg, #f50640 0%, #ff8acb 100%)">
+        <n-gradient-text
+          class="section-kicker"
+          gradient="linear-gradient(135deg, #f50640 0%, #ff8acb 100%)"
+        >
           Menu at a glance
         </n-gradient-text>
         <h2>Pick your favorite format</h2>
         <p class="section-lead">
-          From single rolls to celebration cakes, every piece is balanced, colorful, and ready to share.
+          From single rolls to celebration cakes, every piece is balanced, colorful, and ready to
+          share.
         </p>
       </div>
 
@@ -70,18 +83,18 @@
           </n-card>
         </n-grid-item>
       </n-grid>
-       <n-divider />
+      <n-divider />
 
-          <n-space size="small">
-            <RouterLink to="/cart" class="link-button">
-              <n-button size="medium" color="#ff69b4" ghost round>Build my box</n-button>
-            </RouterLink>
-            <RouterLink to="/contact" class="link-button">
-              <n-button size="medium" secondary round>Talk to the bakery</n-button>
-            </RouterLink>
-          </n-space>
+      <n-space size="small">
+        <RouterLink to="/cart" class="link-button">
+          <n-button size="medium" color="#ff69b4" ghost round>Build my box</n-button>
+        </RouterLink>
+        <RouterLink to="/contact" class="link-button">
+          <n-button size="medium" secondary round>Talk to the bakery</n-button>
+        </RouterLink>
+      </n-space>
     </section>
-            <!-- <n-grid-item>
+    <!-- <n-grid-item>
           <n-card class="hero-sidecard" size="large" title="What we bake" embedded>
             <div class="hero-sidecard-grid">
               <div v-for="type in typeCards" :key="type.type" class="sidecard-item">
@@ -111,13 +124,16 @@
       <n-card class="brochure-card" :bordered="false">
         <div class="brochure-grid">
           <div>
-            <n-gradient-text class="section-kicker" gradient="linear-gradient(135deg, #f50640 0%, #ff69b4 100%)">
+            <n-gradient-text
+              class="section-kicker"
+              gradient="linear-gradient(135deg, #f50640 0%, #ff69b4 100%)"
+            >
               Brochure & custom orders
             </n-gradient-text>
             <h2>Planning an event?</h2>
             <p class="section-lead">
-              Ask for our printable brochure with portion guides, lead times, and finishing options for weddings,
-              launches, or office treats.
+              Ask for our printable brochure with portion guides, lead times, and finishing options
+              for weddings, launches, or office treats.
             </p>
             <n-space vertical size="small">
               <div v-for="item in brochurePoints" :key="item" class="brochure-point">

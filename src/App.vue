@@ -3,15 +3,9 @@
     <AnnouncementBar />
     <header class="app-header">
       <div class="header-inner">
-
         <div class="nav-area">
           <n-space size="large" align="center" class="nav" wrap>
-            <RouterLink
-              v-for="link in navLinks"
-              :key="link.to"
-              :to="link.to"
-              class="nav-link"
-            >
+            <RouterLink v-for="link in navLinks" :key="link.to" :to="link.to" class="nav-link">
               {{ link.label }}
             </RouterLink>
           </n-space>
@@ -41,13 +35,7 @@
                 stroke-width="1.6"
                 stroke-linecap="round"
               />
-              <circle
-                cx="11"
-                cy="11"
-                r="6.5"
-                stroke="currentColor"
-                stroke-width="1.6"
-              />
+              <circle cx="11" cy="11" r="6.5" stroke="currentColor" stroke-width="1.6" />
             </svg>
           </n-button>
           <RouterLink to="/favorites" class="link-button desktop-only">
@@ -128,7 +116,9 @@
         <div class="footer-links">
           <RouterLink to="/contact" class="footer-link">Contact Us</RouterLink>
           <RouterLink to="/impressum" class="footer-link">Impressum</RouterLink>
-          <RouterLink to="/pages/terms-conditions" class="footer-link">Terms & Conditions</RouterLink>
+          <RouterLink to="/pages/terms-conditions" class="footer-link"
+            >Terms & Conditions</RouterLink
+          >
           <RouterLink to="/pages/terms-of-use" class="footer-link">Terms of Use</RouterLink>
           <RouterLink to="/pages/privacy-policy" class="footer-link">Privacy Policy</RouterLink>
           <RouterLink to="/questions" class="footer-link">Q &amp; A</RouterLink>
@@ -156,9 +146,7 @@
             Cart
             <span v-if="cartCount" class="mobile-cart-badge">{{ cartCount }}</span>
           </RouterLink>
-          <button type="button" class="mobile-nav-button" @click="openSearch">
-            Search
-          </button>
+          <button type="button" class="mobile-nav-button" @click="openSearch">Search</button>
         </div>
       </n-drawer-content>
     </n-drawer>
@@ -267,13 +255,7 @@ const searchResults = computed(() => {
     .map((p) => ({
       product: p,
       haystack: normalize(
-        [
-          p.name,
-          p.shortDescription,
-          p.type,
-          ...(p.flavors || []),
-          ...(p.allergens || []),
-        ]
+        [p.name, p.shortDescription, p.type, ...(p.flavors || []), ...(p.allergens || [])]
           .filter(Boolean)
           .join(' '),
       ),
@@ -496,7 +478,9 @@ function formatType(type) {
   border-radius: 10px;
   text-decoration: none;
   color: inherit;
-  transition: border-color 0.2s ease, transform 0.2s ease;
+  transition:
+    border-color 0.2s ease,
+    transform 0.2s ease;
 }
 
 .search-result:hover {
@@ -594,7 +578,9 @@ function formatType(type) {
 
 .fade-slide-enter-active,
 .fade-slide-leave-active {
-  transition: opacity 400ms ease, transform 400ms ease;
+  transition:
+    opacity 400ms ease,
+    transform 400ms ease;
 }
 
 .fade-slide-enter-from,

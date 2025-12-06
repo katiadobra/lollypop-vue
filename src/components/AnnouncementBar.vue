@@ -1,6 +1,11 @@
 <template>
   <div v-if="activeAnnouncement" class="announcement-wrapper">
-    <n-alert :type="activeAnnouncement.type || 'info'" :show-icon="false" :bordered="false" class="announcement">
+    <n-alert
+      :type="activeAnnouncement.type || 'info'"
+      :show-icon="false"
+      :bordered="false"
+      class="announcement"
+    >
       <span class="announcement-text">{{ activeAnnouncement.message }}</span>
     </n-alert>
   </div>
@@ -24,7 +29,9 @@ function asDate(input) {
 function isActive(entry, now) {
   const start = asDate(entry.start);
   const end = asDate(entry.end);
-  const dayMatches = Array.isArray(entry.daysOfWeek) ? entry.daysOfWeek.includes(now.getDay()) : true;
+  const dayMatches = Array.isArray(entry.daysOfWeek)
+    ? entry.daysOfWeek.includes(now.getDay())
+    : true;
 
   if (!dayMatches) return false;
 
