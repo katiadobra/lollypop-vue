@@ -15,6 +15,7 @@ export default [
       'vue/multiline-html-element-content-newline': 'off',
       'vue/html-indent': 'off',
       'vue/attributes-order': 'off',
+      'vue/html-closing-bracket-newline': 'off',
     },
   },
 ];
