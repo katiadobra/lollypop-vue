@@ -43,6 +43,13 @@ _(coming soon)_
 
 ---
 
+# GitHub Pages Deployment
+
+- CI build + deploy lives in `.github/workflows/deploy.yml` (runs on pushes to `main` or manually).
+- To verify locally with the same base path: `GITHUB_PAGES=true npm run build && npm run preview`.
+
+---
+
 # ✨ Future Improvements (optional ideas)
 
 - [ ] Swap static catalog for API-driven products
