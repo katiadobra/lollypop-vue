@@ -17,7 +17,6 @@ It demonstrates:
 - [Vite](https://vitejs.dev/)
 - [Pinia](https://pinia.vuejs.org/) for state management
 - [Naive UI](https://www.naiveui.com/) for components
-- LocalStorage for cart & favorites persistence
 
 ---
 
