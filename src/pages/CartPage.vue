@@ -7,7 +7,7 @@
 
     <div v-if="cartItems.length" class="cart-content">
       <div class="cart-items">
-        <n-card v-for="item in cartItems" :key="item.key" :bordered="false" class="cart-card">
+        <div v-for="item in cartItems" :key="item.key" class="cart-card">
           <div class="row">
             <div class="thumb" :style="!item.image ? placeholderStyle(item.id) : undefined">
               <img v-if="item.image" :src="item.image" :alt="`${item.name} photo`" loading="lazy" />
@@ -55,7 +55,7 @@
               </button>
             </div>
           </div>
-        </n-card>
+        </div>
       </div>
 
       <div class="sidebar">
@@ -198,7 +198,6 @@ import {
   NInput,
   NDrawer,
   NDrawerContent,
-  NModal,
   NSelect,
 } from 'naive-ui';
 import { useCartStore } from '../stores/cart';
@@ -495,6 +494,10 @@ async function submitPreorder() {
   gap: 16px;
 }
 
+.cart-page :deep(.n-card) {
+  border-radius: 0;
+}
+
 .cart-items {
   display: flex;
   flex-direction: column;
@@ -503,6 +506,8 @@ async function submitPreorder() {
 
 .cart-card {
   padding: 10px 10px;
+  background: #fafafa;
+  border-radius: 0;
 }
 
 /* helper: hide mobile-only elements by default; enabled inside mobile media query */
@@ -520,7 +525,6 @@ async function submitPreorder() {
     'thumb total remove';
   gap: 8px;
   align-items: start;
-  border-bottom: 1px solid #f3f4f6;
   padding-bottom: 10px;
 }
 
@@ -541,10 +545,6 @@ async function submitPreorder() {
 }
 
 @media (max-width: 719px) {
-  .cart-card :deep(.n-card__content) {
-    padding: 0;
-  }
-
   /* ensure price value is visible */
   .price .value {
     display: block !important;
@@ -567,7 +567,7 @@ async function submitPreorder() {
 .thumb {
   width: 56px;
   height: 56px;
-  border-radius: 10px;
+  border-radius: 0;
   overflow: hidden;
   display: flex;
   align-items: center;
