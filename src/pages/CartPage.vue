@@ -67,7 +67,7 @@
           </div>
           <n-divider />
           <div class="options">
-            <h4>Fulfilment</h4>
+            <h4>Method</h4>
             <div class="fulfilment">
               <n-button
                 v-for="option in fulfilmentOptions"
@@ -159,6 +159,30 @@
         </RouterLink>
       </n-card>
     </div>
+
+    <n-drawer
+      v-model:show="preorderDrawerVisible"
+      placement="bottom"
+      :height="400"
+      display-directive="if"
+    >
+      <n-drawer-content title="Complete your pre-order" closable>
+        <p class="modal-text">
+          Your email app should open with the pre-order draft. Please review and press "Send".
+          If it did not open, copy the details below and email them to zucker.shop@gmail.com.
+        </p>
+        <div class="modal-actions">
+          <n-button size="small" color="#ff69b4" @click="copyPreorderDetails">
+            Copy details
+          </n-button>
+          <n-button size="small" class="pink-outline" @click="clearCartAndCloseModal">
+            Clear cart
+          </n-button>
+          <n-button size="small" class="pink-outline" @click="closeModal">Close</n-button>
+        </div>
+        <pre class="email-preview">{{ latestEmailBody }}</pre>
+      </n-drawer-content>
+    </n-drawer>
   </section>
 </template>
 
@@ -172,6 +196,9 @@ import {
   NDatePicker,
   NDivider,
   NInput,
+  NDrawer,
+  NDrawerContent,
+  NModal,
   NSelect,
 } from 'naive-ui';
 import { useCartStore } from '../stores/cart';
@@ -191,6 +218,8 @@ const selectedTime = ref(null);
 const agreeTerms = ref(false);
 const submitting = ref(false);
 const submitStatus = ref({ type: '', message: '' });
+const preorderDrawerVisible = ref(false);
+const lastPreorderPayload = ref(null);
 const contactName = ref('');
 const contactEmail = ref('');
 const contactPhone = ref('');
@@ -212,15 +241,20 @@ onMounted(() => {
     contactEmail.value = saved.email || '';
     contactPhone.value = saved.phone || '';
     contactNotes.value = saved.notes || '';
+    selectedDate.value = saved.date ?? null;
+    selectedTime.value = saved.time ?? null;
   } catch (e) {
     // ignore
   }
 });
 
-watch([contactName, contactEmail, contactPhone, contactNotes], ([name, email, phone, notes]) => {
-  const payload = { name, email, phone, notes };
-  localStorage.setItem(CONTACT_STORAGE_KEY, JSON.stringify(payload));
-});
+watch(
+  [contactName, contactEmail, contactPhone, contactNotes, selectedDate, selectedTime],
+  ([name, email, phone, notes, date, time]) => {
+    const payload = { name, email, phone, notes, date, time };
+    localStorage.setItem(CONTACT_STORAGE_KEY, JSON.stringify(payload));
+  },
+);
 
 function formatCurrency(amount) {
   return new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' }).format(amount || 0);
@@ -292,6 +326,13 @@ function isoOrNull(value) {
   return new Date(value).toISOString();
 }
 
+function formatDisplayDate(value) {
+  if (!value) return 'n/a';
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return value;
+  return date.toLocaleDateString('de-DE', { year: 'numeric', month: '2-digit', day: '2-digit' });
+}
+
 function isEmailValid(value) {
   return /\S+@\S+\.\S+/.test(value);
 }
@@ -315,6 +356,79 @@ function isDateDisabled(ts) {
   return ts < today.getTime();
 }
 
+function formatItemLine(item) {
+  const name = item.name || item.id;
+  const flavorLabel = item.flavor ? ` • ${item.flavor}` : '';
+  const sizeLabel = item.boxSize
+    ? `${item.boxSize} ${item.boxSize === 1 ? 'piece' : 'pcs'}`
+    : null;
+  const qtyLabel = sizeLabel ? `${item.quantity} x ${sizeLabel}` : `${item.quantity}`;
+
+  const header = `- ${name}${flavorLabel} (qty: ${qtyLabel})`;
+  const details = [`  Unit price: ${formatCurrency(item.unitPrice)}`];
+
+  return `${header}\n${details.join('\n')}`;
+}
+
+function buildEmailBody(payload) {
+  const lines = [];
+  lines.push('Hello Zucker team,');
+  lines.push('');
+  lines.push('I would like to place this pre-order:');
+  lines.push('');
+  payload.items.forEach((item) => lines.push(formatItemLine(item)));
+  lines.push('');
+  lines.push(`- Method: ${payload.fulfilment || 'n/a'}`);
+  lines.push(`- ${payload.fulfilment || ''} Date: ${formatDisplayDate(payload.date)}`);
+  lines.push(`- ${payload.fulfilment || ''} Time: ${payload.time || 'n/a'}`);
+  lines.push('');
+  if (payload.contact) {
+    lines.push('My contact details:');
+    lines.push(`- Name: ${payload.contact.name || 'n/a'}`);
+    lines.push(`- Email: ${payload.contact.email || 'n/a'}`);
+    if (payload.contact.phone) {
+      lines.push(`- Phone: ${payload.contact.phone}`);
+    }
+    if (payload.contact.notes) lines.push(`- Notes: ${payload.contact.notes}`);
+    lines.push('');
+  }
+  lines.push('Thank you! I look forward to your confirmation.');
+  return lines.join('\n');
+}
+
+const latestEmailBody = computed(() =>
+  lastPreorderPayload.value ? buildEmailBody(lastPreorderPayload.value) : '',
+);
+
+function openMailClient(payload) {
+  const subject = `Pre-order (${payload.fulfilment || 'n/a'}) - ${payload.items.length} item(s)`;
+  const body = buildEmailBody(payload);
+  const to = 'zucker.shop@gmail.com';
+  const mailto = `mailto:${encodeURIComponent(to)}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  window.location.href = mailto;
+}
+
+async function copyPreorderDetails() {
+  if (!lastPreorderPayload.value) return;
+  try {
+    await navigator.clipboard.writeText(buildEmailBody(lastPreorderPayload.value));
+    setStatus('success', 'Pre-order details copied. Paste into email if needed.');
+  } catch (err) {
+    console.error('Copy failed', err);
+    setStatus('error', 'Could not copy. Please select and copy manually.');
+  }
+}
+
+function clearCartAndCloseModal() {
+  cartStore.clearCart();
+  preorderDrawerVisible.value = false;
+  setStatus('success', 'Cart cleared. You can start a new pre-order.');
+}
+
+function closeModal() {
+  preorderDrawerVisible.value = false;
+}
+
 async function submitPreorder() {
   if (!cartItems.value.length) {
     setStatus('warning', 'Add at least one item.');
@@ -326,7 +440,7 @@ async function submitPreorder() {
   }
 
   submitting.value = true;
-  setStatus('', '');
+  setStatus('info', 'Opening your email client...');
 
   const payload = {
     items: cartItems.value,
@@ -335,19 +449,24 @@ async function submitPreorder() {
     date: isoOrNull(selectedDate.value),
     time: isoOrNull(selectedTime.value),
     contact: {
-      name: contactName.value,
-      email: contactEmail.value,
-      phone: contactPhone.value,
-      notes: contactNotes.value,
+      name: contactName.value.trim(),
+      email: contactEmail.value.trim(),
+      phone: contactPhone.value.trim(),
+      notes: contactNotes.value.trim(),
     },
   };
 
   try {
-    // Temporary fallback: no backend configured, just log the payload.
-    console.log('Pre-order payload', payload);
-    setStatus('success', 'Pre-order captured locally (no email sent).');
+    lastPreorderPayload.value = payload;
+    openMailClient(payload);
+    preorderDrawerVisible.value = true;
+    setStatus(
+      'success',
+      'Email draft opened. Please hit send in your mail app to complete the pre-order.',
+    );
   } catch (err) {
-    setStatus('error', 'Could not send pre-order. Please try again.');
+    console.error('Pre-order send failed', err);
+    setStatus('error', 'Could not open your mail app. Please email us directly.');
   } finally {
     submitting.value = false;
   }
@@ -730,10 +849,12 @@ async function submitPreorder() {
   display: flex;
   flex-direction: column;
   gap: 12px;
+  align-items: flex-end;
 }
 
 .summary-card {
   padding: 12px;
+  width: min(100%, 360px);
 }
 
 .summary-card h3 {
@@ -790,6 +911,38 @@ async function submitPreorder() {
   color: inherit;
   text-decoration: underline;
   text-decoration-thickness: 1px;
+}
+
+.modal-text {
+  margin: 0 0 12px;
+}
+
+.modal-actions {
+  display: flex;
+  gap: 8px;
+  margin: 0 0 12px;
+  flex-wrap: wrap;
+}
+
+.modal-actions :deep(.n-button) {
+  min-width: 120px;
+}
+
+.pink-outline {
+  border: 1px solid #ff69b4 !important;
+  color: #ff69b4 !important;
+  background: transparent !important;
+}
+
+.email-preview {
+  background: #f9fafb;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 10px;
+  white-space: pre-wrap;
+  max-height: 240px;
+  overflow: auto;
+  font-size: 12px;
 }
 
 @media (min-width: 960px) {
