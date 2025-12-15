@@ -58,8 +58,8 @@
         </div>
       </div>
 
-      <div class="sidebar">
-        <n-card :bordered="false" class="summary-card">
+      <div class="summary">
+        <div class="summary-card">
           <h3>Order summary</h3>
           <div class="summary-row">
             <span>Subtotal</span>
@@ -136,6 +136,7 @@
           </n-alert>
 
           <n-button
+            class="preorder-btn"
             color="#ff69b4"
             size="large"
             round
@@ -146,7 +147,7 @@
           >
             Place pre-order (no payment yet)
           </n-button>
-        </n-card>
+        </div>
       </div>
     </div>
 
@@ -188,18 +189,7 @@
 
 <script setup>
 import { computed, ref, onMounted, watch } from 'vue';
-import {
-  NAlert,
-  NButton,
-  NCard,
-  NCheckbox,
-  NDatePicker,
-  NDivider,
-  NInput,
-  NDrawer,
-  NDrawerContent,
-  NSelect,
-} from 'naive-ui';
+import { NAlert, NButton, NCheckbox, NDatePicker, NDivider, NInput, NDrawer, NDrawerContent, NSelect } from 'naive-ui';
 import { useCartStore } from '../stores/cart';
 import { useProductsStore } from '../stores/products';
 
@@ -489,9 +479,9 @@ async function submitPreorder() {
 }
 
 .cart-content {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 
 .cart-page :deep(.n-card) {
@@ -525,7 +515,6 @@ async function submitPreorder() {
     'thumb total remove';
   gap: 8px;
   align-items: start;
-  padding-bottom: 10px;
 }
 
 .price,
@@ -745,12 +734,16 @@ async function submitPreorder() {
 
 @media (min-width: 900px) {
   .row {
-    grid-template-columns: 96px 1.4fr 0.8fr 0.8fr 0.4fr 40px;
+    grid-template-columns:
+      96px
+      minmax(0, 1fr)
+      120px
+      120px
+      120px
+      40px;
     grid-template-areas: 'thumb info price qty total remove';
     gap: 18px;
     align-items: center;
-    border-bottom: 1px solid #f3f4f6;
-    padding-bottom: 14px;
   }
 
   .thumb {
@@ -782,6 +775,7 @@ async function submitPreorder() {
     flex-direction: column;
     align-items: center;
     gap: 6px;
+    text-align: center;
   }
 
   .label {
@@ -806,7 +800,13 @@ async function submitPreorder() {
 
 @media (min-width: 720px) and (max-width: 899px) {
   .row {
-    grid-template-columns: 80px 1.2fr 0.8fr 0.7fr 0.3fr 40px;
+    grid-template-columns:
+      80px
+      minmax(0, 1fr)
+      120px
+      120px
+      120px
+      40px;
     grid-template-areas: 'thumb info price qty total remove';
     gap: 14px;
     align-items: center;
@@ -836,6 +836,7 @@ async function submitPreorder() {
     align-items: center;
     flex-direction: column;
     gap: 6px;
+    text-align: center;
   }
 
   .desktop-only {
@@ -845,16 +846,20 @@ async function submitPreorder() {
   }
 }
 
-.sidebar {
+.summary {
   display: flex;
   flex-direction: column;
   gap: 12px;
-  align-items: flex-end;
+  align-items: stretch;
 }
 
 .summary-card {
   padding: 12px;
-  width: min(100%, 360px);
+  width: 100%;
+  max-width: 500px;
+  align-self: flex-end;
+  margin-left: auto;
+  background: #fff;
 }
 
 .summary-card h3 {
@@ -894,8 +899,16 @@ async function submitPreorder() {
   gap: 8px;
 }
 
+.options {
+  margin: 10px 0;
+}
+
 .options h4 {
   margin: 0 0 6px;
+}
+
+.preorder-btn {
+  margin: 15px 0;
 }
 
 .empty {
@@ -946,9 +959,6 @@ async function submitPreorder() {
 }
 
 @media (min-width: 960px) {
-  .cart-content {
-    grid-template-columns: 2fr 1fr;
-  }
 }
 </style>
 
