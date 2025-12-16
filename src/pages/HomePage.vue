@@ -4,14 +4,6 @@
       <n-grid cols="1 900:2" x-gap="24" y-gap="24" responsive="screen">
         <n-grid-item>
           <div class="hero-copy">
-            <n-tag
-              size="large"
-              round
-              :color="{ color: accentColor, textColor: '#ffffff' }"
-              class="hero-tag"
-            >
-              Fresh every morning
-            </n-tag>
             <h1 class="hero-title">Modern bakes for bright celebrations.</h1>
             <p class="hero-lead">
               Small-batch cakes, cinnamon rolls, and tarts built to travel well and stay light, so
@@ -27,26 +19,8 @@
               </RouterLink>
             </n-space>
 
-            <div class="hero-highlights">
-              <n-space size="large" wrap>
-                <div
-                  v-for="highlight in highlightPills"
-                  :key="highlight.label"
-                  class="highlight-card"
-                >
-                  <div class="highlight-label">{{ highlight.label }}</div>
-                  <div class="highlight-value">{{ highlight.value }}</div>
-                </div>
-              </n-space>
-            </div>
           </div>
         </n-grid-item>
-
-        <!-- <n-grid-item>
-          <div class="hero-image">
-            <img src="/base.png" alt="Assorted pastries" />
-          </div>
-        </n-grid-item> -->
       </n-grid>
     </n-card>
 
@@ -94,31 +68,6 @@
         </RouterLink>
       </n-space>
     </section>
-    <!-- <n-grid-item>
-          <n-card class="hero-sidecard" size="large" title="What we bake" embedded>
-            <div class="hero-sidecard-grid">
-              <div v-for="type in typeCards" :key="type.type" class="sidecard-item">
-                <div class="sidecard-top">
-                  <n-tag :type="type.accent" size="small" round>
-                    {{ type.count ? `${type.count} options` : 'Out of order' }}
-                  </n-tag>
-                  <span class="sidecard-type">{{ type.title }}</span>
-                </div>
-                <p class="sidecard-copy">{{ type.description }}</p>
-              </div>
-            </div>
-
-            <n-divider />
-            <n-space size="small">
-              <RouterLink to="/cart" class="link-button">
-                <n-button size="medium" color="#ff69b4" ghost round>Build my box</n-button>
-              </RouterLink>
-              <RouterLink to="/contact" class="link-button">
-                <n-button size="medium" secondary round>Talk to the bakery</n-button>
-              </RouterLink>
-            </n-space>
-          </n-card>
-        </n-grid-item> -->
 
     <section class="section brochure">
       <n-card class="brochure-card" :bordered="false">
@@ -141,15 +90,6 @@
               </div>
             </n-space>
           </div>
-
-          <div class="brochure-actions">
-            <RouterLink to="/contact" class="link-button">
-              <n-button color="#ff69b4" size="large" round>Request the brochure</n-button>
-            </RouterLink>
-            <RouterLink to="/products" class="link-button">
-              <n-button size="large" tertiary round>See today's menu</n-button>
-            </RouterLink>
-          </div>
         </div>
       </n-card>
     </section>
@@ -163,13 +103,6 @@ import { branding } from '../config/branding';
 import { useProductsStore } from '../stores/products';
 
 const productsStore = useProductsStore();
-const deliveryArea = branding.deliveryArea;
-
-const highlightPills = [
-  { label: 'Bake-to-order', value: 'Ready in 48h' },
-  { label: 'Local delivery', value: deliveryArea },
-  { label: 'Flavor swaps', value: 'Vegan & gluten-light' },
-];
 
 const accentColor = '#ff69b4';
 
