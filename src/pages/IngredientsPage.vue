@@ -59,7 +59,7 @@ const sections = [
   {
     name: 'i5',
     title: 'Colors & flavors',
-    copy: 'Natural colors from fruit and vegetable powders; no artificial flavors. Vanilla is from whole beans or pure extract.',
+    copy: 'All our colors are 100% natural—made from finely milled fruit and vegetable powders (Bright Foods). No artificial dyes or artificial flavors. Vanilla is from whole beans or pure extract. As with any ingredient, please check the allergens section if you have sensitivities.',
   },
 ];
 </script>

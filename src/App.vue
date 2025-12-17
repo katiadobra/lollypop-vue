@@ -92,6 +92,7 @@
         <span>© {{ brand.name }} · {{ brand.tagline }}</span>
         <div class="footer-links">
           <RouterLink to="/contact" class="footer-link">Contact Us</RouterLink>
+          <RouterLink to="/ingredients" class="footer-link">Ingredients</RouterLink>
           <RouterLink to="/impressum" class="footer-link">Impressum</RouterLink>
           <RouterLink to="/pages/terms-conditions" class="footer-link"
             >Terms & Conditions</RouterLink

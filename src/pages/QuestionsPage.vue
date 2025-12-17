@@ -32,6 +32,12 @@ const faqs = [
       'For standard items, 48 hours is ideal. For custom decor or larger quantities, please allow 4–5 days so we can confirm ingredients and timing.',
   },
   {
+    name: 'qColors',
+    question: 'Do you use artificial food colouring?',
+    answer:
+      'No. We use 100% natural colors from fruit and vegetable powders (Bright Foods)—so the bright shades come from real produce, not synthetic dyes. If you have sensitivities, please check allergens and feel free to contact us.',
+  },
+  {
     name: 'q2',
     question: 'Do you offer delivery?',
     answer: `Yes—${branding.deliveryArea}. We schedule a delivery window after checkout and confirm by email or phone.`,
