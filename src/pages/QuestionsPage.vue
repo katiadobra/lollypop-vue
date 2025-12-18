@@ -2,9 +2,6 @@
   <section class="qa">
     <header class="page-header">
       <h1>Q &amp; A</h1>
-      <div class="header-subtext">
-        <p>Quick answers about orders, delivery, and custom bakes.</p>
-      </div>
     </header>
 
     <n-card :bordered="false" class="qa-card">
@@ -42,13 +39,19 @@ const faqs = [
   {
     name: 'q2',
     question: 'Do you offer delivery?',
-    answer: `Yes—${branding.deliveryArea}. We schedule a delivery window after checkout and confirm by email or phone.`,
+    answer: `Yes—${branding.deliveryArea}. You choose your desired date and time in the pre-order form; we confirm the slot by email. Once confirmed, we deliver then and message when we're on the way.`,
   },
   {
     name: 'q3',
     question: 'Can I request dietary tweaks?',
     answer:
       'We offer select vegan and gluten-light options. Share your needs at checkout and we will confirm what is possible for your chosen items.',
+  },
+  {
+    name: 'qPayment',
+    question: 'How do I pay and get a receipt?',
+    answer:
+      'Pay at delivery or pickup by cash or card. We issue e-receipts only (email, SMS, or QR code to a PDF) to stay paperless.',
   },
   {
     name: 'q4',
@@ -72,7 +75,7 @@ const faqs = [
     name: 'q7',
     question: 'Can I make changes to my order after checkout?',
     answer:
-      'Changes can be made up to 24 hours before the scheduled bake time. Please contact us as soon as possible to adjust your order.',
+      'Flavor/quantity changes need 48 hours (custom designs may need 72). Small notes like greetings or packaging tweaks can be added up to 24 hours before delivery or pickup. If something is not possible we will let you know.',
   },
   {
     name: 'q8',
@@ -110,5 +113,9 @@ const faqs = [
   margin: 0;
   color: #374151;
   line-height: 1.5;
+}
+
+:deep(.n-collapse-item__header-main) {
+  text-transform: uppercase;
 }
 </style>

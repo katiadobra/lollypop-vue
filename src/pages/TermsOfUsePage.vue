@@ -3,9 +3,6 @@
   <section class="terms">
     <header class="page-header">
       <h1>Terms Of Use</h1>
-      <div class="header-subtext">
-        <p>Plain-language overview of our ordering policies.</p>
-      </div>
     </header>
 
     <div class="terms-block">
