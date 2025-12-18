@@ -1,8 +1,12 @@
 <!-- src/pages/TermsConditionsPage.vue' -->
 <template>
   <section class="terms">
-    <h1>Terms Of Use</h1>
-    <p class="lead">Plain-language overview of our ordering policies.</p>
+    <header class="page-header">
+      <h1>Terms Of Use</h1>
+      <div class="header-subtext">
+        <p>Plain-language overview of our ordering policies.</p>
+      </div>
+    </header>
 
     <div class="terms-block">
       <h2>Orders &amp; lead times</h2>
@@ -43,11 +47,6 @@
   display: flex;
   flex-direction: column;
   gap: 16px;
-}
-
-.lead {
-  margin: 0;
-  color: #4b5563;
 }
 
 .terms-block {

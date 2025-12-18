@@ -2,7 +2,9 @@
   <section class="favorites-page">
     <header class="page-header">
       <h1>Favorites</h1>
-      <p class="page-lead">Save the bakes you love and add them to your next box.</p>
+      <div class="header-subtext">
+        <p class="page-lead">Save the bakes you love and add them to your next box.</p>
+      </div>
     </header>
 
     <div v-if="favoriteProducts.length">

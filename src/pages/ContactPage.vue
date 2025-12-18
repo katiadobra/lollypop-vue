@@ -2,7 +2,9 @@
   <section class="contact">
     <header class="page-header">
       <h1>Contact</h1>
-      <p class="lead">Tell us what you need and we’ll get back within one business day.</p>
+      <div class="header-subtext">
+        <p>Tell us what you need and we’ll get back within one business day.</p>
+      </div>
     </header>
 
     <n-card class="contact-card">
@@ -114,11 +116,6 @@ function handleSubmit() {
   display: flex;
   flex-direction: column;
   gap: 8px;
-}
-
-.lead {
-  margin: 0;
-  color: #4b5563;
 }
 
 .contact-card {

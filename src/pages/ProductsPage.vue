@@ -2,7 +2,9 @@
   <section class="products-page">
     <header class="page-header">
       <h1>Products Collection</h1>
-      <p class="page-lead">Explore everything we bake, ready to add to your box.</p>
+      <div class="header-subtext">
+        <p class="page-lead">Explore everything we bake, ready to add to your box.</p>
+      </div>
       <n-space size="small" wrap class="filters">
         <n-button
           v-for="category in categories"

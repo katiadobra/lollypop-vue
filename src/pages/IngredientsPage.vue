@@ -1,15 +1,15 @@
 <template>
   <section class="ingredients">
-    <header class="ingredients-header">
+    <header class="page-header">
       <h1>INGREDIENTS</h1>
-      <p class="lead">
-        Below you'll find all the info about what goes into our cakes, cupcakes, cream, fillings and
-        more!
-      </p>
-      <p class="lead">
-        If you have a specific ingredient question, never hesitate to get in touch - we’re happy to
-        help!
-      </p>
+      <div class="header-subtext">
+        <p><strong>
+          Here you can see exactly what goes into our cakes, cupcakes, creams, and fillings.
+        </strong></p>
+        <p>
+          If you’re curious about any ingredient, feel free to reach out — transparency matters to us.
+        </p>
+      </div>
     </header>
 
     <n-card :bordered="false" class="ingredients-card">
@@ -34,7 +34,7 @@ const sections = [
   {
     name: 'allergens',
     title: 'Allergens & cross-contact',
-    copy: 'We handle gluten, eggs, dairy, and tree nuts in the same kitchen. While we prevent cross-contact, trace amounts may remain. For any severe allergy, please reach out before ordering so we can advise on current production.',
+    copy: 'We handle gluten, eggs, dairy, and tree nuts in the same kitchen. While we do our best to keep ingredients separate, trace amounts may remain and we cannot guarantee that any of our baked goods are allergen-free as we use shared equipment to store, prepare and serve all of our cakes & sweets.',
   },
   {
     name: 'i1',
@@ -69,15 +69,6 @@ const sections = [
   display: flex;
   flex-direction: column;
   gap: 16px;
-}
-
-.ingredients-header h1 {
-  margin: 0 0 4px;
-}
-
-.lead {
-  margin: 0;
-  color: #4b5563;
 }
 
 .ingredients-card {

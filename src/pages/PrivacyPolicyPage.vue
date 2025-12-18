@@ -1,8 +1,12 @@
 <!-- src/pages/PrivacyPolicyPage.vue -->
 <template>
   <section class="privacy">
-    <h1>Privacy Policy</h1>
-    <p class="lead">How we collect, use, and protect your data.</p>
+    <header class="page-header">
+      <h1>Privacy Policy</h1>
+      <div class="header-subtext">
+        <p>How we collect, use, and protect your data.</p>
+      </div>
+    </header>
 
     <div class="policy-block">
       <h2>What we collect</h2>
@@ -40,11 +44,6 @@
   display: flex;
   flex-direction: column;
   gap: 16px;
-}
-
-.lead {
-  margin: 0;
-  color: #4b5563;
 }
 
 .policy-block {

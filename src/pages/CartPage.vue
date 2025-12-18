@@ -2,7 +2,9 @@
   <section class="cart-page">
     <header class="page-header">
       <h1>Pre-order box</h1>
-      <p class="lead">Review your items, pick delivery or pickup, and choose a slot.</p>
+      <div class="header-subtext">
+        <p>Review your items, pick delivery or pickup, and choose a slot.</p>
+      </div>
     </header>
 
     <div v-if="cartItems.length" class="cart-content">
@@ -154,7 +156,7 @@
     <div v-else class="empty">
       <n-card :bordered="false">
         <h3>Your cart is empty</h3>
-        <p class="lead">Add cakes, rolls, or boxes and come back to pick your date.</p>
+        <p>Add cakes, rolls, or boxes and come back to pick your date.</p>
         <RouterLink to="/products" class="link-button">
           <n-button color="#ff69b4" round>Browse products</n-button>
         </RouterLink>
@@ -467,15 +469,6 @@ async function submitPreorder() {
   display: flex;
   flex-direction: column;
   gap: 16px;
-}
-
-.page-header h1 {
-  margin: 0 0 6px;
-}
-
-.lead {
-  margin: 0;
-  color: #4b5563;
 }
 
 .cart-content {

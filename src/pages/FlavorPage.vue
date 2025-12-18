@@ -1,11 +1,13 @@
 <template>
   <section class="flavors">
-    <header class="flavors-header">
+    <header class="page-header">
       <h1>FLAVOR PALETTE</h1>
-      <p class="lead">Explore our core flavor notes for cakes, cupcakes, creams, and fillings.</p>
-      <p class="lead">
-        Looking for a custom combo? Tell us your dream flavor and we'll help pair it.
-      </p>
+      <div class="header-subtext">
+        <p>Explore our core flavor notes for cakes, cupcakes, creams, and fillings.</p>
+        <p>
+          Looking for a custom combo? Tell us your dream flavor and we'll help pair it.
+        </p>
+      </div>
     </header>
 
     <n-card :bordered="false" class="flavors-card">
@@ -116,15 +118,6 @@ const products = [
   display: flex;
   flex-direction: column;
   gap: 16px;
-}
-
-.flavors-header h1 {
-  margin: 0 0 4px;
-}
-
-.lead {
-  margin: 0;
-  color: #4b5563;
 }
 
 .flavors-card {

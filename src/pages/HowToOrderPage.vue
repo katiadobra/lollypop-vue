@@ -3,9 +3,9 @@
     <header class="page-header">
       <p class="eyebrow">Ordering guide</p>
       <h1>How to order</h1>
-      <p class="lead">
-        Choose your favorites, tell us when and where to deliver, and we’ll bake to schedule.
-      </p>
+      <div class="header-subtext">
+        <p>Choose your favorites, tell us when and where to deliver, and we’ll bake to schedule.</p>
+      </div>
     </header>
 
     <n-grid cols="1 900:3" x-gap="16" y-gap="16" class="steps-grid">
@@ -24,7 +24,7 @@
         <div>
           <p class="eyebrow">Need a hand?</p>
           <h2>Custom requests & events</h2>
-          <p class="lead">
+          <p class="header-subtext">
             Tell us about your date, portions, and preferences. We’ll reply within one business day
             with a proposal and timeline.
           </p>
@@ -89,12 +89,6 @@ const steps = [
   font-size: 12px;
   color: #6b7280;
   margin: 0;
-}
-
-.lead {
-  margin: 0;
-  color: #4b5563;
-  max-width: 640px;
 }
 
 .steps-grid {

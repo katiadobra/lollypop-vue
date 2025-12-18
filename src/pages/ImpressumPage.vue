@@ -1,7 +1,9 @@
 <!-- src/pages/ImpressumPage.vue -->
 <template>
   <section class="terms">
-    <h1>IMPRESSUM &amp; Datenschutzerklärung</h1>
+    <header class="page-header">
+      <h1>IMPRESSUM &amp; Datenschutzerklärung</h1>
+    </header>
 
     <div class="terms-block">
       <h3>Zucker is an online-based cake Studio.</h3>
@@ -162,11 +164,6 @@
   display: flex;
   flex-direction: column;
   gap: 16px;
-}
-
-.lead {
-  margin: 0;
-  color: #4b5563;
 }
 
 .terms-block {

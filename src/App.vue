@@ -648,4 +648,23 @@ function formatType(type) {
     flex-direction: row;
   }
 }
+
+:global(.page-header) {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+:global(.page-header h1) {
+  margin: 60px 0 20px;
+  padding: 20px;
+  text-transform: uppercase;
+  font-size: 35px;
+  letter-spacing: 4px;
+}
+
+:global(.header-subtext) {
+  margin: 0 auto;
+  max-width: 780px;
+  padding: 1.5rem;
+}
 </style>

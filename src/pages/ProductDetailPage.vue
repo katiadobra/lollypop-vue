@@ -46,7 +46,7 @@
                 <span class="favorite-label">{{ isFavorite ? 'Saved' : 'Save' }}</span>
               </button>
             </div>
-            <p class="lead">{{ product.description }}</p>
+            <p class="header-subtext">{{ product.description }}</p>
             <div class="pill-row">
               <n-tag size="small" round type="info">{{ formatType(product.type) }}</n-tag>
               <n-tag
@@ -130,13 +130,13 @@
       </div>
     </div>
 
-    <div v-else class="not-found">
-      <h2>Product not found</h2>
-      <p class="lead">Looks like this item left the oven. Choose another bake from the menu.</p>
-      <RouterLink to="/products" class="link-button">
-        <n-button round>Back to products</n-button>
-      </RouterLink>
-    </div>
+  <div v-else class="not-found">
+    <h2>Product not found</h2>
+    <p class="header-subtext">Looks like this item left the oven. Choose another bake from the menu.</p>
+    <RouterLink to="/products" class="link-button">
+      <n-button round>Back to products</n-button>
+    </RouterLink>
+  </div>
 
     <RecommendedProducts
       :limit="2"
@@ -352,11 +352,6 @@ function addCurrentToCart() {
 .title {
   margin: 0;
   font-size: 32px;
-}
-
-.lead {
-  margin: 0;
-  color: #4b5563;
 }
 
 .detail-body {

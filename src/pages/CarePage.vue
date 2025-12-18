@@ -1,8 +1,10 @@
 <template>
   <section class="care">
-    <header class="care-header">
+    <header class="page-header">
       <h1>CARE INSTRUCTIONS</h1>
-      <p class="lead">How to store and serve your cakes, cupcakes, rolls, and tarts.</p>
+      <div class="header-subtext">
+        <p>How to store and serve your cakes, cupcakes, rolls, and tarts.</p>
+      </div>
     </header>
 
     <n-card :bordered="false" class="care-card">
@@ -111,15 +113,6 @@ const sections = [
   display: flex;
   flex-direction: column;
   gap: 16px;
-}
-
-.care-header h1 {
-  margin: 0 0 4px;
-}
-
-.lead {
-  margin: 0;
-  color: #4b5563;
 }
 
 .care-card {

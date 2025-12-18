@@ -1,8 +1,10 @@
 <template>
   <section class="qa">
-    <header class="qa-header">
+    <header class="page-header">
       <h1>Q &amp; A</h1>
-      <p class="lead">Quick answers about orders, delivery, and custom bakes.</p>
+      <div class="header-subtext">
+        <p>Quick answers about orders, delivery, and custom bakes.</p>
+      </div>
     </header>
 
     <n-card :bordered="false" class="qa-card">
@@ -60,6 +62,36 @@ const faqs = [
     answer:
       'Cakes and tarts are best chilled and brought to room temp 30 minutes before serving. Rolls and cookies can be kept in an airtight box at room temp for 1–2 days.',
   },
+  {
+    name: 'q6',
+    question: 'What is your refund policy?',
+    answer:
+      'If there is an issue with your order, please contact us within 24 hours of delivery. We will review and offer a refund or replacement as appropriate.',
+  },
+  {    
+    name: 'q7',
+    question: 'Can I make changes to my order after checkout?',
+    answer:
+      'Changes can be made up to 24 hours before the scheduled bake time. Please contact us as soon as possible to adjust your order.',
+  },
+  {
+    name: 'q8',
+    question: 'Do you accommodate custom designs or themes?',
+    answer:
+      'Yes, we love creating custom designs! Please reach out with your ideas at least 5 days in advance so we can discuss details and feasibility.',
+  },
+  // {
+  //   name: 'q9',
+  //   question: 'Are there any seasonal items or limited-time offers?',
+  //   answer:
+  //     'Yes, we offer seasonal flavors and limited-time items throughout the year. Check our products page or subscribe to our newsletter for updates on new offerings.',
+  // },
+  {
+    name: 'q10',
+    question: 'What allergens do the cakes containe?',
+    answer:
+      'All cakes contain wheat, eggs & milk, unless otherwise specified (Vegan options available!). Please note that all products are made in a bakery that handles nuts, gluten, milk, eggs, peanuts and other allergens; If you have a severe allergy, please know that while we do our best to prevent cross-contamination, we are not an allergy-free bakery.',
+  }
 ];
 </script>
 
@@ -68,15 +100,6 @@ const faqs = [
   display: flex;
   flex-direction: column;
   gap: 16px;
-}
-
-.qa-header h1 {
-  margin: 0 0 4px;
-}
-
-.lead {
-  margin: 0;
-  color: #4b5563;
 }
 
 .qa-card {

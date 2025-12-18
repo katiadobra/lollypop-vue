@@ -1,7 +1,12 @@
 <template>
   <section class="terms">
-    <h1>Conditions</h1>
-    <p class="lead">Key conditions for working with our bakery.</p>
+    <header class="page-header">
+      <h1>Conditions</h1>
+      <div class="header-subtext">
+        <p>Key conditions for working with our bakery.</p>
+      </div>
+      <p>Key conditions for working with our bakery.</p>
+    </header>
 
     <div class="terms-block">
       <h2>Lead times</h2>
@@ -40,11 +45,6 @@
   display: flex;
   flex-direction: column;
   gap: 16px;
-}
-
-.lead {
-  margin: 0;
-  color: #4b5563;
 }
 
 .terms-block {
