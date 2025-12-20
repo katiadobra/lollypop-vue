@@ -11,7 +11,10 @@
           </n-space>
         </div>
 
-        <RouterLink to="/" class="brand">{{ brand.name }}</RouterLink>
+        <RouterLink to="/" class="brand">
+          <span class="brand-name">{{ brand.name }}</span>
+          <span class="brand-tagline">einfach süß</span>
+        </RouterLink>
 
         <n-space align="center" size="small" class="header-actions">
           <n-button
@@ -89,7 +92,18 @@
 
     <footer class="app-footer">
       <div class="footer-inner">
-        <span>© {{ brand.name }} · {{ brand.tagline }}</span>
+        <RouterLink
+          to="/"
+          class="footer-brand"
+          :aria-label="`${brand.name} logo · Home`"
+        >
+          <div
+            class="footer-logo"
+            role="img"
+            :aria-label="`${brand.name} logo`"
+            v-html="footerLogo"
+          />
+        </RouterLink>
         <div class="footer-links">
           <RouterLink to="/contact" class="footer-link">Contact Us</RouterLink>
           <RouterLink to="/ingredients" class="footer-link">Ingredients</RouterLink>
@@ -189,6 +203,7 @@ import AnnouncementBar from './components/AnnouncementBar.vue';
 import CartDrawer from './components/CartDrawer.vue';
 import HeartIcon from './components/HeartIcon.vue';
 import { branding } from './config/branding';
+import footerLogoSvg from './assets/lollypop-logo.svg?raw';
 import { useCartStore } from './stores/cart';
 import { useFavoritesStore } from './stores/favorites';
 import { useProductsStore } from './stores/products';
@@ -212,6 +227,7 @@ const searchOpen = ref(false);
 const searchQuery = ref('');
 const searchInput = ref(null);
 const route = useRoute();
+const footerLogo = footerLogoSvg;
 
 watch(
   () => route.fullPath,
@@ -280,6 +296,8 @@ function formatType(type) {
 </script>
 
 <style scoped>
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Yellowtail&display=swap');
+
 .app-layout {
   min-height: 100vh;
 }
@@ -326,16 +344,42 @@ function formatType(type) {
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
+  flex-wrap: wrap;
 }
 
 .brand {
-  font-weight: 700;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
   text-decoration: none;
   color: inherit;
   text-align: center;
   justify-self: center;
   font-size: 30px;
   grid-column: 2;
+  font-family: 'Cinzel', serif;
+  font-weight: 700;
+  font-variation-settings: 'wght' 700;
+}
+
+.brand-name {
+  line-height: 1.1;
+  position: relative;
+  top: 12px;
+  z-index: 1;
+}
+
+.brand-tagline {
+  font-family: 'Yellowtail', cursive;
+  font-size: 20px;
+  line-height: 1;
+  margin-top: 2px;
+  font-weight: 100;
+  right: -37px;
+  top: 1px;
+  color: #ff69b4;
+  z-index: 0;
+  position: relative;
 }
 
 .nav {
@@ -592,6 +636,27 @@ function formatType(type) {
   flex-wrap: wrap;
 }
 
+.footer-brand {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  color: inherit;
+}
+
+.footer-logo {
+  height: 200px;
+  width: auto;
+  display: block;
+  line-height: 0;
+}
+
+.footer-logo :deep(svg) {
+  height: 100%;
+  width: auto;
+  display: block;
+}
+
 .mobile-nav {
   display: flex;
   flex-direction: column;
@@ -646,6 +711,8 @@ function formatType(type) {
 @media (min-width: 780px) {
   .footer-inner {
     flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
   }
 }
 
@@ -660,6 +727,8 @@ function formatType(type) {
   text-transform: uppercase;
   font-size: 35px;
   letter-spacing: 4px;
+  font-family: 'Cinzel', serif;
+  line-height: 2.6rem;
 }
 
 :global(.header-subtext) {
