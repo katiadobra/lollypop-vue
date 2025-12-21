@@ -730,12 +730,16 @@ function formatType(type) {
 
 :global(.page-header h1) {
   margin: 60px 0 20px;
-  padding: 20px;
+  padding: 20px 0;
   text-transform: uppercase;
   font-size: 35px;
   letter-spacing: 4px;
   font-family: 'Cinzel', serif;
   line-height: 2.6rem;
+  word-break: normal;
+  overflow-wrap: break-word;
+  hyphens: manual;
+  text-wrap: balance;
 }
 
 :global(.header-subtext) {

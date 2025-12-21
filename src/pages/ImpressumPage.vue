@@ -2,7 +2,7 @@
 <template>
   <section class="terms">
     <header class="page-header">
-      <h1>IMPRESSUM &amp; Datenschutzerklärung</h1>
+      <h1>IMPRESSUM &amp; Datenschutz<wbr />erklärung</h1>
     </header>
 
     <div class="terms-block">
