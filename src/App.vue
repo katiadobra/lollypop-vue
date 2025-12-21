@@ -310,7 +310,11 @@ function formatType(type) {
 }
 
 .app-header {
+  position: relative;
+  z-index: 10;
   border-bottom: 1px solid #e5e7eb;
+  transition: box-shadow 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
+  display: block;
 }
 
 .app-footer {
@@ -323,6 +327,9 @@ function formatType(type) {
   align-items: center;
   gap: 1rem;
   position: relative;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 .nav-area {
@@ -735,5 +742,9 @@ function formatType(type) {
   margin: 0 auto;
   max-width: 780px;
   padding: 1.5rem;
+}
+
+:global(.n-alert .n-alert-body) {
+  padding: 5px;
 }
 </style>
