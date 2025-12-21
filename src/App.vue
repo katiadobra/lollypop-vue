@@ -598,12 +598,12 @@ function formatType(type) {
   }
 
   .app-content {
-    padding: 1rem;
+    padding: 0;
   }
 }
 
 .app-content {
-  padding: 1.5rem;
+  padding: 0;
 }
 
 .content-inner {

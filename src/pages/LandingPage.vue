@@ -19,12 +19,13 @@
       </div>
     </section>
 
-<nav class="category-tabs">
+<nav class="category-tabs" ref="tabsRef">
   <a
     v-for="category in categories"
     :key="category.id"
     class="tab"
     :class="{ 'tab--active': activeCategory === category.id }"
+    :ref="setTabRef(category.id)"
     href="#"
     @click.prevent="scrollToCategory(category.id)"
   >
@@ -50,7 +51,7 @@
 </template>
 
 <script setup>
-import { onBeforeUnmount, onMounted, ref } from 'vue';
+import { onBeforeUnmount, onMounted, ref, watch } from 'vue';
 import { NButton } from 'naive-ui';
 import { RouterLink } from 'vue-router';
 
@@ -93,14 +94,24 @@ const categories = [
 ];
 
 const TABS_HEIGHT = 49;
-const activeCategory = ref(categories[0].id);
+const activeCategory = ref(null);
 const slideRefs = new Map();
+const tabRefs = new Map();
+const tabsRef = ref(null);
 
 const setSlideRef = (id) => (el) => {
   if (el) {
     slideRefs.set(id, el);
   } else {
     slideRefs.delete(id);
+  }
+};
+
+const setTabRef = (id) => (el) => {
+  if (el) {
+    tabRefs.set(id, el);
+  } else {
+    tabRefs.delete(id);
   }
 };
 
@@ -112,9 +123,23 @@ function scrollToCategory(id) {
   window.scrollTo({ top: targetTop, behavior: 'smooth' });
 }
 
+function scrollActiveTabIntoView(id) {
+  if (!id) return;
+  const tabEl = tabRefs.get(id);
+  const container = tabsRef.value;
+  if (!tabEl || !container) return;
+  tabEl.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+}
+
 function updateActiveFromScroll() {
   const marker = window.scrollY + TABS_HEIGHT + 1;
   let current = activeCategory.value;
+
+  const firstSlide = slideRefs.get(categories[0].id);
+  if (firstSlide && marker < firstSlide.offsetTop) {
+    activeCategory.value = current;
+    return;
+  }
 
   for (const category of categories) {
     const el = slideRefs.get(category.id);
@@ -137,6 +162,10 @@ onMounted(() => {
 
 onBeforeUnmount(() => {
   window.removeEventListener('scroll', updateActiveFromScroll);
+});
+
+watch(activeCategory, (id) => {
+  scrollActiveTabIntoView(id);
 });
 </script>
 
@@ -200,24 +229,26 @@ onBeforeUnmount(() => {
   position: sticky;
   top: 0;
   z-index: 25;
-  display: grid;
-  grid-auto-flow: column;
-  grid-auto-columns: max-content;
-  gap: 12px;
+  display: flex;
+  gap: 0;
   padding: 0;
   background: #fff;
+  text-align: center;
   border-bottom: 1px solid #f0f0f0;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  overflow-x: auto;
 }
 
 .tab {
   border: none;
   background: transparent;
-  padding: 12px 16px;
+  padding: 10px 12px;
   font-size: 15px;
   cursor: pointer;
   color: #111827;
   transition: background-color 0.15s ease, color 0.15s ease;
   white-space: nowrap;
+  text-decoration: none;
 }
 
 .tab:hover {
@@ -228,7 +259,6 @@ onBeforeUnmount(() => {
 .tab--active {
   background: rgb(255, 230, 242);
   color: rgb(255, 105, 180);
-  font-weight: 700;
 }
 
 .category-slide {
@@ -274,13 +304,15 @@ onBeforeUnmount(() => {
   text-decoration: none;
 }
 
-@media (max-width: 640px) {
+@media (min-width: 640px) {
   .category-tabs {
-    overflow-x: auto;
+    justify-content: space-between;
+    overflow-x: initial;
   }
 
   .tab {
-    padding: 10px 12px;
+    width: 100%;
+    padding: 12px 16px;
   }
 }
 </style>
