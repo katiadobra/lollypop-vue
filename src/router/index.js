@@ -1,5 +1,5 @@
 // src/router/index.js
-import { createRouter, createWebHistory } from 'vue-router';
+import { createRouter, createWebHashHistory } from 'vue-router';
 const routes = [
   { path: '/', component: () => import('../pages/HomePage.vue') },
   { path: '/landing', component: () => import('../pages/LandingPage.vue') },
@@ -26,7 +26,7 @@ if ('scrollRestoration' in window.history) {
 }
 
 const router = createRouter({
-  history: createWebHistory(import.meta.env.BASE_URL),
+  history: createWebHashHistory(import.meta.env.BASE_URL),
   routes,
   scrollBehavior(to, from, savedPosition) {
     if (savedPosition) return savedPosition;
