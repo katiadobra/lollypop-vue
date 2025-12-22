@@ -1,6 +1,6 @@
 <!-- src/pages/TermsConditionsPage.vue' -->
 <template>
-  <section class="terms">
+  <section class="terms content-inner">
     <header class="page-header">
       <h1>Terms Of Use</h1>
     </header>

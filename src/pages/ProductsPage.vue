@@ -1,5 +1,5 @@
 <template>
-  <section class="products-page">
+  <section class="products-page content-inner">
     <header class="page-header">
       <h1>Products Collection</h1>
       <div class="header-subtext">

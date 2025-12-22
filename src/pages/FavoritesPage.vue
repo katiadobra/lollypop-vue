@@ -1,5 +1,5 @@
 <template>
-  <section class="favorites-page">
+  <section class="favorites-page content-inner">
     <header class="page-header">
       <h1>Favorites</h1>
       <div class="header-subtext">

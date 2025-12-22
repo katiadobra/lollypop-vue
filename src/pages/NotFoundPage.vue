@@ -1,6 +1,7 @@
 <!-- 404 -->
 <template>
   <n-result
+    class="content-inner"
     status="404"
     title="404 Page Not Found"
     description="You know life is always ridiculous."

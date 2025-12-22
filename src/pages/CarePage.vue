@@ -1,5 +1,5 @@
 <template>
-  <section class="care">
+  <section class="care content-inner">
     <header class="page-header">
       <h1>CARE INSTRUCTIONS</h1>
       <div class="header-subtext">

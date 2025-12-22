@@ -1,5 +1,5 @@
 <template>
-  <section class="qa">
+  <section class="qa content-inner">
     <header class="page-header">
       <h1>Q &amp; A</h1>
     </header>

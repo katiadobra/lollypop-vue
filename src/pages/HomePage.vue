@@ -1,5 +1,5 @@
 <template>
-  <div class="home">
+  <div class="home content-inner">
     <n-card class="hero" :bordered="false">
       <n-grid cols="1 900:2" x-gap="24" y-gap="24" responsive="screen">
         <n-grid-item>

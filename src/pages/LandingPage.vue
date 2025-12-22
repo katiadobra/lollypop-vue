@@ -2,7 +2,7 @@
   <div class="landing">
     <section class="landing-hero">
       <div class="hero-content">
-        <p class="hero-kicker">Zucker · Wünsdorf</p>
+        <p class="hero-kicker">Bake-to-order · Wünsdorf</p>
         <h1>Einfach süß, crafted to delight.</h1>
         <p class="hero-lead">
           Fresh cakes, rolls, and tarts balanced with fruit-first fillings and airy creams. Built to
@@ -19,19 +19,21 @@
       </div>
     </section>
 
-<nav class="category-tabs" ref="tabsRef">
-  <a
-    v-for="category in categories"
-    :key="category.id"
-    class="tab"
-    :class="{ 'tab--active': activeCategory === category.id }"
-    :ref="setTabRef(category.id)"
-    href="#"
-    @click.prevent="scrollToCategory(category.id)"
-  >
-    {{ category.label }}
-  </a>
-</nav>
+    <nav class="category-tabs">
+      <div class="tabs-inner content-inner" ref="tabsRef">
+        <a
+          v-for="category in categories"
+          :key="category.id"
+          class="tab"
+          :class="{ 'tab--active': activeCategory === category.id }"
+          :ref="setTabRef(category.id)"
+          href="#"
+          @click.prevent="scrollToCategory(category.id)"
+        >
+          {{ category.label }}
+        </a>
+      </div>
+    </nav>
 
     <section
       v-for="category in categories"
@@ -229,14 +231,22 @@ watch(activeCategory, (id) => {
   position: sticky;
   top: 0;
   z-index: 25;
-  display: flex;
-  gap: 0;
-  padding: 0;
   background: #fff;
   text-align: center;
   border-bottom: 1px solid #f0f0f0;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+}
+
+.tabs-inner {
+  display: flex;
+  gap: 0;
+  padding: 0;
   overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.tabs-inner::-webkit-scrollbar {
+  display: none;
 }
 
 .tab {
@@ -304,8 +314,15 @@ watch(activeCategory, (id) => {
   text-decoration: none;
 }
 
+@media (max-width: 639px) {
+  .landing-hero {
+    height: min(64vh, calc(100vh - var(--header-height) - var(--announcement-height) - var(--tabs-height)));
+    padding: 20px 12px;
+  }
+}
+
 @media (min-width: 640px) {
-  .category-tabs {
+  .tabs-inner {
     justify-content: space-between;
     overflow-x: initial;
   }

@@ -1,5 +1,5 @@
 <template>
-  <section class="how-to">
+  <section class="how-to content-inner">
     <header class="page-header">
       <p class="eyebrow">Ordering guide</p>
       <h1>How to order</h1>

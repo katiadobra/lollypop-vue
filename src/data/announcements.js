@@ -22,7 +22,7 @@ export const announcements = [
   },
   {
     id: 'sold-out',
-    message: 'Oops... THIS WEEKEND IS SOLD OUT! FOR NEXT WEEK - ORDER BY MONDAY NIGHT',
+    message: 'ooops.. THIS WEEKEND IS SOLD OUT!',
     type: 'error',
   },
 ];

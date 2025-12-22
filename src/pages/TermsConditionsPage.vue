@@ -1,5 +1,5 @@
 <template>
-  <section class="terms">
+  <section class="terms content-inner">
     <header class="page-header">
       <h1>Terms &amp; Conditions</h1>
       <div class="header-subtext">

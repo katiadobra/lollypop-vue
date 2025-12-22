@@ -1,6 +1,6 @@
 <!-- src/pages/ProductDetailPage.vue -->
 <template>
-  <section class="product-detail">
+  <section class="product-detail content-inner">
     <div v-if="product">
       <RouterLink to="/products" class="back-link">← Back to products</RouterLink>
 

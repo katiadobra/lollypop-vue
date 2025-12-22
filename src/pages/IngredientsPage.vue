@@ -1,5 +1,5 @@
 <template>
-  <section class="ingredients">
+  <section class="ingredients content-inner">
     <header class="page-header">
       <h1>INGREDIENTS</h1>
       <div class="header-subtext">

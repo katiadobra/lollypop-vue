@@ -1,6 +1,6 @@
 <!-- src/pages/PrivacyPolicyPage.vue -->
 <template>
-  <section class="privacy">
+  <section class="privacy content-inner">
     <header class="page-header">
       <h1>Privacy Policy</h1>
       <div class="header-subtext">

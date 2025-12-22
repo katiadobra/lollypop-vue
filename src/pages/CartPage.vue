@@ -1,5 +1,5 @@
 <template>
-  <section class="cart-page">
+  <section class="cart-page content-inner">
     <header class="page-header">
       <h1>Pre-order box</h1>
       <div class="header-subtext">

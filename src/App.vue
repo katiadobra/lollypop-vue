@@ -81,7 +81,7 @@
     </header>
 
     <div class="app-content">
-      <main class="content-inner">
+      <main class="app-main">
         <RouterView v-slot="{ Component }">
           <Transition name="fade-slide" mode="out-in">
             <component :is="Component" />
@@ -606,8 +606,9 @@ function formatType(type) {
   padding: 0;
 }
 
-.content-inner {
+:global(.content-inner) {
   max-width: 1200px;
+  width: 100%;
   margin: 0 auto;
 }
 

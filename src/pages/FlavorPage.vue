@@ -1,5 +1,5 @@
 <template>
-  <section class="flavors">
+  <section class="flavors content-inner">
     <header class="page-header">
       <h1>FLAVOR PALETTE</h1>
       <div class="header-subtext">

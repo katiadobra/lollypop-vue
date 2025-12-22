@@ -1,6 +1,6 @@
 <!-- src/pages/ImpressumPage.vue -->
 <template>
-  <section class="terms">
+  <section class="terms content-inner">
     <header class="page-header">
       <h1>IMPRESSUM &amp; Datenschutz<wbr />erklärung</h1>
     </header>
