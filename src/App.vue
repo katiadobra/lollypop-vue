@@ -313,6 +313,7 @@ function formatType(type) {
   position: relative;
   z-index: 10;
   border-bottom: 1px solid #e5e7eb;
+  box-shadow: 0 10px 20px -15px rgba(0, 0, 0, 0.3);
   transition: box-shadow 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
   display: block;
 }

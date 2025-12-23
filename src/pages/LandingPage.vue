@@ -1,21 +1,14 @@
 <template>
   <div class="landing">
     <section class="landing-hero">
-      <div class="hero-content">
-        <p class="hero-kicker">Bake-to-order · Wünsdorf</p>
-        <h1>Einfach süß, crafted to delight.</h1>
-        <p class="hero-lead">
-          Fresh cakes, rolls, and tarts balanced with fruit-first fillings and airy creams. Built to
-          stay light, look bold, and arrive party-ready.
-        </p>
-        <div class="hero-actions">
-          <RouterLink to="/products" class="link-button">
-            <n-button size="large" round color="#ff69b4">Browse menu</n-button>
-          </RouterLink>
-          <RouterLink to="/how-to-order" class="link-button">
-            <n-button size="large" tertiary round>How to order</n-button>
-          </RouterLink>
+      <div class="hero-frame">
+        <h1 class="hero-title">{ Always bake-to-order }</h1>
+        <div class="hero-image-wrap">
+          <div class="hero-image-glow"></div>
+          <img src="/hero-img.png" alt="Always bake-to-order" class="hero-image" />
         </div>
+        <p class="hero-price">Handmade cakes & sweets</p>
+        <p class="hero-note">*Browse the collections below</p>
       </div>
     </section>
 
@@ -187,44 +180,106 @@ watch(activeCategory, (id) => {
 .landing-hero {
   height: calc(100vh - var(--header-height) - var(--announcement-height) - var(--tabs-height));
   width: 100%;
-  background: radial-gradient(circle at 20% 20%, #ffe6f2 0%, #ffffff 55%), #fff5fb;
+  background: #fff;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 24px 16px;
+  padding: 48px 16px 32px;
   box-sizing: border-box;
+  position: relative;
+  overflow: hidden;
 }
 
-.hero-content {
-  width: min(680px, 100%);
+.hero-frame {
+  width: min(1120px, 100%);
   display: flex;
   flex-direction: column;
-  gap: 16px;
-  text-align: left;
+  gap: 12px;
+  text-align: center;
   margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+
+.hero-header {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: center;
+}
+
+.hero-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  border-radius: 999px;
+  background: rgba(255, 105, 180, 0.1);
+  color: #c40068;
+  font-weight: 700;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+  font-size: 12px;
 }
 
 .hero-kicker {
   margin: 0;
-  font-weight: 700;
-  letter-spacing: 2px;
+  font-weight: 600;
+  letter-spacing: 1px;
   text-transform: uppercase;
-  color: #ff69b4;
+  color: #94a3b8;
   font-size: 12px;
 }
 
-.hero-lead {
-  margin: 0;
-  color: #4b5563;
-  font-size: 18px;
-  line-height: 1.6;
+.hero-title {
+  margin: 0 0 20px;
+  font-size: clamp(16px, 4vw, 20px);
+  letter-spacing: 6px;
+  color: #829399;
+  font-weight: 600;
 }
 
-.hero-actions {
-  display: flex;
-  gap: 12px;
-  flex-wrap: wrap;
-  margin-top: 8px;
+.hero-image-wrap {
+  position: relative;
+  width: 100%;
+  max-width: 900px;
+  margin: 8px auto 0;
+  overflow: hidden;
+  box-shadow: 0 18px 60px rgba(0, 0, 0, 0.1);
+}
+
+.hero-image {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  background: #fff;
+  position: relative;
+  z-index: 1;
+}
+
+.hero-image-glow {
+  position: absolute;
+  inset: 0;
+  background: none;
+  filter: blur(30px);
+  z-index: 0;
+  pointer-events: none;
+  display: none;
+}
+
+.hero-price {
+  margin: 18px 0 0;
+  font-size: clamp(20px, 2.6vw, 26px);
+  letter-spacing: 4px;
+  color: #7a8c92;
+}
+
+.hero-note {
+  margin: 4px 0 0;
+  letter-spacing: 3px;
+  color: #9ca3af;
+  font-size: 14px;
 }
 
 .category-tabs {
@@ -317,7 +372,11 @@ watch(activeCategory, (id) => {
 @media (max-width: 639px) {
   .landing-hero {
     height: min(64vh, calc(100vh - var(--header-height) - var(--announcement-height) - var(--tabs-height)));
-    padding: 20px 12px;
+    padding: 28px 12px 18px;
+  }
+
+  .hero-title {
+    letter-spacing: 3px;
   }
 }
 
