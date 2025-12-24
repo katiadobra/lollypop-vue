@@ -4,6 +4,7 @@ export const products = [
   {
     id: 'cake-strawberry-blossom',
     type: 'cake',
+    subcategory: 'vintage',
     name: 'Strawberry Blossom',
     shortDescription: 'Vanilla sponge, strawberry cream and fresh berries.',
     description:
@@ -19,6 +20,7 @@ export const products = [
   {
     id: 'cake-chocolate-dream',
     type: 'cake',
+    subcategory: 'bento',
     name: 'Chocolate Dream',
     shortDescription: 'Rich chocolate sponge and dark ganache.',
     description:

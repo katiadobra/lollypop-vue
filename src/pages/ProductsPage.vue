@@ -7,7 +7,7 @@
       </div>
       <n-space size="small" wrap class="filters">
         <n-button
-          v-for="category in categories"
+          v-for="category in categoryFilters"
           :key="category"
           size="small"
           round
@@ -15,7 +15,7 @@
           :color="isActive(category) ? '#ff69b4' : undefined"
           @click="selectCategory(category)"
         >
-          {{ category === 'all' ? 'All' : formatType(category) }}
+          {{ category === 'all' ? 'All' : formatCategoryLabel(category) }}
         </n-button>
       </n-space>
     </header>
@@ -62,8 +62,9 @@
 </template>
 
 <script setup>
-import { computed, ref } from 'vue';
+import { computed, ref, watch } from 'vue';
 import { NButton, NCard, NGrid, NGridItem, NSpace } from 'naive-ui';
+import { deriveCategories, formatCategoryId } from '../data/categories';
 import { useProductsStore } from '../stores/products';
 import { useCartStore } from '../stores/cart';
 import { useUiStore } from '../stores/ui';
@@ -77,12 +78,16 @@ const favoritesStore = useFavoritesStore();
 
 const products = computed(() => productsStore.allProducts);
 
-const categories = computed(() => {
-  const types = new Set(products.value.map((p) => p.type));
-  return ['all', ...types];
-});
+const categories = computed(() => deriveCategories(products.value));
+const categoryFilters = computed(() => ['all', ...categories.value.map((category) => category.id)]);
 
 const selectedType = ref('all');
+
+watch(categoryFilters, (filters) => {
+  if (!filters.includes(selectedType.value)) {
+    selectedType.value = 'all';
+  }
+});
 
 const filteredProducts = computed(() => {
   if (selectedType.value === 'all') return products.value;
@@ -110,11 +115,9 @@ function isActive(category) {
   return selectedType.value === category;
 }
 
-function formatType(type) {
-  return type
-    .split('-')
-    .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
-    .join(' ');
+function formatCategoryLabel(type) {
+  const meta = categories.value.find((category) => category.id === type);
+  return meta?.label || formatCategoryId(type);
 }
 
 const placeholderPalette = ['#ffe5ef', '#e0f2fe', '#ecfdf3', '#fff7ed', '#ede9fe', '#fdf2f8'];

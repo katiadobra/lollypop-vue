@@ -46,53 +46,32 @@
 </template>
 
 <script setup>
-import { onBeforeUnmount, onMounted, ref, watch } from 'vue';
+import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue';
 import { NButton } from 'naive-ui';
 import { RouterLink } from 'vue-router';
+import { deriveCategories } from '../data/categories';
+import { useProductsStore } from '../stores/products';
 
-const categories = [
-  {
-    id: 'cake',
-    label: 'Signature cakes',
-    copy: 'Layered bases with fruit-first fillings and light chantilly for centrepiece celebrations.',
-  },
-  {
-    id: 'cinnamon-roll',
-    label: 'Cinnabons',
-    copy: 'Slow-proofed rolls with buttery spirals and bright glazes that stay soft for hours.',
-  },
-  {
-    id: 'tart',
-    label: 'Bright tarts',
-    copy: 'Crisp pâte sablée shells with citrus curds, pralines, and roasted nuts.',
-  },
-  {
-    id: 'long-cake',
-    label: 'Long cakes',
-    copy: 'Sliceable sponge rolls with fruit jams and light creams, ready to portion and share.',
-  },
-  {
-    id: 'cookie',
-    label: 'Cookies',
-    copy: 'Chewy rounds with toasted nuts, spice, and big chocolate chunks.',
-  },
-  {
-    id: 'choux',
-    label: 'Choux',
-    copy: 'Filled profiteroles and éclairs with vanilla, coffee, or praline finishes.',
-  },
-  {
-    id: 'cupcake',
-    label: 'Cupcakes',
-    copy: 'Individual sponge bases topped with light whipped frostings.',
-  },
-];
+const productsStore = useProductsStore();
+const categories = computed(() => deriveCategories(productsStore.allProducts));
 
 const TABS_HEIGHT = 49;
 const activeCategory = ref(null);
 const slideRefs = new Map();
 const tabRefs = new Map();
 const tabsRef = ref(null);
+
+watch(
+  categories,
+  (list) => {
+    if (!list.length) return;
+    const exists = list.some((category) => category.id === activeCategory.value);
+    if (!exists) {
+      activeCategory.value = list[0].id;
+    }
+  },
+  { immediate: true }
+);
 
 const setSlideRef = (id) => (el) => {
   if (el) {
@@ -127,16 +106,19 @@ function scrollActiveTabIntoView(id) {
 }
 
 function updateActiveFromScroll() {
+  const list = categories.value;
+  if (!list.length) return;
+
   const marker = window.scrollY + TABS_HEIGHT + 1;
   let current = activeCategory.value;
 
-  const firstSlide = slideRefs.get(categories[0].id);
+  const firstSlide = slideRefs.get(list[0].id);
   if (firstSlide && marker < firstSlide.offsetTop) {
     activeCategory.value = current;
     return;
   }
 
-  for (const category of categories) {
+  for (const category of list) {
     const el = slideRefs.get(category.id);
     if (!el) continue;
     const top = el.offsetTop;
