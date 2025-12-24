@@ -331,7 +331,8 @@ watch(activeCategory, (id) => {
   padding: 0;
   background: #fff;
   transition: background-color 0.2s ease;
-  box-shadow: inset 0 0 0 2px rgba(255, 105, 180, 0.3);
+    box-shadow: inset 0px 0px 20px -5px rgba(255, 105, 180, 0.3);
+  border-bottom: 1px solid #ffe5f3;
   display: flex;
   align-items: center;
   justify-content: center;
