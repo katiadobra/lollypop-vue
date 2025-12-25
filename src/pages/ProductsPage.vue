@@ -22,7 +22,7 @@
 
     <n-grid cols="1 700:2 1100:3" x-gap="16" y-gap="16">
       <n-grid-item v-for="product in filteredProducts" :key="product.id">
-        <n-card hoverable class="product-card">
+        <n-card hoverable :bordered="false" class="product-card">
           <button
             class="favorite-toggle"
             type="button"
@@ -69,6 +69,7 @@ import { useProductsStore } from '../stores/products';
 import { useCartStore } from '../stores/cart';
 import { useUiStore } from '../stores/ui';
 import { useFavoritesStore } from '../stores/favorites';
+import { useRoute, useRouter } from 'vue-router';
 import HeartIcon from '../components/HeartIcon.vue';
 
 const productsStore = useProductsStore();
@@ -81,12 +82,33 @@ const products = computed(() => productsStore.allProducts);
 const categories = computed(() => deriveCategories(products.value));
 const categoryFilters = computed(() => ['all', ...categories.value.map((category) => category.id)]);
 
+const route = useRoute();
+const router = useRouter();
 const selectedType = ref('all');
+
+watch(
+  () => route.query.type,
+  (type) => {
+    const value = typeof type === 'string' ? type : 'all';
+    selectedType.value = categoryFilters.value.includes(value) ? value : 'all';
+  },
+  { immediate: true }
+);
 
 watch(categoryFilters, (filters) => {
   if (!filters.includes(selectedType.value)) {
     selectedType.value = 'all';
   }
+});
+
+watch(selectedType, (type) => {
+  const nextQuery = { ...route.query };
+  if (type === 'all') {
+    delete nextQuery.type;
+  } else {
+    nextQuery.type = type;
+  }
+  router.replace({ query: nextQuery });
 });
 
 const filteredProducts = computed(() => {
@@ -135,7 +157,7 @@ function placeholderStyle(id) {
   display: flex;
   flex-direction: column;
   gap: 16px;
-  padding: 0 4px;
+  padding: 0 0px;
 }
 
 .page-header {
@@ -190,7 +212,6 @@ function placeholderStyle(id) {
 .product-visual {
   width: 100%;
   aspect-ratio: 4 / 3;
-  border-radius: 12px;
   display: flex;
   align-items: center;
   justify-content: center;

@@ -31,6 +31,24 @@ export const categoryMetadata = {
     order: 4,
     subcategories: [],
   },
+  'long-cake': {
+    label: 'Long cakes',
+    copy: 'Sliceable sponge rolls with fruit jams and light creams, ready to portion and share.',
+    order: 5,
+    subcategories: [],
+  },
+  cookie: {
+    label: 'Cookies',
+    copy: 'Chewy rounds with toasted nuts, spice, and big chocolate chunks.',
+    order: 6,
+    subcategories: [],
+  },
+  choux: {
+    label: 'Choux',
+    copy: 'Filled profiteroles and éclairs with vanilla, coffee, or praline finishes.',
+    order: 7,
+    subcategories: [],
+  },
 };
 
 export function formatCategoryId(id = '') {

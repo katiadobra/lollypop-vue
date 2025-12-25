@@ -170,6 +170,13 @@ const typeCards = computed(() =>
   display: flex;
   flex-direction: column;
   gap: 32px;
+  padding-inline: 20px;
+  box-sizing: border-box;
+}
+
+.home.content-inner {
+  max-width: calc(1200px - 40px);
+  margin: 0 auto;
 }
 
 .hero {

@@ -40,6 +40,9 @@
         <p class="slide-kicker">Collection</p>
         <h2>{{ category.label }}</h2>
         <p class="slide-copy">{{ category.copy }}</p>
+        <RouterLink :to="collectionLink(category.id)" class="slide-cta">
+          <n-button size="small" color="#ff69b4" round>Browse the collection</n-button>
+        </RouterLink>
       </div>
     </section>
   </div>
@@ -54,6 +57,8 @@ import { useProductsStore } from '../stores/products';
 
 const productsStore = useProductsStore();
 const categories = computed(() => deriveCategories(productsStore.allProducts));
+
+const collectionLink = (id) => ({ path: '/products', query: { type: id } });
 
 const TABS_HEIGHT = 49;
 const activeCategory = ref(null);
@@ -332,6 +337,7 @@ watch(activeCategory, (id) => {
   flex-direction: column;
   gap: 12px;
   padding: 32px 16px 48px;
+  align-items: center;
 }
 
 .slide-kicker {
@@ -346,6 +352,10 @@ watch(activeCategory, (id) => {
   margin: 0;
   color: #4b5563;
   line-height: 1.6;
+}
+
+.slide-cta {
+  text-decoration: none;
 }
 
 .link-button {
