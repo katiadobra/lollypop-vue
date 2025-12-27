@@ -48,7 +48,7 @@
             </div>
             <p class="header-subtext">{{ product.description }}</p>
             <div class="pill-row">
-              <n-tag size="small" round type="info">{{ formatType(product.type) }}</n-tag>
+              <n-tag size="small" round type="info">{{ formatType(product.category) }}</n-tag>
               <n-tag
                 v-if="product.servings"
                 size="small"
@@ -190,7 +190,7 @@ const flavorOptions = computed(() =>
 );
 const selectedFlavor = ref('');
 const needsBoxQuantitySelect = computed(() => {
-  const type = (product.value?.type || '').toLowerCase();
+  const type = (product.value?.category || '').toLowerCase();
   return type.includes('cupcake') || type.includes('cookie');
 });
 

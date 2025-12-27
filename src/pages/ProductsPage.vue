@@ -84,36 +84,36 @@ const categoryFilters = computed(() => ['all', ...categories.value.map((category
 
 const route = useRoute();
 const router = useRouter();
-const selectedType = ref('all');
+const selectedCategory = ref('all');
 
 watch(
-  () => route.query.type,
-  (type) => {
-    const value = typeof type === 'string' ? type : 'all';
-    selectedType.value = categoryFilters.value.includes(value) ? value : 'all';
+  () => route.query.category,
+  (category) => {
+    const value = typeof category === 'string' ? category : 'all';
+    selectedCategory.value = categoryFilters.value.includes(value) ? value : 'all';
   },
   { immediate: true }
 );
 
 watch(categoryFilters, (filters) => {
-  if (!filters.includes(selectedType.value)) {
-    selectedType.value = 'all';
+  if (!filters.includes(selectedCategory.value)) {
+    selectedCategory.value = 'all';
   }
 });
 
-watch(selectedType, (type) => {
+watch(selectedCategory, (category) => {
   const nextQuery = { ...route.query };
-  if (type === 'all') {
-    delete nextQuery.type;
+  if (category === 'all') {
+    delete nextQuery.category;
   } else {
-    nextQuery.type = type;
+    nextQuery.category = category;
   }
   router.replace({ query: nextQuery });
 });
 
 const filteredProducts = computed(() => {
-  if (selectedType.value === 'all') return products.value;
-  return products.value.filter((p) => p.type === selectedType.value);
+  if (selectedCategory.value === 'all') return products.value;
+  return products.value.filter((p) => p.category === selectedCategory.value);
 });
 
 function handleAddToCart(product) {
@@ -130,11 +130,11 @@ function isFavorite(productId) {
 }
 
 function selectCategory(category) {
-  selectedType.value = category;
+  selectedCategory.value = category;
 }
 
 function isActive(category) {
-  return selectedType.value === category;
+  return selectedCategory.value === category;
 }
 
 function formatCategoryLabel(type) {

@@ -3,7 +3,7 @@ export const products = [
   // CAKES
   {
     id: 'cake-strawberry-blossom',
-    type: 'cake',
+    category: 'cake',
     subcategory: 'vintage',
     name: 'Strawberry Blossom',
     shortDescription: 'Vanilla sponge, strawberry cream and fresh berries.',
@@ -19,7 +19,7 @@ export const products = [
   },
   {
     id: 'cake-chocolate-dream',
-    type: 'cake',
+    category: 'cake',
     subcategory: 'bento',
     name: 'Chocolate Dream',
     shortDescription: 'Rich chocolate sponge and dark ganache.',
@@ -37,7 +37,7 @@ export const products = [
   // CINNAMON ROLLS
   {
     id: 'roll-classic',
-    type: 'cinnamon-roll',
+    category: 'cinnamon-roll',
     name: 'Classic Roll',
     shortDescription: 'Soft roll with cinnamon sugar glaze.',
     description:
@@ -57,7 +57,7 @@ export const products = [
   },
   {
     id: 'roll-berry-swirl',
-    type: 'cinnamon-roll',
+    category: 'cinnamon-roll',
     name: 'Berry Swirl',
     shortDescription: 'Cinnamon roll with berry swirl.',
     description: 'Classic cinnamon roll with a swirl of mixed berries and vanilla glaze.',
@@ -73,7 +73,7 @@ export const products = [
   // TARTS
   {
     id: 'tart-pistachio',
-    type: 'tart',
+    category: 'tart',
     name: 'Pistachio Tart',
     shortDescription: 'Buttery base with pistachio cream.',
     description:
@@ -88,7 +88,7 @@ export const products = [
   },
   {
     id: 'tart-lemon',
-    type: 'tart',
+    category: 'tart',
     name: 'Lemon Glow',
     shortDescription: 'Tangy lemon curd and torched meringue.',
     description: 'Bright lemon curd on a buttery base, finished with soft torched meringue.',
@@ -103,7 +103,7 @@ export const products = [
   // CUPCAKES
   {
     id: 'cupcake-strawberry-blossom',
-    type: 'cupcakes',
+    category: 'cupcakes',
     name: 'Strawberry Blossom Cupcake',
     shortDescription: 'Vanilla sponge, strawberry cream and fresh berries.',
     description:
@@ -117,7 +117,7 @@ export const products = [
   },
   {
     id: 'cupcake-berry-box',
-    type: 'cupcakes',
+    category: 'cupcakes',
     name: 'Berry Box',
     shortDescription: 'Mixed berry cupcakes in gift-ready boxes.',
     description:

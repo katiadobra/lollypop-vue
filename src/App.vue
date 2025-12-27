@@ -165,7 +165,7 @@
             class="search-field"
             placeholder="Search products (EN/DE)..."
           />
-          <p class="search-hint">Try product name, type, flavors, or allergens.</p>
+          <p class="search-hint">Try product name, collection, flavors, or allergens.</p>
 
           <div v-if="searchQuery && searchResults.length" class="search-results">
             <RouterLink
@@ -177,7 +177,7 @@
             >
               <div class="result-title">{{ product.name }}</div>
               <div class="result-meta">
-                <span class="result-type">{{ formatType(product.type) }}</span>
+                <span class="result-type">{{ formatType(product.category) }}</span>
                 <span class="result-price">€{{ product.price }}</span>
               </div>
               <p class="result-description">{{ product.shortDescription }}</p>
@@ -253,7 +253,7 @@ const searchResults = computed(() => {
     .map((p) => ({
       product: p,
       haystack: normalize(
-        [p.name, p.shortDescription, p.type, ...(p.flavors || []), ...(p.allergens || [])]
+        [p.name, p.shortDescription, p.category, ...(p.flavors || []), ...(p.allergens || [])]
           .filter(Boolean)
           .join(' '),
       ),

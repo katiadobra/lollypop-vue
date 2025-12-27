@@ -28,8 +28,8 @@ export const useProductsStore = defineStore('products', {
       return state.productsById[id] || null;
     },
 
-    byType: (state) => (type) => {
-      return state.products.filter((p) => p.type === type);
+    byCategory: (state) => (category) => {
+      return state.products.filter((p) => p.category === category);
     },
   },
 

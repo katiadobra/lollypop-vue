@@ -1,7 +1,7 @@
 // src/data/categories.js
 // Metadata and helpers for product categories/collections.
 
-// Metadata keyed by category id (product.type).
+// Metadata keyed by category id (product.category).
 export const categoryMetadata = {
   cake: {
     label: 'Signature cakes',
@@ -63,24 +63,24 @@ export function deriveCategories(productList = []) {
   const productsByCategory = new Map();
 
   for (const product of productList || []) {
-    if (!product?.type) continue;
-    if (!productsByCategory.has(product.type)) {
-      productsByCategory.set(product.type, new Set());
+    if (!product?.category) continue;
+    if (!productsByCategory.has(product.category)) {
+      productsByCategory.set(product.category, new Set());
     }
     if (product.subcategory) {
-      productsByCategory.get(product.type).add(product.subcategory);
+      productsByCategory.get(product.category).add(product.subcategory);
     }
   }
 
   const categories = [];
-  for (const [type, subcategoriesUsed] of productsByCategory.entries()) {
-    const meta = categoryMetadata[type] || {};
+  for (const [category, subcategoriesUsed] of productsByCategory.entries()) {
+    const meta = categoryMetadata[category] || {};
     const metaSubcategories = Array.isArray(meta.subcategories) ? meta.subcategories : [];
     const matchedSubcategories = metaSubcategories.filter((sub) => subcategoriesUsed.has(sub.id));
 
     categories.push({
-      id: type,
-      label: meta.label || formatCategoryId(type),
+      id: category,
+      label: meta.label || formatCategoryId(category),
       copy: meta.copy || '',
       order: typeof meta.order === 'number' ? meta.order : Number.MAX_SAFE_INTEGER,
       subcategories: matchedSubcategories,

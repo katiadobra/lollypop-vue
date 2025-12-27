@@ -40,7 +40,7 @@
       </div>
 
       <n-grid cols="1 800:3" x-gap="20" y-gap="20">
-        <n-grid-item v-for="type in typeCards" :key="type.type">
+        <n-grid-item v-for="type in typeCards" :key="type.category">
           <n-card class="type-card" hoverable>
             <div class="type-card__header">
               <span class="type-name">{{ type.title }}</span>
@@ -108,43 +108,43 @@ const accentColor = '#ff69b4';
 
 const typeMeta = [
   {
-    type: 'cake',
+    category: 'cake',
     title: 'Signature cakes',
     description: 'Layered bases with fruit-forward fillings and light chantilly toppings.',
     accent: 'primary',
   },
   {
-    type: 'cinnamon-roll',
+    category: 'cinnamon-roll',
     title: 'Cinnabons',
     description: 'Slow-proofed rolls with buttery spirals and bright glazes.',
     accent: 'info',
   },
   {
-    type: 'tart',
+    category: 'tart',
     title: 'Bright tarts',
     description: 'Crisp pâte sablée with citrus curds, pralines, and roasted nuts.',
     accent: 'warning',
   },
   {
-    type: 'long-cake',
+    category: 'long-cake',
     title: 'Long cakes (rolls)',
     description: 'Sliceable sponge rolls with fruit jams and light creams.',
     accent: 'warning',
   },
   {
-    type: 'cookie',
+    category: 'cookie',
     title: 'Cookies',
     description: 'Chewy rounds with chunks, spices, and toasted nuts.',
     accent: 'default',
   },
   {
-    type: 'choux',
+    category: 'choux',
     title: 'Choux',
     description: 'Filled profiteroles and éclairs with vanilla, coffee, or praline.',
     accent: 'primary',
   },
   {
-    type: 'cupcake',
+    category: 'cupcake',
     title: 'Cupcakes',
     description: 'Individual sponge bases topped with light whipped frostings.',
     accent: 'error',
@@ -160,7 +160,7 @@ const brochurePoints = [
 const typeCards = computed(() =>
   typeMeta.map((meta) => ({
     ...meta,
-    count: productsStore.byType(meta.type).length,
+    count: productsStore.byCategory(meta.category).length,
   })),
 );
 </script>

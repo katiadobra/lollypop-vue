@@ -49,7 +49,7 @@ function buildProduct(overrides = {}) {
     name: 'Test Product',
     description: 'Tasty treat',
     price: 7,
-    type: 'cupcake',
+    category: 'cupcake',
     flavors: ['Vanilla', 'Chocolate'],
     allergens: ['Dairy'],
     quantities: [6, 12],

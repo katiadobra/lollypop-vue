@@ -58,7 +58,7 @@ import { useProductsStore } from '../stores/products';
 const productsStore = useProductsStore();
 const categories = computed(() => deriveCategories(productsStore.allProducts));
 
-const collectionLink = (id) => ({ path: '/products', query: { type: id } });
+const collectionLink = (id) => ({ path: '/products', query: { category: id } });
 
 const TABS_HEIGHT = 49;
 const activeCategory = ref(null);

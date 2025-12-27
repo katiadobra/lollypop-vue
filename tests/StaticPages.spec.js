@@ -42,7 +42,7 @@ describe('Static pages', () => {
 
   it('renders Terms Conditions page', () => {
     const wrapper = mount(TermsConditionsPage);
-    expect(wrapper.find('h1').text()).toBe('Conditions');
+    expect(wrapper.find('h1').text()).toBe('Terms & Conditions');
     expect(wrapper.text()).toContain('Lead times');
     expect(wrapper.text()).toContain('Payment');
   });
