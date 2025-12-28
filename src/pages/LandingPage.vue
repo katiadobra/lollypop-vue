@@ -62,6 +62,7 @@ const collectionLink = (id) => ({ path: '/products', query: { category: id } });
 
 const TABS_HEIGHT = 49;
 const activeCategory = ref(null);
+const initialized = ref(false);
 const slideRefs = new Map();
 const tabRefs = new Map();
 const tabsRef = ref(null);
@@ -71,11 +72,13 @@ watch(
   (list) => {
     if (!list.length) return;
     const exists = list.some((category) => category.id === activeCategory.value);
-    if (!exists) {
+    if (!exists && initialized.value) {
+      // Only default to the first category after the component has mounted.
+      // This prevents the first tab being marked active before the user has
+      // scrolled to its slide on initial page load.
       activeCategory.value = list[0].id;
     }
-  },
-  { immediate: true }
+  }
 );
 
 const setSlideRef = (id) => (el) => {
@@ -119,7 +122,9 @@ function updateActiveFromScroll() {
 
   const firstSlide = slideRefs.get(list[0].id);
   if (firstSlide && marker < firstSlide.offsetTop) {
-    activeCategory.value = current;
+    // If the user has scrolled above the first slide (back into the hero),
+    // clear the active category so no tab is highlighted.
+    activeCategory.value = null;
     return;
   }
 
@@ -140,6 +145,7 @@ function updateActiveFromScroll() {
 onMounted(() => {
   window.addEventListener('scroll', updateActiveFromScroll, { passive: true });
   updateActiveFromScroll();
+  initialized.value = true;
 });
 
 onBeforeUnmount(() => {
