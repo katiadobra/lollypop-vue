@@ -36,6 +36,17 @@
       class="category-slide"
       :class="{ 'category-slide--active': activeCategory === category.id }"
     >
+      <div class="slide-images" aria-hidden="true">
+        <img
+          v-for="(img, i) in parallaxImagesFor(category.id)"
+          :key="i"
+          :src="img.src"
+          class="parallax-img"
+          :style="img.style"
+          :data-speed="img.speed"
+          alt=""
+        />
+      </div>
       <div class="slide-inner">
         <p class="slide-kicker">Collection</p>
         <h2>{{ category.label }}</h2>
@@ -49,7 +60,7 @@
 </template>
 
 <script setup>
-import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue';
+import { computed, onBeforeUnmount, onMounted, ref, watch, nextTick } from 'vue';
 import { NButton } from 'naive-ui';
 import { RouterLink } from 'vue-router';
 import { deriveCategories } from '../data/categories';
@@ -63,6 +74,43 @@ const collectionLink = (id) => ({ path: '/products', query: { category: id } });
 const TABS_HEIGHT = 49;
 const activeCategory = ref(null);
 const initialized = ref(false);
+// Parallax image configuration: replace the sample paths with your
+// real per-slide PNGs (recommended to put them under `public/landing/`).
+const PARALLAX_IMAGES = {
+  cupcakes: [
+    {
+      src: '/landing/cupcakes-left.png',
+      speed: 30,
+      style: { left: '-1%', top: '28%', 'max-width': '48%' }
+    },
+    {
+      src: '/landing/cupcakes-topright.png',
+      speed: -18,
+      style: { right: '-6%', top: '-6%', 'max-width': '40%' }
+    },
+    {
+      src: '/landing/cupcakes-bottom.png',
+      speed: 14,
+      style: { right: '0%', bottom: '0%', 'max-width': '36%' }
+    }
+  ]
+  ,
+  cake: [
+    {
+      src: '/landing/cake-left.png',
+      speed: 28,
+      style: { left: '-6%', bottom: '1%', width: '46%' }
+    },
+    {
+      src: '/landing/cake-slices.png',
+      speed: -16,
+      style: { right: '-6%', top: '-6%', width: '31%' }
+    }
+  ]
+};
+
+const slideImageRefs = new Map();
+let parallaxTicking = false;
 const slideRefs = new Map();
 const tabRefs = new Map();
 const tabsRef = ref(null);
@@ -77,6 +125,12 @@ watch(
       // This prevents the first tab being marked active before the user has
       // scrolled to its slide on initial page load.
       activeCategory.value = list[0].id;
+      // When categories change (slides mounted/unmounted), ensure parallax
+      // images are positioned after DOM updates.
+      nextTick(() => {
+        // allow the browser to paint then recalculates positions
+        requestAnimationFrame(() => updateParallaxPositions());
+      });
     }
   }
 );
@@ -84,10 +138,66 @@ watch(
 const setSlideRef = (id) => (el) => {
   if (el) {
     slideRefs.set(id, el);
+    // collect any parallax image elements inside the slide
+    const imgs = Array.from(el.querySelectorAll('.parallax-img'));
+    if (imgs && imgs.length) slideImageRefs.set(id, imgs);
+    // assign baseTransform from the config (avoid reading a possibly mutated style)
+    const cfgs = PARALLAX_IMAGES[id] || [];
+    if (imgs && imgs.length) {
+      imgs.forEach((imgEl, idx) => {
+        const cfg = cfgs[idx] || {};
+        const baseTransform = (cfg.style && cfg.style.transform) || '';
+        imgEl.dataset.baseTransform = baseTransform;
+      });
+    }
   } else {
     slideRefs.delete(id);
+    slideImageRefs.delete(id);
   }
 };
+
+const parallaxImagesFor = (id) => PARALLAX_IMAGES[id] || [];
+
+function updateParallaxPositions() {
+  const list = categories.value;
+  if (!list.length) return;
+
+  const vh = window.innerHeight;
+  const viewportCenter = vh / 2;
+
+  for (const category of list) {
+    const el = slideRefs.get(category.id);
+    const imgs = slideImageRefs.get(category.id);
+    if (!el || !imgs || !imgs.length) continue;
+
+    const rect = el.getBoundingClientRect();
+    const slideCenter = rect.top + rect.height / 2;
+    const diff = viewportCenter - slideCenter;
+    const ratio = diff / vh;
+
+    for (const imgEl of imgs) {
+      const speed = Number(imgEl.dataset.speed) || 0;
+      const translateY = Math.round(ratio * speed);
+      // clamp translation to avoid large moves that might push visuals outside
+      // the viewport and cause a scrollbar. Max translate is a fraction of
+      // the viewport height.
+      const maxTranslate = Math.round(window.innerHeight * 0.35);
+      const clamped = Math.max(-maxTranslate, Math.min(maxTranslate, translateY));
+      const base = imgEl.dataset.baseTransform || '';
+      imgEl.style.transform = `translate3d(0, ${clamped}px, 0) ${base}`.trim();
+    }
+  }
+}
+
+function onScrollParallax() {
+  if (!parallaxTicking) {
+    parallaxTicking = true;
+    requestAnimationFrame(() => {
+      updateParallaxPositions();
+      parallaxTicking = false;
+    });
+  }
+}
 
 const setTabRef = (id) => (el) => {
   if (el) {
@@ -144,12 +254,17 @@ function updateActiveFromScroll() {
 
 onMounted(() => {
   window.addEventListener('scroll', updateActiveFromScroll, { passive: true });
+  // separate listener for parallax which uses rAF
+  window.addEventListener('scroll', onScrollParallax, { passive: true });
   updateActiveFromScroll();
+  // initial parallax placement
+  updateParallaxPositions();
   initialized.value = true;
 });
 
 onBeforeUnmount(() => {
   window.removeEventListener('scroll', updateActiveFromScroll);
+  window.removeEventListener('scroll', onScrollParallax);
 });
 
 watch(activeCategory, (id) => {
@@ -329,6 +444,9 @@ watch(activeCategory, (id) => {
   display: flex;
   align-items: center;
   justify-content: center;
+  position: relative; /* ensure absolute .slide-images are positioned inside the slide */
+  /* overflow-x: hidden; /* hide horizontal overflow only */
+  /* overflow-y: visible; allow vertical overflow if desired */
 }
 
 .category-slide--active {
@@ -344,6 +462,8 @@ watch(activeCategory, (id) => {
   gap: 12px;
   padding: 32px 16px 48px;
   align-items: center;
+  position: relative;
+  z-index: 2; /* keep content above parallax images */
 }
 
 .slide-kicker {
@@ -388,6 +508,38 @@ watch(activeCategory, (id) => {
   .tab {
     width: 100%;
     padding: 12px 16px;
+  }
+}
+
+/* Parallax image layer styles */
+.slide-images {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  overflow-x: hidden;
+  overflow-y: visible;
+}
+
+.parallax-img {
+  position: absolute;
+  will-change: transform, opacity;
+  transition: transform 0.25s linear;
+  display: block;
+  user-select: none;
+  -webkit-user-drag: none;
+  max-width: 45vw;
+  max-height: 60vh;
+  width: auto;
+  height: auto;
+  transform-origin: center center;
+}
+
+@media (max-width: 639px) {
+  .parallax-img {
+    opacity: 0.9;
+    max-width: 80%;
+    max-height: 40vh;
   }
 }
 </style>
