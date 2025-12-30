@@ -78,34 +78,22 @@ const initialized = ref(false);
 // real per-slide PNGs (recommended to put them under `public/landing/`).
 const PARALLAX_IMAGES = {
   cupcakes: [
-    {
-      src: '/landing/cupcakes-left.png',
-      speed: 30,
-      style: { left: '-1%', top: '28%', 'max-width': '48%' }
-    },
-    {
-      src: '/landing/cupcakes-topright.png',
-      speed: -18,
-      style: { right: '-6%', top: '-6%', 'max-width': '40%' }
-    },
-    {
-      src: '/landing/cupcakes-bottom.png',
-      speed: 14,
-      style: { right: '0%', bottom: '0%', 'max-width': '36%' }
-    }
-  ]
-  ,
+    { src: '/landing/cupcakes-left.png', speed: 30, style: { left: '-1%', top: '28%', 'max-width': '48%' } },
+    { src: '/landing/cupcakes-topright.png', speed: -18, style: { right: '-6%', top: '-6%', 'max-width': '40%' } },
+    { src: '/landing/cupcakes-bottom.png', speed: 14, style: { right: '0%', bottom: '0%', 'max-width': '36%' } }
+  ],
   cake: [
-    {
-      src: '/landing/cake-left.png',
-      speed: 28,
-      style: { left: '-6%', bottom: '1%', width: '46%' }
-    },
-    {
-      src: '/landing/cake-slices.png',
-      speed: -16,
-      style: { right: '-6%', top: '-6%', width: '31%' }
-    }
+    { src: '/landing/cake-left.png', speed: 28, style: { left: '-6%', bottom: '1%', 'max-width': '46%' } },
+    { src: '/landing/cake-slices.png', speed: -16, style: { right: '-6%', top: '-6%', 'max-width': '36%' } }
+  ],
+  'cinnamon-roll': [
+    { src: '/landing/cinnamon-left.png', speed: 28, style: { left: '-8%', top: '2%', 'max-width': '46%', transform: 'rotate(-21deg)' } },
+    { src: '/landing/cinnamon-right.png', speed: -20, style: { right: '-2%', bottom: '4%', 'max-width': '40%', } }
+  ],
+  cookies: [
+    { src: '/landing/cookies-ribbon.png', speed: -10, style: { left: '-6%', top: '8%', 'max-width': '28%',  } },
+    { src: '/landing/cookies-box.png', speed: 22, style: { left: '-8%', bottom: '0', 'max-width': '38%', } },
+    { src: '/landing/cookie-piece.png', speed: -18, style: { right: '-1%', bottom: '-1%', 'max-width': '30%',  } }
   ]
 };
 
@@ -439,8 +427,8 @@ watch(activeCategory, (id) => {
   padding: 0;
   background: #fff;
   transition: background-color 0.2s ease;
-    box-shadow: inset 0px 0px 20px -5px rgba(255, 105, 180, 0.3);
-  border-bottom: 1px solid #ffe5f3;
+  box-shadow: inset 0px 0px 20px -5px rgba(128, 148, 153, 0.3);
+  border-bottom: 1px solid rgba(128 148 153 / 30%);
   display: flex;
   align-items: center;
   justify-content: center;

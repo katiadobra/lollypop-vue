@@ -1,7 +1,7 @@
 // src/router/index.js
 import { createRouter, createWebHashHistory } from 'vue-router';
 const routes = [
-  { path: '/', component: () => import('../pages/HomePage.vue') },
+  { path: '/', component: () => import('../pages/LandingPage.vue') },
   { path: '/landing', component: () => import('../pages/LandingPage.vue') },
   { path: '/products', component: () => import('../pages/ProductsPage.vue') },
   { path: '/product/:id', component: () => import('../pages/ProductDetailPage.vue') },
