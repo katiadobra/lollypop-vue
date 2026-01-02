@@ -5,7 +5,7 @@
         <h1 class="hero-title">{ Always bake-to-order }</h1>
         <div class="hero-image-wrap">
           <div class="hero-image-glow"></div>
-          <img src="/hero-img.png" alt="Always bake-to-order" class="hero-image" />
+          <img :src="BASE + 'hero-img.png'" alt="Always bake-to-order" class="hero-image" />
         </div>
         <p class="hero-price">Handmade cakes & sweets</p>
         <p class="hero-note">*Browse the collections below</p>
@@ -69,6 +69,9 @@ import { useProductsStore } from '../stores/products';
 const productsStore = useProductsStore();
 const categories = computed(() => deriveCategories(productsStore.allProducts));
 
+// Use Vite base so asset URLs resolve correctly on GitHub Pages or other bases.
+const BASE = import.meta.env.BASE_URL || '/';
+
 const collectionLink = (id) => ({ path: '/products', query: { category: id } });
 
 const TABS_HEIGHT = 49;
@@ -78,22 +81,22 @@ const initialized = ref(false);
 // real per-slide PNGs (recommended to put them under `public/landing/`).
 const PARALLAX_IMAGES = {
   cupcakes: [
-    { src: '/landing/cupcakes-left.png', speed: 30, style: { left: '-1%', top: '28%', 'max-width': '48%' } },
-    { src: '/landing/cupcakes-topright.png', speed: -18, style: { right: '-6%', top: '-6%', 'max-width': '40%' } },
-    { src: '/landing/cupcakes-bottom.png', speed: 14, style: { right: '0%', bottom: '0%', 'max-width': '36%' } }
+    { src: `${BASE}landing/cupcakes-left.png`, speed: 30, style: { left: '-1%', top: '28%', 'max-width': '48%' } },
+    { src: `${BASE}landing/cupcakes-topright.png`, speed: -18, style: { right: '-6%', top: '-6%', 'max-width': '40%' } },
+    { src: `${BASE}landing/cupcakes-bottom.png`, speed: 14, style: { right: '0%', bottom: '0%', 'max-width': '36%' } }
   ],
   cake: [
-    { src: '/landing/cake-left.png', speed: 28, style: { left: '-6%', bottom: '1%', 'max-width': '46%' } },
-    { src: '/landing/cake-slices.png', speed: -16, style: { right: '-6%', top: '-6%', 'max-width': '36%' } }
+    { src: `${BASE}landing/cake-left.png`, speed: 28, style: { left: '-6%', bottom: '1%', 'max-width': '46%' } },
+    { src: `${BASE}landing/cake-slices.png`, speed: -16, style: { right: '-6%', top: '-6%', 'max-width': '36%' } }
   ],
   'cinnamon-roll': [
-    { src: '/landing/cinnamon-left.png', speed: 28, style: { left: '-8%', top: '2%', 'max-width': '46%', transform: 'rotate(-21deg)' } },
-    { src: '/landing/cinnamon-right.png', speed: -20, style: { right: '-2%', bottom: '4%', 'max-width': '40%', } }
+    { src: `${BASE}landing/cinnamon-left.png`, speed: 28, style: { left: '-8%', top: '2%', 'max-width': '46%', transform: 'rotate(-21deg)' } },
+    { src: `${BASE}landing/cinnamon-right.png`, speed: -20, style: { right: '-2%', bottom: '4%', 'max-width': '40%', } }
   ],
   cookies: [
-    { src: '/landing/cookies-ribbon.png', speed: -10, style: { left: '-6%', top: '8%', 'max-width': '28%',  } },
-    { src: '/landing/cookies-box.png', speed: 22, style: { left: '-8%', bottom: '0', 'max-width': '38%', } },
-    { src: '/landing/cookie-piece.png', speed: -18, style: { right: '-1%', bottom: '-1%', 'max-width': '30%',  } }
+    { src: `${BASE}landing/cookies-ribbon.png`, speed: -10, style: { left: '-6%', top: '8%', 'max-width': '28%',  } },
+    { src: `${BASE}landing/cookies-box.png`, speed: 22, style: { left: '-8%', bottom: '0', 'max-width': '38%', } },
+    { src: `${BASE}landing/cookie-piece.png`, speed: -18, style: { right: '-1%', bottom: '-1%', 'max-width': '30%',  } }
   ]
 };
 
